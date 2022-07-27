@@ -376,6 +376,11 @@ const routes: Routes = [
         path: 'product',
         loadChildren: () => import('./product-set-up/product-set-up.module').then(
           (m) => m.ProductSetUpModule)
+      },
+      {
+        path: 'commission',
+        loadChildren: () => import('./commission/commission.module').then(
+          (m) => m.CommissionModule)
       }
     ],
   },
