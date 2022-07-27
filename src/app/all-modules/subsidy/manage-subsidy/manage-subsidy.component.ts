@@ -1,4 +1,11 @@
 import {Component, HostListener, NgZone, OnInit} from '@angular/core';
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {SubsidyService} from "../subsidy.service";
+import {NgForm} from "@angular/forms";
+
+interface Subsidy {
+
+}
 
 @Component({
   selector: 'app-manage-subsidy',
@@ -17,7 +24,7 @@ export class ManageSubsidyComponent implements OnInit {
     this.innerHeight = window.innerHeight + 'px';
   }
 
-  constructor(private ngZone: NgZone) {
+  constructor(private ngZone: NgZone,http: HttpClient, public sb: SubsidyService,) {
     window.onresize = (e) => {
       this.ngZone.run(() => {
         this.innerHeight = window.innerHeight + 'px';
@@ -27,14 +34,12 @@ export class ManageSubsidyComponent implements OnInit {
   }
 
   ngOnInit() {
+    //subsidies
+    this.getData();
   }
 
   onResize(event) {
     this.innerHeight = event.target.innerHeight + 'px';
-  }
-
-  addSubsidy() {
-
   }
 
   editSubsidy() {
@@ -46,6 +51,29 @@ export class ManageSubsidyComponent implements OnInit {
   }
 
   from($event: any) {
+
+  }
+
+
+//  Endpoints
+//  1. get all Subsidies
+  public getData(): void{
+    this.sb.getSubsidy('').subscribe((response:any) => {
+      console.log(response)
+    })
+  }
+
+//  2. Add susbsidy
+  public onAddSubsidy(addForm: NgForm): void {
+    this.sb.addSubsidy('',addForm.value).subscribe(
+      (response:Subsidy) => {
+        console.log(response);
+        this.getData();
+      },
+      (error:HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
 
   }
 }

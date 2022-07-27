@@ -1,4 +1,11 @@
 import {Component, HostListener, NgZone, OnInit} from '@angular/core';
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {SubsidyService} from "../../subsidy/subsidy.service";
+import {ProductService} from "../product.service";
+import {NgForm} from "@angular/forms";
+
+interface Category {
+}
 
 @Component({
   selector: 'app-manage-product-categories',
@@ -15,7 +22,7 @@ export class ManageProductCategoriesComponent implements OnInit {
     this.innerHeight = window.innerHeight + 'px';
   }
 
-  constructor(private ngZone: NgZone) {
+  constructor(private ngZone: NgZone,http: HttpClient, public ps: ProductService,) {
     window.onresize = (e) => {
       this.ngZone.run(() => {
         this.innerHeight = window.innerHeight + 'px';
@@ -25,6 +32,7 @@ export class ManageProductCategoriesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getCategory();
   }
 
   onResize(event) {
@@ -32,6 +40,28 @@ export class ManageProductCategoriesComponent implements OnInit {
   }
 
   deleteTicket() {
+
+  }
+
+  //  Endpoints
+//  1. get Product Categories
+  public getCategory(): void{
+    this.ps.getCategory('').subscribe((response:any) => {
+      console.log(response)
+    })
+  }
+
+//  2. Add Product Category
+  public onAddProduct(addForm: NgForm): void {
+    this.ps.addCategory('',addForm.value).subscribe(
+      (response:Category) => {
+        console.log(response);
+        this.getCategory();
+      },
+      (error:HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
 
   }
 }
