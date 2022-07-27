@@ -5,15 +5,15 @@
   <div class="page-header">
     <div class="row align-items-center">
       <div class="col">
-        <h3 class="page-title">Product Categories</h3>
+        <h3 class="page-title">Subsidies</h3>
         <ul class="breadcrumb">
           <li class="breadcrumb-item"><a routerLink="/layout/dashboard/admin">Dashboard</a></li>
-          <li class="breadcrumb-item active">Manage Product Categories</li>
+          <li class="breadcrumb-item active">Manage Subsidies</li>
         </ul>
       </div>
       <div class="col-auto float-end ms-auto">
         <a class="btn add-btn" data-bs-toggle="modal" data-bs-target="#add_expense"><i
-          class="fa fa-plus"></i> Add new Category</a>
+          class="fa fa-plus"></i> Add Subsidy</a>
       </div>
     </div>
   </div>
@@ -28,23 +28,30 @@
       </div>
     </div>
     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
-<!--      <div class="form-group form-focus select-focus">-->
-<!--        <select class="form-select form-control" (input)="purchasedBy($event.target.value)">-->
-<!--          <option value = ""> &#45;&#45; Select &#45;&#45; </option>-->
-<!--          <option value = "Loren Gatlin">Product Type</option>-->
-<!--          <option value = "Tarah Shropshire">Product Type</option>-->
-<!--        </select>-->
-<!--        <label class="focus-label">Product Type</label>-->
-<!--      </div>-->
+      <div class="form-group form-focus select-focus">
+        <select class="form-select form-control" (input)="purchasedBy($event.target.value)">
+          <option value = ""> -- Select -- </option>
+          <option value = "Loren Gatlin">Product Type</option>
+          <option value = "Tarah Shropshire">Product Type</option>
+        </select>
+        <label class="focus-label">Product Type</label>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
+      <div class="form-group form-focus select-focus">
+        <select class="form-select form-control" (input)="paidBy($event.target.value)">
+          <option value = ""> -- Select -- </option>
+          <option value = "Cash"> Category </option>
+          <option value = "Cheque"> Category </option>
+        </select>
+        <label class="focus-label">Farmer Catedory</label>
+      </div>
     </div>
     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
       <div class="form-group form-focus">
         <input type="text" class="form-control floating" (input)="searchName($event.target.value)" (focusout) = "rerender()">
         <label class="focus-label">Subsidy Rate</label>
       </div>
-    </div>
-    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
-
     </div>
     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
 
@@ -61,8 +68,10 @@
         <table  datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id = "datatable" class="table table-striped custom-table mb-0 datatable">
           <thead>
           <tr>
-            <th>Product Category Name</th>
-            <th>Product Category Description</th>
+            <th style="width: 17em">Name</th>
+            <th style="width: 17em">Product Type</th>
+            <th style="width: 17em">Farmer Category</th>
+            <th style="width: 17em">Subsidy Rate</th>
             <th class="text-center">Status</th>
             <th class="text-end">Actions</th>
           </tr>
@@ -128,41 +137,89 @@
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Add Insurance product category</h5>
+        <h5 class="modal-title">Add Subsidy</h5>
         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="addExpenses()" [formGroup]="addExpensesForm">
+        <form (ngSubmit)="addSubsidy()" [formGroup]="addSubsidyForm">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label>product category name</label>
-                <input class="form-control" type="text" [class.invalid]="addExpensesForm.get('itemName').invalid && addExpensesForm.get('itemName').touched"
+                <label>Subsidy Name</label>
+                <input class="form-control" type="text" [class.invalid]="addSubsidyForm.get('itemName').invalid && addSubsidyForm.get('itemName').touched"
                        formControlName="itemName">
                 <div
-                  *ngIf="addExpensesForm.get('itemName').invalid && addExpensesForm.get('itemName').touched">
+                  *ngIf="addSubsidyForm.get('itemName').invalid && addSubsidyForm.get('itemName').touched">
                   <small
-                    *ngIf="addExpensesForm.get('itemName').invalid && addExpensesForm.get('itemName').touched"
+                    *ngIf="addSubsidyForm.get('itemName').invalid && addSubsidyForm.get('itemName').touched"
                     class="text-danger"> *Item name is required</small>
                 </div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label>product category description</label>
-                <input class="form-control" type="text" [class.invalid]="addExpensesForm.get('itemName').invalid && addExpensesForm.get('itemName').touched"
-                       formControlName="itemName">
+                <label>Insurance Product Type </label>
+                <select class="form-select form-control"
+                        [class.invalid]="addSubsidyForm.get('purchasedBy').invalid && addSubsidyForm.get('purchasedBy').touched"
+                        formControlName="purchasedBy">
+                  <option>Product Type</option>
+                  <option>Product Type</option>
+                </select>
                 <div
-                  *ngIf="addExpensesForm.get('itemName').invalid && addExpensesForm.get('itemName').touched">
+                  *ngIf="addSubsidyForm.get('purchasedBy').invalid && addSubsidyForm.get('purchasedBy').touched">
                   <small
-                    *ngIf="addExpensesForm.get('itemName').invalid && addExpensesForm.get('itemName').touched"
-                    class="text-danger"> *Item name is required</small>
+                    *ngIf="addSubsidyForm.get('purchasedBy').invalid && addSubsidyForm.get('purchasedBy').touched"
+                    class="text-danger"> *Purchased by is required</small>
                 </div>
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Subsidy Rate</label>
+                <input class="form-control" type="text" [class.invalid]="addSubsidyForm.get('itemName').invalid && editSubsidyForm.get('itemName').touched"
+                       formControlName="itemName">
+                <div
+                  *ngIf="addSubsidyForm.get('itemName').invalid && addSubsidyForm.get('itemName').touched">
+                  <small
+                    *ngIf="addSubsidyForm.get('itemName').invalid && addSubsidyForm.get('itemName').touched"
+                    class="text-danger"> *Item rate is required</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Farmer Category </label>
+                <select class="form-select form-control"
+                        [class.invalid]="addSubsidyForm.get('purchasedBy').invalid && addSubsidyForm.get('purchasedBy').touched"
+                        formControlName="purchasedBy">
+                  <option>Category</option>
+                  <option>Category</option>
+                </select>
+                <div
+                  *ngIf="addSubsidyForm.get('purchasedBy').invalid && addSubsidyForm.get('purchasedBy').touched">
+                  <small
+                    *ngIf="addSubsidyForm.get('purchasedBy').invalid && addSubsidyForm.get('purchasedBy').touched"
+                    class="text-danger"> *Farmer category is required</small>
+                </div>
+              </div>
+            </div>
+          </div>
+<!--          <div class="attach-files">-->
+<!--            <ul>-->
+<!--              <li>-->
+<!--                <img src="assets/img/placeholder.jpg" alt="">-->
+<!--                <a class="fa fa-close file-remove"></a>-->
+<!--              </li>-->
+<!--              <li>-->
+<!--                <img src="assets/img/placeholder.jpg" alt="">-->
+<!--                <a class="fa fa-close file-remove"></a>-->
+<!--              </li>-->
+<!--            </ul>-->
+<!--          </div>-->
           <div class="submit-section">
             <button class="btn btn-primary submit-btn">Submit</button>
           </div>
@@ -184,17 +241,17 @@
         </button>
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="editExpenses()" [formGroup]="editExpensesForm">
+        <form (ngSubmit)="editSubsidy()" [formGroup]="editSubsidyForm">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
                 <label>Item Name</label>
-                <input class="form-control" value="Dell Laptop" type="text" [class.invalid]="editExpensesForm.get('itemName').invalid && editExpensesForm.get('itemName').touched"
+                <input class="form-control" value="Dell Laptop" type="text" [class.invalid]="editSubsidyForm.get('itemName').invalid && editSubsidyForm.get('itemName').touched"
                        formControlName="itemName">
                 <div
-                  *ngIf="editExpensesForm.get('itemName').invalid && editExpensesForm.get('itemName').touched">
+                  *ngIf="editSubsidyForm.get('itemName').invalid && editSubsidyForm.get('itemName').touched">
                   <small
-                    *ngIf="editExpensesForm.get('itemName').invalid && editExpensesForm.get('itemName').touched"
+                    *ngIf="editSubsidyForm.get('itemName').invalid && editSubsidyForm.get('itemName').touched"
                     class="text-danger"> *Item name is required</small>
                 </div>
               </div>
@@ -202,12 +259,12 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Purchase From</label>
-                <input class="form-control" value="Amazon" [class.invalid]="editExpensesForm.get('purchaseFrom').invalid && editExpensesForm.get('purchaseFrom').touched"
+                <input class="form-control" value="Amazon" [class.invalid]="editSubsidyForm.get('purchaseFrom').invalid && editSubsidyForm.get('purchaseFrom').touched"
                        formControlName="purchaseFrom">
                 <div
-                  *ngIf="editExpensesForm.get('purchaseFrom').invalid && editExpensesForm.get('purchaseFrom').touched">
+                  *ngIf="editSubsidyForm.get('purchaseFrom').invalid && editSubsidyForm.get('purchaseFrom').touched">
                   <small
-                    *ngIf="editExpensesForm.get('purchaseFrom').invalid && editExpensesForm.get('purchaseFrom').touched"
+                    *ngIf="editSubsidyForm.get('purchaseFrom').invalid && editSubsidyForm.get('purchaseFrom').touched"
                     class="text-danger"> *Purchase from is required</small>
                 </div>
               </div>
@@ -220,9 +277,9 @@
                 <div class="cal-icon"><input class="form-control datetimepicker" bsDatepicker type="text" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }" [class.invalid]="editExpensesForm.get('purchaseDate').invalid && editExpensesForm.get('purchaseDate').touched"
                                              formControlName="purchaseDate" (bsValueChange)="from($event)">
                   <div
-                    *ngIf="editExpensesForm.get('purchaseDate').invalid && editExpensesForm.get('purchaseDate').touched">
+                    *ngIf="editSubsidyForm.get('purchaseDate').invalid && editSubsidyForm.get('purchaseDate').touched">
                     <small
-                      *ngIf="editExpensesForm.get('purchaseDate').invalid && editExpensesForm.get('purchaseDate').touched"
+                      *ngIf="editSubsidyForm.get('purchaseDate').invalid && editSubsidyForm.get('purchaseDate').touched"
                       class="text-danger"> *Purchase date is required</small>
                   </div>
                 </div>
@@ -231,15 +288,15 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Purchased By </label>
-                <select class="form-select form-control" [class.invalid]="editExpensesForm.get('purchasedBy').invalid && editExpensesForm.get('purchasedBy').touched"
+                <select class="form-select form-control" [class.invalid]="editSubsidyForm.get('purchasedBy').invalid && editExpensesForm.get('purchasedBy').touched"
                         formControlName="purchasedBy">
                   <option>Loren Gatlin</option>
                   <option>Tarah Shropshire</option>
                 </select>
                 <div
-                  *ngIf="editExpensesForm.get('purchasedBy').invalid && editExpensesForm.get('purchasedBy').touched">
+                  *ngIf="editSubsidyForm.get('purchasedBy').invalid && editSubsidyForm.get('purchasedBy').touched">
                   <small
-                    *ngIf="editExpensesForm.get('purchasedBy').invalid && editExpensesForm.get('purchasedBy').touched"
+                    *ngIf="editSubsidyForm.get('purchasedBy').invalid && editSubsidyForm.get('purchasedBy').touched"
                     class="text-danger"> *Purchased by is required</small>
                 </div>
               </div>
@@ -249,12 +306,12 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Amount</label>
-                <input placeholder="$50" class="form-control" value="$10000" type="text"  [class.invalid]="editExpensesForm.get('amount').invalid && editExpensesForm.get('amount').touched"
+                <input placeholder="$50" class="form-control" value="$10000" type="text"  [class.invalid]="editSubsidyForm.get('amount').invalid && editExpensesForm.get('amount').touched"
                        formControlName="amount">
                 <div
-                  *ngIf="editExpensesForm.get('amount').invalid && editExpensesForm.get('amount').touched">
+                  *ngIf="editSubsidyForm.get('amount').invalid && editSubsidyForm.get('amount').touched">
                   <small
-                    *ngIf="editExpensesForm.get('amount').invalid && editExpensesForm.get('amount').touched"
+                    *ngIf="editSubsidyForm.get('amount').invalid && editSubsidyForm.get('amount').touched"
                     class="text-danger"> *Amount is required</small>
                 </div>
               </div>
@@ -262,15 +319,15 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Paid By</label>
-                <select class="form-select form-control" [class.invalid]="editExpensesForm.get('paidBy').invalid && editExpensesForm.get('paidBy').touched"
+                <select class="form-select form-control" [class.invalid]="editSubsidyForm.get('paidBy').invalid && editSubsidyForm.get('paidBy').touched"
                         formControlName="paidBy">
                   <option>Cash</option>
                   <option>Cheque</option>
                 </select>
                 <div
-                  *ngIf="editExpensesForm.get('paidBy').invalid && editExpensesForm.get('paidBy').touched">
+                  *ngIf="editSubsidyForm.get('paidBy').invalid && editSubsidyForm.get('paidBy').touched">
                   <small
-                    *ngIf="editExpensesForm.get('paidBy').invalid && editExpensesForm.get('paidBy').touched"
+                    *ngIf="editSubsidyForm.get('paidBy').invalid && editSubsidyForm.get('paidBy').touched"
                     class="text-danger"> *Paid by is required</small>
                 </div>
               </div>
@@ -296,11 +353,11 @@
           <div class="attach-files">
             <ul>
               <li>
-                <img src="assets/img/placeholder.jpg" alt="">
+                <img src="../../../../assets/img/placeholder.jpg" alt="">
                 <a class="fa fa-close file-remove"></a>
               </li>
               <li>
-                <img src="assets/img/placeholder.jpg" alt="">
+                <img src="../../../../assets/img/placeholder.jpg" alt="">
                 <a class="fa fa-close file-remove"></a>
               </li>
             </ul>
@@ -327,7 +384,7 @@
         <div class="modal-btn delete-action">
           <div class="row">
             <div class="col-6">
-              <a  class="btn btn-primary continue-btn"  (click)="deleteTicket()">Delete</a>
+              <a  class="btn btn-primary continue-btn"  (click)="deleteSubsidy()">Delete</a>
             </div>
             <div class="col-6">
               <a  data-bs-dismiss="modal"

@@ -1,13 +1,13 @@
 import {Component, HostListener, NgZone, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-manage-subsidy',
-  templateUrl: './manage-subsidy.component.html',
-  styleUrls: ['./manage-subsidy.component.css']
+  selector: 'app-manage-product-type',
+  templateUrl: './manage-product-type.component.html',
+  styleUrls: ['./manage-product-type.component.css']
 })
 
 @HostListener('window: resize', ['$event'])
-export class ManageSubsidyComponent implements OnInit {
+export class ManageProductTypeComponent implements OnInit {
 
   public innerHeight: any;
 
@@ -29,5 +29,9 @@ export class ManageSubsidyComponent implements OnInit {
 
   onResize(event) {
     this.innerHeight = event.target.innerHeight + 'px';
+  }
+
+  deleteTicket() {
+
   }
 }

@@ -367,6 +367,16 @@ const routes: Routes = [
             (m) => m.ArchivedjobsModule
           ),
       },
+      {
+        path: 'manage',
+        loadChildren: () => import('./subsidy/subsidy.module').then(
+          (m) => m.SubsidyModule)
+      },
+      {
+        path: 'product',
+        loadChildren: () => import('./product-set-up/product-set-up.module').then(
+          (m) => m.ProductSetUpModule)
+      }
     ],
   },
 ];

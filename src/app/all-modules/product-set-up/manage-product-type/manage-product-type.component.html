@@ -5,15 +5,15 @@
   <div class="page-header">
     <div class="row align-items-center">
       <div class="col">
-        <h3 class="page-title">Subsidies</h3>
+        <h3 class="page-title">Product Types</h3>
         <ul class="breadcrumb">
           <li class="breadcrumb-item"><a routerLink="/layout/dashboard/admin">Dashboard</a></li>
-          <li class="breadcrumb-item active">Manage Subsidies</li>
+          <li class="breadcrumb-item active">Manage Product Types</li>
         </ul>
       </div>
       <div class="col-auto float-end ms-auto">
         <a class="btn add-btn" data-bs-toggle="modal" data-bs-target="#add_expense"><i
-          class="fa fa-plus"></i> Add Subsidy</a>
+          class="fa fa-plus"></i> Add new product type</a>
       </div>
     </div>
   </div>
@@ -24,34 +24,27 @@
     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
       <div class="form-group form-focus">
         <input type="text" class="form-control floating" (input)="searchName($event.target.value)" (focusout) = "rerender()">
-        <label class="focus-label">Subsidy Name</label>
+        <label class="focus-label">Category Name</label>
       </div>
     </div>
     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
-      <div class="form-group form-focus select-focus">
-        <select class="form-select form-control" (input)="purchasedBy($event.target.value)">
-          <option value = ""> -- Select -- </option>
-          <option value = "Loren Gatlin">Product Type</option>
-          <option value = "Tarah Shropshire">Product Type</option>
-        </select>
-        <label class="focus-label">Product Type</label>
-      </div>
-    </div>
-    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
-      <div class="form-group form-focus select-focus">
-        <select class="form-select form-control" (input)="paidBy($event.target.value)">
-          <option value = ""> -- Select -- </option>
-          <option value = "Cash"> Category </option>
-          <option value = "Cheque"> Category </option>
-        </select>
-        <label class="focus-label">Farmer Catedory</label>
-      </div>
+      <!--      <div class="form-group form-focus select-focus">-->
+      <!--        <select class="form-select form-control" (input)="purchasedBy($event.target.value)">-->
+      <!--          <option value = ""> -- Select -- </option>-->
+      <!--          <option value = "Loren Gatlin">Product Type</option>-->
+      <!--          <option value = "Tarah Shropshire">Product Type</option>-->
+      <!--        </select>-->
+      <!--        <label class="focus-label">Product Type</label>-->
+      <!--      </div>-->
     </div>
     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
       <div class="form-group form-focus">
         <input type="text" class="form-control floating" (input)="searchName($event.target.value)" (focusout) = "rerender()">
-        <label class="focus-label">Subsidy Rate</label>
+        <label class="focus-label">Description</label>
       </div>
+    </div>
+    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
+
     </div>
     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
 
@@ -68,10 +61,8 @@
         <table  datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id = "datatable" class="table table-striped custom-table mb-0 datatable">
           <thead>
           <tr>
-            <th style="width: 17em">Name</th>
-            <th style="width: 17em">Product Type</th>
-            <th style="width: 17em">Farmer Category</th>
-            <th style="width: 17em">Subsidy Rate</th>
+            <th>Product Category Name</th>
+            <th>Product Category Description</th>
             <th class="text-center">Status</th>
             <th class="text-end">Actions</th>
           </tr>
@@ -137,7 +128,7 @@
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Add Subsidy</h5>
+        <h5 class="modal-title">Add Insurance product type</h5>
         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -147,7 +138,7 @@
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label>Subsidy Name</label>
+                <label>product type</label>
                 <input class="form-control" type="text" [class.invalid]="addExpensesForm.get('itemName').invalid && addExpensesForm.get('itemName').touched"
                        formControlName="itemName">
                 <div
@@ -160,66 +151,18 @@
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label>Insurance Product Type </label>
-                <select class="form-select form-control"
-                        [class.invalid]="addExpensesForm.get('purchasedBy').invalid && addExpensesForm.get('purchasedBy').touched"
-                        formControlName="purchasedBy">
-                  <option>Product Type</option>
-                  <option>Product Type</option>
-                </select>
-                <div
-                  *ngIf="addExpensesForm.get('purchasedBy').invalid && addExpensesForm.get('purchasedBy').touched">
-                  <small
-                    *ngIf="addExpensesForm.get('purchasedBy').invalid && addExpensesForm.get('purchasedBy').touched"
-                    class="text-danger"> *Purchased by is required</small>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Subsidy Rate</label>
+                <label>product type description</label>
                 <input class="form-control" type="text" [class.invalid]="addExpensesForm.get('itemName').invalid && addExpensesForm.get('itemName').touched"
                        formControlName="itemName">
                 <div
                   *ngIf="addExpensesForm.get('itemName').invalid && addExpensesForm.get('itemName').touched">
                   <small
                     *ngIf="addExpensesForm.get('itemName').invalid && addExpensesForm.get('itemName').touched"
-                    class="text-danger"> *Item rate is required</small>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Farmer Category </label>
-                <select class="form-select form-control"
-                        [class.invalid]="addExpensesForm.get('purchasedBy').invalid && addExpensesForm.get('purchasedBy').touched"
-                        formControlName="purchasedBy">
-                  <option>Category</option>
-                  <option>Category</option>
-                </select>
-                <div
-                  *ngIf="addExpensesForm.get('purchasedBy').invalid && addExpensesForm.get('purchasedBy').touched">
-                  <small
-                    *ngIf="addExpensesForm.get('purchasedBy').invalid && addExpensesForm.get('purchasedBy').touched"
-                    class="text-danger"> *Farmer category is required</small>
+                    class="text-danger"> *Item name is required</small>
                 </div>
               </div>
             </div>
           </div>
-<!--          <div class="attach-files">-->
-<!--            <ul>-->
-<!--              <li>-->
-<!--                <img src="assets/img/placeholder.jpg" alt="">-->
-<!--                <a class="fa fa-close file-remove"></a>-->
-<!--              </li>-->
-<!--              <li>-->
-<!--                <img src="assets/img/placeholder.jpg" alt="">-->
-<!--                <a class="fa fa-close file-remove"></a>-->
-<!--              </li>-->
-<!--            </ul>-->
-<!--          </div>-->
           <div class="submit-section">
             <button class="btn btn-primary submit-btn">Submit</button>
           </div>
@@ -353,11 +296,11 @@
           <div class="attach-files">
             <ul>
               <li>
-                <img src="assets/img/placeholder.jpg" alt="">
+                <img src="../../../../assets/img/placeholder.jpg" alt="">
                 <a class="fa fa-close file-remove"></a>
               </li>
               <li>
-                <img src="assets/img/placeholder.jpg" alt="">
+                <img src="../../../../assets/img/placeholder.jpg" alt="">
                 <a class="fa fa-close file-remove"></a>
               </li>
             </ul>

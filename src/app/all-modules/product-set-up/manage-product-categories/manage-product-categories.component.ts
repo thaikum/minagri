@@ -30,5 +30,9 @@ export class ManageProductCategoriesComponent implements OnInit {
   onResize(event) {
     this.innerHeight = event.target.innerHeight + 'px';
   }
+
+  deleteTicket() {
+
+  }
 }
 
