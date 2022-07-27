@@ -381,6 +381,16 @@ const routes: Routes = [
         path: 'commission',
         loadChildren: () => import('./commission/commission.module').then(
           (m) => m.CommissionModule)
+      },
+      {
+        path: 'monitoring',
+        loadChildren: () => import('./contract-monitoring/contract-monitoring.module').then(
+          (m) => m.ContractMonitoringModule)
+      },
+      {
+        path: 'management',
+        loadChildren: () => import('./claims-management/claims-management.module').then(
+          (m) => m.ClaimsManagementModule)
       }
     ],
   },

@@ -438,15 +438,15 @@
             >
           </li>
           <li class="menu-title">
-            <span>HR</span>
+            <span>Subsidy</span>
           </li>
           <li
             class="submenu"
-            [ngClass]="{ active: urlComplete.mainUrl === 'dashboard' }"
+            [ngClass]="{ active: urlComplete.mainUrl === 'manage' }"
           >
             <a
               href="javascript:"
-              [ngClass]="{ subdrop: urlComplete.mainUrl === 'dashboard' }"
+              [ngClass]="{ subdrop: urlComplete.mainUrl === 'manage' }"
             >
               <i class="la la-dashboard"></i>
               <span>Subsidy</span>
@@ -465,25 +465,21 @@
                 >Manage subsidy</a
                 >
               </li>
-<!--              <li routerLink="/layout/dashboard/employee">-->
-<!--                <a-->
-<!--                  [ngClass]="{ active: urlComplete.subUrl === 'employee' }"-->
-<!--                  href="javascript:"-->
-<!--                >Employee Dashboard</a-->
-<!--                >-->
-<!--              </li>-->
             </ul>
+          </li>
+          <li class="menu-title">
+            <span>Product</span>
           </li>
           <li
             class="submenu"
-            [ngClass]="{ active: urlComplete.mainUrl === 'dashboard' }"
+            [ngClass]="{ active: urlComplete.mainUrl === 'product' }"
           >
             <a
               href="javascript:"
               [ngClass]="{ subdrop: urlComplete.mainUrl === 'manage' }"
             >
               <i class="la la-dashboard"></i>
-              <span>Product set up</span>
+              <span>Product Set up</span>
               <span class="menu-arrow"></span>
             </a>
             <ul
@@ -514,6 +510,78 @@
                 >
               </li>
             </ul>
+          </li>
+
+          <li class="menu-title">
+            <span>Contracts</span>
+          </li>
+          <li
+            class="submenu"
+            [ngClass]="{ active: urlComplete.mainUrl === 'manage' }"
+          >
+            <a
+              href="javascript:"
+              [ngClass]="{ subdrop: urlComplete.mainUrl === 'manage' }"
+            >
+              <i class="la la-dashboard"></i>
+              <span>Contract Monitoring</span>
+              <span class="menu-arrow"></span>
+            </a>
+            <ul
+              style="display: none"
+              [ngStyle]="{
+                display: urlComplete.mainUrl === 'subsidy' ? 'block' : 'none'
+              }"
+            >
+              <li routerLink="/layout/monitoring/manage-contract">
+                <a
+                  [ngClass]="{ active: urlComplete.subUrl === 'manage-contract' }"
+                  href="javascript:"
+                >Manage Contracts</a
+                >
+              </li>
+              <li routerLink="/layout/monitoring/crop-cuts">
+                <a
+                  [ngClass]="{ active: urlComplete.subUrl === 'crop-cuts' }"
+                  href="javascript:"
+                >Crop cuts</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li class="menu-title">
+            <span>Claims Management</span>
+          </li>
+          <li
+            class="submenu"
+            [ngClass]="{ active: urlComplete.mainUrl === 'management' }"
+          >
+            <a
+              href="javascript:"
+              [ngClass]="{ subdrop: urlComplete.mainUrl === 'manage-claim' }"
+            >
+              <i class="la la-dashboard"></i>
+              <span>Claims</span>
+              <span class="menu-arrow"></span>
+            </a>
+            <ul
+              style="display: none"
+              [ngStyle]="{
+                display: urlComplete.mainUrl === 'subsidy' ? 'block' : 'none'
+              }"
+            >
+              <li routerLink="/layout/management/manage-claim">
+                <a
+                  [ngClass]="{ active: urlComplete.subUrl === 'admin' }"
+                  href="javascript:"
+                >Manage claim</a
+                >
+              </li>
+            </ul>
+          </li>
+
+          <li class="menu-title">
+            <span>HR</span>
           </li>
           <li
             class="submenu"
