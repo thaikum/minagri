@@ -438,7 +438,7 @@
             >
           </li>
           <li class="menu-title">
-            <span>Subsidy</span>
+            <span>Subsidies Manager</span>
           </li>
           <li
             class="submenu"
@@ -448,8 +448,8 @@
               href="javascript:"
               [ngClass]="{ subdrop: urlComplete.mainUrl === 'manage' }"
             >
-              <i class="la la-dashboard"></i>
-              <span>Subsidy</span>
+              <i class="la la-cube"></i>
+              <span>Subsidies</span>
               <span class="menu-arrow"></span>
             </a>
             <ul
@@ -462,13 +462,13 @@
                 <a
                   [ngClass]="{ active: urlComplete.subUrl === 'admin' }"
                   href="javascript:"
-                >Manage subsidy</a
+                >Manage Subsidies</a
                 >
               </li>
             </ul>
           </li>
           <li class="menu-title">
-            <span>Product</span>
+            <span>Product Setup</span>
           </li>
           <li
             class="submenu"
@@ -478,8 +478,8 @@
               href="javascript:"
               [ngClass]="{ subdrop: urlComplete.mainUrl === 'manage' }"
             >
-              <i class="la la-dashboard"></i>
-              <span>Product Set up</span>
+              <i class="la la-files-o"></i>
+              <span>Insurance Products</span>
               <span class="menu-arrow"></span>
             </a>
             <ul
@@ -492,14 +492,14 @@
                 <a
                   [ngClass]="{ active: urlComplete.subUrl === 'product-categories' }"
                   href="javascript:"
-                >Manage product categories</a
+                >Product Categories</a
                 >
               </li>
               <li routerLink="/layout/product/product-type">
                 <a
                   [ngClass]="{ active: urlComplete.subUrl === 'product-type' }"
                   href="javascript:"
-                >Manage product type</a
+                >Product Type</a
                 >
               </li>
               <li routerLink="/layout/product/products">
@@ -513,7 +513,7 @@
           </li>
 
           <li class="menu-title">
-            <span>Contracts</span>
+            <span>Contract Monitoring</span>
           </li>
           <li
             class="submenu"
@@ -523,8 +523,8 @@
               href="javascript:"
               [ngClass]="{ subdrop: urlComplete.mainUrl === 'manage' }"
             >
-              <i class="la la-dashboard"></i>
-              <span>Contract Monitoring</span>
+              <i class="la la-edit"></i>
+              <span>Contracts</span>
               <span class="menu-arrow"></span>
             </a>
             <ul
@@ -544,13 +544,13 @@
                 <a
                   [ngClass]="{ active: urlComplete.subUrl === 'crop-cuts' }"
                   href="javascript:"
-                >Crop cuts</a
+                >Crop Cuts</a
                 >
               </li>
             </ul>
           </li>
           <li class="menu-title">
-            <span>Claims Management</span>
+            <span>Claim Manager</span>
           </li>
           <li
             class="submenu"
@@ -560,7 +560,7 @@
               href="javascript:"
               [ngClass]="{ subdrop: urlComplete.mainUrl === 'manage-claim' }"
             >
-              <i class="la la-dashboard"></i>
+              <i class="la la-edit"></i>
               <span>Claims</span>
               <span class="menu-arrow"></span>
             </a>
@@ -574,7 +574,92 @@
                 <a
                   [ngClass]="{ active: urlComplete.subUrl === 'admin' }"
                   href="javascript:"
-                >Manage claim</a
+                >Manage Claims</a
+                >
+              </li>
+            </ul>
+          </li>
+
+          <li class="menu-title">
+            <span>Weather and Climate</span>
+          </li>
+          <li
+            class="submenu"
+            [ngClass]="{ active: urlComplete.mainUrl === 'management' }"
+          >
+            <a
+              href="javascript:"
+              [ngClass]="{ subdrop: urlComplete.mainUrl === 'manage-claim' }"
+            >
+              <i class="la la-cloud"></i>
+              <span>Add Weather Data</span>
+              <span class="menu-arrow"></span>
+            </a>
+            <ul
+              style="display: none"
+              [ngStyle]="{
+                display: urlComplete.mainUrl === 'subsidy' ? 'block' : 'none'
+              }"
+            >
+              <li routerLink="/layout/management/manage-claim">
+                <a
+                  [ngClass]="{ active: urlComplete.subUrl === 'admin' }"
+                  href="javascript:"
+                >Upload Weather Data</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li
+            class="submenu"
+            [ngClass]="{ active: urlComplete.mainUrl === 'management' }"
+          >
+            <a
+              href="javascript:"
+              [ngClass]="{ subdrop: urlComplete.mainUrl === 'manage-claim' }"
+            >
+              <i class="la la-crosshairs"></i>
+              <span>Historical Data</span>
+              <span class="menu-arrow"></span>
+            </a>
+            <ul
+              style="display: none"
+              [ngStyle]="{
+                display: urlComplete.mainUrl === 'subsidy' ? 'block' : 'none'
+              }"
+            >
+              <li routerLink="/layout/management/manage-claim">
+                <a
+                  [ngClass]="{ active: urlComplete.subUrl === 'admin' }"
+                  href="javascript:"
+                >View Historical Data</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li
+            class="submenu"
+            [ngClass]="{ active: urlComplete.mainUrl === 'management' }"
+          >
+            <a
+              href="javascript:"
+              [ngClass]="{ subdrop: urlComplete.mainUrl === 'manage-claim' }"
+            >
+              <i class="la la-pie-chart"></i>
+              <span>Weather Reports</span>
+              <span class="menu-arrow"></span>
+            </a>
+            <ul
+              style="display: none"
+              [ngStyle]="{
+                display: urlComplete.mainUrl === 'subsidy' ? 'block' : 'none'
+              }"
+            >
+              <li routerLink="/layout/management/manage-claim">
+                <a
+                  [ngClass]="{ active: urlComplete.subUrl === 'admin' }"
+                  href="javascript:"
+                >View Report</a
                 >
               </li>
             </ul>

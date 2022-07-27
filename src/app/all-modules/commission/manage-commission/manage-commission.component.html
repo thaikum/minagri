@@ -1,26 +1,51 @@
 <div>
   <!-- Page Wrapper -->
   <div class="page-wrapper">
-
     <!-- Page Content -->
     <div class="content container-fluid">
 
       <!-- Page Header -->
-      <div class="page-header">
+      <div class="page-header" style="margin-top: 20px">
         <div class="row align-items-center">
           <div class="col">
-            <h3 class="page-title">Manage Commission</h3>
+            <h3 class="page-title">Sales Commissions</h3>
             <ul class="breadcrumb">
               <li class="breadcrumb-item"><a routerLink="/layout/dashboard/admin">Dashboard</a></li>
-              <li class="breadcrumb-item active">Commission</li>
+              <li class="breadcrumb-item active">Product Commissions</li>
             </ul>
           </div>
           <div class="col-auto float-end ms-auto">
-            <a href="#" class="btn add-btn" data-bs-toggle="modal" data-bs-target="#add_categories"><i class="fa fa-plus"></i> Set Commission</a>
+            <a href="#" class="btn add-btn" style=" elevation: higher;color: #212529;border: 1px solid transparent;border-radius: .25rem;transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;">
+              <i class="fa fa-plus"></i> Add Commission</a>
           </div>
         </div>
       </div>
       <!-- /Page Header -->
+
+      <!-- Search Filter -->
+      <div class="row filter-row">
+        <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12">
+          <div class="form-group form-focus">
+            <div class="cal-icon">
+              <input class="form-control floating datetimepicker" type="text" bsDatepicker type="text"  [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }" (bsValueChange)="searchByFrom($event)">
+            </div>
+            <label class="focus-label">From</label>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12">
+          <div class="form-group form-focus">
+            <div class="cal-icon">
+              <input class="form-control floating datetimepicker" bsDatepicker type="text" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }" (bsValueChange)="searchByTo($event)">
+            </div>
+            <label class="focus-label">To</label>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12">
+          <a  class="btn btn-success w-100"> Search </a>
+        </div>
+        <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12"></div>
+      </div>
+      <!-- /Search Filter -->
 
       <div class="row">
         <div class="col-md-12">
@@ -28,21 +53,35 @@
             <table class="table table-striped custom-table mb-0">
               <thead>
               <tr>
-                <th>Name</th>
-                <th>Organisation</th>
-                <th>Financial Item</th>
-                <th>Commission Rate</th>
-                <th>User</th>
+                <th>Commission ID</th>
+                <th>Product Name</th>
+                <th>Start Date</th>
+                <th>Start Date</th>
+                <th>Amount</th>
+                <th class="text-center">Status</th>
                 <th class="text-end">Action</th>
               </tr>
               </thead>
               <tbody>
               <tr>
-                <td>Invest</td>
-                <td>Intel Org</td>
-                <td>Premium Value</td>
-                <td>25%</td>
-                <td>Joebidden</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td class="text-center">
+                  <div class="dropdown action-label">
+                    <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                      <i class="fa fa-dot-circle-o text-danger"></i> Pending
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <a class="dropdown-item"> <i class="fa fa-dot-circle-o text-danger"></i>
+                        Pending</a>
+                      <a class="dropdown-item"> <i
+                        class="fa fa-dot-circle-o text-success"></i> Approved</a>
+                    </div>
+                  </div>
+                </td>
                 <td class="text-end">
                   <div class="dropdown dropdown-action">
                     <a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
