@@ -391,6 +391,11 @@ const routes: Routes = [
         path: 'management',
         loadChildren: () => import('./claims-management/claims-management.module').then(
           (m) => m.ClaimsManagementModule)
+      },
+      {
+        path: 'weather',
+        loadChildren: () => import('./weather/weather.module').then(
+          (m) => m.WeatherModule)
       }
     ],
   },

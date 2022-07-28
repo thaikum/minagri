@@ -585,11 +585,11 @@
           </li>
           <li
             class="submenu"
-            [ngClass]="{ active: urlComplete.mainUrl === 'management' }"
+            [ngClass]="{ active: urlComplete.mainUrl === 'weather' }"
           >
             <a
               href="javascript:"
-              [ngClass]="{ subdrop: urlComplete.mainUrl === 'manage-claim' }"
+              [ngClass]="{ subdrop: urlComplete.mainUrl === 'add-weather-data' }"
             >
               <i class="la la-cloud"></i>
               <span>Add Weather Data</span>
@@ -601,7 +601,7 @@
                 display: urlComplete.mainUrl === 'subsidy' ? 'block' : 'none'
               }"
             >
-              <li routerLink="/layout/management/manage-claim">
+              <li routerLink="/layout/weather/add-weather-data">
                 <a
                   [ngClass]="{ active: urlComplete.subUrl === 'admin' }"
                   href="javascript:"
@@ -612,11 +612,11 @@
           </li>
           <li
             class="submenu"
-            [ngClass]="{ active: urlComplete.mainUrl === 'management' }"
+            [ngClass]="{ active: urlComplete.mainUrl === 'weather' }"
           >
             <a
               href="javascript:"
-              [ngClass]="{ subdrop: urlComplete.mainUrl === 'manage-claim' }"
+              [ngClass]="{ subdrop: urlComplete.mainUrl === 'historical-data' }"
             >
               <i class="la la-crosshairs"></i>
               <span>Historical Data</span>
@@ -628,7 +628,7 @@
                 display: urlComplete.mainUrl === 'subsidy' ? 'block' : 'none'
               }"
             >
-              <li routerLink="/layout/management/manage-claim">
+              <li routerLink="/layout/weather/historical-data">
                 <a
                   [ngClass]="{ active: urlComplete.subUrl === 'admin' }"
                   href="javascript:"
@@ -639,11 +639,11 @@
           </li>
           <li
             class="submenu"
-            [ngClass]="{ active: urlComplete.mainUrl === 'management' }"
+            [ngClass]="{ active: urlComplete.mainUrl === 'weather' }"
           >
             <a
               href="javascript:"
-              [ngClass]="{ subdrop: urlComplete.mainUrl === 'manage-claim' }"
+              [ngClass]="{ subdrop: urlComplete.mainUrl === 'reports' }"
             >
               <i class="la la-pie-chart"></i>
               <span>Weather Reports</span>
@@ -655,7 +655,7 @@
                 display: urlComplete.mainUrl === 'subsidy' ? 'block' : 'none'
               }"
             >
-              <li routerLink="/layout/management/manage-claim">
+              <li routerLink="/layout/weather/reports">
                 <a
                   [ngClass]="{ active: urlComplete.subUrl === 'admin' }"
                   href="javascript:"
