@@ -6,9 +6,10 @@ import { UsersComponent } from './users.component';
 import { UserMainComponent } from './user-main/user-main.component';
 import { DataTablesModule } from 'angular-datatables';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserTypeComponent } from '../assets/user-type/user-type.component';
 
 @NgModule({
-  declarations: [UsersComponent, UserMainComponent],
+  declarations: [UsersComponent, UserMainComponent, UserTypeComponent],
   imports: [
     CommonModule,
     UsersRoutingModule,

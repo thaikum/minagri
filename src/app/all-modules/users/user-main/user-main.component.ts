@@ -4,30 +4,32 @@ import {
   OnDestroy,
   ViewChild,
   AfterViewInit,
-} from "@angular/core";
-import { AllModulesService } from "../../all-modules.service";
+} from '@angular/core';
+import { AllModulesService } from '../../all-modules.service';
 import {
   FormBuilder,
   FormGroup,
   FormControl,
   Validators,
-} from "@angular/forms";
-import { ToastrService } from "ngx-toastr";
-import { Subject } from "rxjs";
-import { DataTableDirective } from "angular-datatables";
+} from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { Subject } from 'rxjs';
+import { DataTableDirective } from 'angular-datatables';
+import {UsersService} from '../../../services/users.service';
+import {User} from '../../../interface/User';
 
 declare const $: any;
 @Component({
-  selector: "app-user-main",
-  templateUrl: "./user-main.component.html",
-  styleUrls: ["./user-main.component.css"],
+  selector: 'app-user-main',
+  templateUrl: './user-main.component.html',
+  styleUrls: ['./user-main.component.css'],
 })
 export class UserMainComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(DataTableDirective, { static: false })
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
-  public url: any = "users";
-  public allUsers: any = [];
+  public url: any = 'users';
+  public allUsers: User[];
   public addUsers: FormGroup;
   public editUsers: FormGroup;
   public editId: any;
@@ -38,42 +40,46 @@ export class UserMainComponent implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private allModuleService: AllModulesService,
     private formBuilder: FormBuilder,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private _userService: UsersService
   ) {}
 
   ngOnInit() {
-    $(".floating")
-      .on("focus blur", function (e) {
+    $('.floating')
+      .on('focus blur', function (e) {
         $(this)
-          .parents(".form-focus")
-          .toggleClass("focused", e.type === "focus" || this.value.length > 0);
+          .parents('.form-focus')
+          .toggleClass('focused', e.type === 'focus' || this.value.length > 0);
       })
-      .trigger("blur");
+      .trigger('blur');
 
     this.getUsers();
 
     // Add Provident Form Validation And Getting Values
 
     this.addUsers = this.formBuilder.group({
-      addUserName: ["", [Validators.required]],
-      addEmail: ["", [Validators.required]],
-      addRole: ["", [Validators.required]],
-      addCompany: ["", [Validators.required]],
+      firstName: ['',Validators.required],
+      surname: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      nationalid: ['', [Validators.required]],
+      phonenumber: ['', [Validators.required]],
     });
 
     // Edit Provident Form Validation And Getting Values
 
     this.editUsers = this.formBuilder.group({
-      editUsersName: ["", [Validators.required]],
-      editEmail: ["", [Validators.required]],
-      editRole: ["", [Validators.required]],
-      editCompany: ["", [Validators.required]],
+      firstName: [Validators.required],
+      surname: ['', [Validators.required]],
+      email: ['', [Validators.required]],
+      nationalid: ['', [Validators.required]],
+      phonenumber: ['', [Validators.required]],
+      userid: [''],
     });
     // for data table configuration
     this.dtOptions = {
       // ... skipped ...
       pageLength: 10,
-      dom: "lrtip",
+      dom: 'lrtip',
     };
   }
 
@@ -86,7 +92,7 @@ export class UserMainComponent implements OnInit, OnDestroy, AfterViewInit {
   // manually rendering Data table
 
   rerender(): void {
-    $("#datatable").DataTable().clear();
+    $('#datatable').DataTable().clear();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
     });
@@ -98,37 +104,37 @@ export class UserMainComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getUsers() {
-    this.allModuleService.get(this.url).subscribe((data) => {
-      this.allUsers = data;
+    this._userService.getAllUsers().subscribe(data=>{
+      this.allUsers = data.body;
+      console.log(this.allUsers);
       this.rows = this.allUsers;
       this.srch = [...this.rows];
-    });
+    })
   }
 
   // Add Provident Modal Api Call
 
   addUsersSubmit() {
     if (this.addUsers.valid) {
-      let obj = {
-        name: this.addUsers.value.addUserName,
-        designation: "Web Designer",
-        email: this.addUsers.value.addEmail,
-        role: this.addUsers.value.addRole,
-        company: this.addUsers.value.addCompany,
+      const obj: User = {
+        name: this.addUsers.value.surname + ' ' + this.addUsers.value.firstName,
+        email: this.addUsers.value.email,
+        nationalid: this.addUsers.value.email,
+        phonenumber: this.addUsers.value.phonenumber,
       };
-      this.allModuleService.add(obj, this.url).subscribe((data) => {
-        $("#datatable").DataTable().clear();
+      this._userService.registerUser(obj).subscribe((data) => {
+        $('#datatable').DataTable().clear();
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.destroy();
         });
         this.dtTrigger.next();
       });
       this.getUsers();
-      $("#add_user").modal("hide");
+      $('#add_user').modal('hide');
       this.addUsers.reset();
-      this.toastr.success("Users is added", "Success");
+      this.toastr.success('Users is added', 'Success');
     } else {
-      this.toastr.warning("Mandatory fields required", "");
+      this.toastr.warning('Mandatory fields required', '');
     }
   }
 
@@ -136,40 +142,42 @@ export class UserMainComponent implements OnInit, OnDestroy, AfterViewInit {
 
   editUsersSubmit() {
     if (this.editUsers.valid) {
-      let obj = {
-        name: this.editUsers.value.editUsersName,
-        designation: "Android Developer",
-        email: this.editUsers.value.editEmail,
-        company: this.editUsers.value.editCompany,
-        role: this.editUsers.value.editRole,
-        id: this.editId,
+      const obj = {
+        name: this.editUsers.value.surname + ' ' + this.editUsers.value.firstName,
+        email: this.editUsers.value.email,
+        nationalid: this.editUsers.value.email,
+        phonenumber: this.editUsers.value.phonenumber,
+        userId: this.editUsers.value.userId
       };
       this.allModuleService.update(obj, this.url).subscribe((data1) => {
-        $("#datatable").DataTable().clear();
+        $('#datatable').DataTable().clear();
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.destroy();
         });
         this.dtTrigger.next();
       });
       this.getUsers();
-      $("#edit_user").modal("hide");
-      this.toastr.success("Users is edited", "Success");
+      $('#edit_user').modal('hide');
+      this.toastr.success('Users is edited', 'Success');
     } else {
-      this.toastr.warning("Mandatory fields required", "");
+      this.toastr.warning('Mandatory fields required', '');
     }
   }
 
   edit(value) {
     this.editId = value;
     const index = this.allUsers.findIndex((item) => {
-      return item.id === value;
+      return item.userid === value;
     });
-    let toSetValues = this.allUsers[index];
+    const toSetValues = this.allUsers[index];
+    console.log(toSetValues.name)
     this.editUsers.setValue({
-      editUsersName: toSetValues.name,
-      editEmail: toSetValues.email,
-      editRole: toSetValues.role,
-      editCompany: toSetValues.company,
+      firstName: toSetValues.name?.trim().split(' ')[0] || '',
+      surname: toSetValues.name?.trim().split(' ')[1] || '',
+      email: toSetValues?.email,
+      nationalid: toSetValues?.nationalid,
+      phonenumber: toSetValues?.phonenumber,
+      userid: toSetValues?.userid
     });
   }
 
@@ -177,41 +185,41 @@ export class UserMainComponent implements OnInit, OnDestroy, AfterViewInit {
 
   deleteUsers() {
     this.allModuleService.delete(this.tempId, this.url).subscribe((data) => {
-      $("#datatable").DataTable().clear();
+      $('#datatable').DataTable().clear();
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.destroy();
       });
       this.dtTrigger.next();
     });
     this.getUsers();
-    $("#delete_user").modal("hide");
-    this.toastr.success("Users is deleted", "Success");
+    $('#delete_user').modal('hide');
+    this.toastr.success('Users is deleted', 'Success');
   }
 
-  //search by name
+  // search by name
   searchName(val) {
     this.rows.splice(0, this.rows.length);
-    let temp = this.srch.filter(function (d) {
+    const temp = this.srch.filter((d) => {
       val = val.toLowerCase();
       return d.name.toLowerCase().indexOf(val) !== -1 || !val;
     });
     this.rows.push(...temp);
   }
 
-  //search by name
+  // search by name
   searchStatus(val) {
     this.rows.splice(0, this.rows.length);
-    let temp = this.srch.filter(function (d) {
+    const temp = this.srch.filter((d) => {
       val = val.toLowerCase();
       return d.company.toLowerCase().indexOf(val) !== -1 || !val;
     });
     this.rows.push(...temp);
   }
 
-  //search by name
+  // search by name
   searchRole(val) {
     this.rows.splice(0, this.rows.length);
-    let temp = this.srch.filter(function (d) {
+    const temp = this.srch.filter( (d) =>{
       val = val.toLowerCase();
       return d.role.toLowerCase().indexOf(val) !== -1 || !val;
     });

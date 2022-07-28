@@ -1,369 +1,364 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import { AllModulesComponent } from "./all-modules.component";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { AllModulesComponent } from './all-modules.component';
 
 const routes: Routes = [
   {
-    path: "",
-    redirectTo: "dashboard",
-    pathMatch: "full",
+    path: '',
+    redirectTo: 'dashboard',
+    pathMatch: 'full',
   },
   {
-    path: "",
+    path: '',
     component: AllModulesComponent,
     children: [
       {
-        path: "dashboard",
+        path: 'dashboard',
         loadChildren: () =>
-          import("./dashboard/dashboard.module").then((m) => m.DashboardModule),
+          import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
       },
       {
-        path: "apps",
+        path: 'apps',
         loadChildren: () =>
-          import("./apps/apps.module").then((m) => m.AppsModule),
+          import('./apps/apps.module').then((m) => m.AppsModule),
       },
       {
-        path: "employees",
+        path: 'clients',
         loadChildren: () =>
-          import("./employees/employees.module").then((m) => m.EmployeesModule),
+          import('./clients/clients.module').then((m) => m.ClientsModule),
       },
       {
-        path: "clients",
+        path: 'projects',
         loadChildren: () =>
-          import("./clients/clients.module").then((m) => m.ClientsModule),
+          import('./projects/projects.module').then((m) => m.ProjectsModule),
       },
       {
-        path: "projects",
+        path: 'leads',
         loadChildren: () =>
-          import("./projects/projects.module").then((m) => m.ProjectsModule),
+          import('./leads/leads.module').then((m) => m.LeadsModule),
       },
       {
-        path: "leads",
+        path: 'tickets',
         loadChildren: () =>
-          import("./leads/leads.module").then((m) => m.LeadsModule),
+          import('./tickets/tickets.module').then((m) => m.TicketsModule),
       },
       {
-        path: "tickets",
+        path: 'accounts',
         loadChildren: () =>
-          import("./tickets/tickets.module").then((m) => m.TicketsModule),
+          import('./accounts/accounts.module').then((m) => m.AccountsModule),
       },
       {
-        path: "accounts",
+        path: 'payroll',
         loadChildren: () =>
-          import("./accounts/accounts.module").then((m) => m.AccountsModule),
+          import('./payroll/payroll.module').then((m) => m.PayrollModule),
       },
       {
-        path: "payroll",
+        path: 'policies',
         loadChildren: () =>
-          import("./payroll/payroll.module").then((m) => m.PayrollModule),
+          import('./policies/policies.module').then((m) => m.PoliciesModule),
       },
       {
-        path: "policies",
+        path: 'reports',
         loadChildren: () =>
-          import("./policies/policies.module").then((m) => m.PoliciesModule),
+          import('./reports/reports.module').then((m) => m.ReportsModule),
       },
       {
-        path: "reports",
+        path: 'performance',
         loadChildren: () =>
-          import("./reports/reports.module").then((m) => m.ReportsModule),
-      },
-      {
-        path: "performance",
-        loadChildren: () =>
-          import("./performance/performance.module").then(
+          import('./performance/performance.module').then(
             (m) => m.PerformanceModule
           ),
       },
       {
-        path: "goals",
+        path: 'goals',
         loadChildren: () =>
-          import("./goals/goals.module").then((m) => m.GoalsModule),
+          import('./goals/goals.module').then((m) => m.GoalsModule),
       },
       {
-        path: "training",
+        path: 'training',
         loadChildren: () =>
-          import("./training/training.module").then((m) => m.TrainingModule),
+          import('./training/training.module').then((m) => m.TrainingModule),
       },
       {
-        path: "promotion",
+        path: 'promotion',
         loadChildren: () =>
-          import("./promotion/promotion.module").then((m) => m.PromotionModule),
+          import('./promotion/promotion.module').then((m) => m.PromotionModule),
       },
       {
-        path: "resignation",
+        path: 'resignation',
         loadChildren: () =>
-          import("./resignation/resignation.module").then(
+          import('./resignation/resignation.module').then(
             (m) => m.ResignationModule
           ),
       },
       {
-        path: "termination",
+        path: 'termination',
         loadChildren: () =>
-          import("./termination/termination.module").then(
+          import('./termination/termination.module').then(
             (m) => m.TerminationModule
           ),
       },
       {
-        path: "assets",
+        path: 'assets',
         loadChildren: () =>
-          import("./assets/assets.module").then((m) => m.AssetsModule),
+          import('./assets/assets.module').then((m) => m.AssetsModule),
       },
       {
-        path: "jobs",
+        path: 'jobs',
         loadChildren: () =>
-          import("./jobs/jobs.module").then((m) => m.JobsModule),
+          import('./jobs/jobs.module').then((m) => m.JobsModule),
       },
       {
-        path: "knowledgebase",
+        path: 'knowledgebase',
         loadChildren: () =>
-          import("./knowledgebase/knowledgebase.module").then(
+          import('./knowledgebase/knowledgebase.module').then(
             (m) => m.KnowledgebaseModule
           ),
       },
       {
-        path: "activities",
+        path: 'activities',
         loadChildren: () =>
-          import("./activities/activities.module").then(
+          import('./activities/activities.module').then(
             (m) => m.ActivitiesModule
           ),
       },
       {
-        path: "users",
+        path: 'users',
         loadChildren: () =>
-          import("./users/users.module").then((m) => m.UsersModule),
+          import('./users/users.module').then((m) => m.UsersModule),
       },
       {
-        path: "settings",
+        path: 'settings',
         loadChildren: () =>
-          import("./settings/settings.module").then((m) => m.SettingsModule),
+          import('./settings/settings.module').then((m) => m.SettingsModule),
       },
       {
-        path: "pages",
+        path: 'pages',
         loadChildren: () =>
-          import("./pages/pages.module").then((m) => m.PagesModule),
+          import('./pages/pages.module').then((m) => m.PagesModule),
       },
       {
-        path: "components",
+        path: 'components',
         loadChildren: () =>
-          import("./components/components.module").then(
+          import('./components/components.module').then(
             (m) => m.ComponentsModule
           ),
       },
       {
-        path: "forms",
+        path: 'forms',
         loadChildren: () =>
-          import("./forms/forms.module").then((m) => m.FormsModule),
+          import('./forms/forms.module').then((m) => m.FormsModule),
       },
       {
-        path: "tables",
+        path: 'tables',
         loadChildren: () =>
-          import("./tables/tables.module").then((m) => m.TablesModule),
+          import('./tables/tables.module').then((m) => m.TablesModule),
       },
       {
-        path: "scheduling",
+        path: 'scheduling',
         loadChildren: () =>
-          import("./scheduling/scheduling.module").then(
+          import('./scheduling/scheduling.module').then(
             (m) => m.SchedulingModule
           ),
       },
       {
-        path: "shift",
+        path: 'shift',
         loadChildren: () =>
-          import("./shift/shift.module").then((m) => m.ShiftModule),
+          import('./shift/shift.module').then((m) => m.ShiftModule),
       },
       {
-        path: "category",
+        path: 'category',
         loadChildren: () =>
-          import("./category/category.module").then((m) => m.CategoryModule),
+          import('./category/category.module').then((m) => m.CategoryModule),
       },
       {
-        path: "budget",
+        path: 'budget',
         loadChildren: () =>
-          import("./budget/budget.module").then((m) => m.BudgetModule),
+          import('./budget/budget.module').then((m) => m.BudgetModule),
       },
       {
-        path: "budgetexpenses",
+        path: 'budgetexpenses',
         loadChildren: () =>
-          import("./budgetexpenses/budgetexpenses.module").then(
+          import('./budgetexpenses/budgetexpenses.module').then(
             (m) => m.BudgetexpensesModule
           ),
       },
       {
-        path: "budgetrevenues",
+        path: 'budgetrevenues',
         loadChildren: () =>
-          import("./budgetrevenues/budgetrevenues.module").then(
+          import('./budgetrevenues/budgetrevenues.module').then(
             (m) => m.BudgetrevenuesModule
           ),
       },
       {
-        path: "paymentreports",
+        path: 'paymentreports',
         loadChildren: () =>
-          import("./paymentreports/paymentreports.module").then(
+          import('./paymentreports/paymentreports.module').then(
             (m) => m.PaymentreportsModule
           ),
       },
       {
-        path: "projectreports",
+        path: 'projectreports',
         loadChildren: () =>
-          import("./projectreports/projectreports.module").then(
+          import('./projectreports/projectreports.module').then(
             (m) => m.ProjectreportsModule
           ),
       },
       {
-        path: "taskreports",
+        path: 'taskreports',
         loadChildren: () =>
-          import("./taskreports/taskreports.module").then(
+          import('./taskreports/taskreports.module').then(
             (m) => m.TaskreportsModule
           ),
       },
       {
-        path: "userreports",
+        path: 'userreports',
         loadChildren: () =>
-          import("./userreports/userreports.module").then(
+          import('./userreports/userreports.module').then(
             (m) => m.UserreportsModule
           ),
       },
       {
-        path: "employeereports",
+        path: 'employeereports',
         loadChildren: () =>
-          import("./employeereports/employeereports.module").then(
+          import('./employeereports/employeereports.module').then(
             (m) => m.EmployeereportsModule
           ),
       },
       {
-        path: "payslipreports",
+        path: 'payslipreports',
         loadChildren: () =>
-          import("./payslipreports/payslipreports.module").then(
+          import('./payslipreports/payslipreports.module').then(
             (m) => m.PayslipreportsModule
           ),
       },
       {
-        path: "attendancereports",
+        path: 'attendancereports',
         loadChildren: () =>
-          import("./attendancereports/attendancereports.module").then(
+          import('./attendancereports/attendancereports.module').then(
             (m) => m.AttendancereportsModule
           ),
       },
       {
-        path: "leavereports",
+        path: 'leavereports',
         loadChildren: () =>
-          import("./leavereports/leavereports.module").then(
+          import('./leavereports/leavereports.module').then(
             (m) => m.LeavereportsModule
           ),
       },
       {
-        path: "dailyreports",
+        path: 'dailyreports',
         loadChildren: () =>
-          import("./dailyreports/dailyreports.module").then(
+          import('./dailyreports/dailyreports.module').then(
             (m) => m.DailyreportsModule
           ),
       },
       {
-        path: "userdashboard",
+        path: 'userdashboard',
         loadChildren: () =>
-          import("./userdashboard/userdashboard.module").then(
+          import('./userdashboard/userdashboard.module').then(
             (m) => m.UserdashboardModule
           ),
       },
       {
-        path: "jobsdashboard",
+        path: 'jobsdashboard',
         loadChildren: () =>
-          import("./jobsdashboard/jobsdashboard.module").then(
+          import('./jobsdashboard/jobsdashboard.module').then(
             (m) => m.JobsdashboardModule
           ),
       },
       {
-        path: "manageresume",
+        path: 'manageresume',
         loadChildren: () =>
-          import("./manageresume/manageresume.module").then(
+          import('./manageresume/manageresume.module').then(
             (m) => m.ManageresumeModule
           ),
       },
       {
-        path: "candidate",
+        path: 'candidate',
         loadChildren: () =>
-          import("./candidate/candidate.module").then((m) => m.CandidateModule),
+          import('./candidate/candidate.module').then((m) => m.CandidateModule),
       },
       {
-        path: "interview",
+        path: 'interview',
         loadChildren: () =>
-          import("./interview/interview.module").then((m) => m.InterviewModule),
+          import('./interview/interview.module').then((m) => m.InterviewModule),
       },
       {
-        path: "offer",
+        path: 'offer',
         loadChildren: () =>
-          import("./offer/offer.module").then((m) => m.OfferModule),
+          import('./offer/offer.module').then((m) => m.OfferModule),
       },
       {
-        path: "experience",
+        path: 'experience',
         loadChildren: () =>
-          import("./experience/experience.module").then(
+          import('./experience/experience.module').then(
             (m) => m.ExperienceModule
           ),
       },
       {
-        path: "studentcandidate",
+        path: 'studentcandidate',
         loadChildren: () =>
-          import("./studentcandidate/studentcandidate.module").then(
+          import('./studentcandidate/studentcandidate.module').then(
             (m) => m.StudentcandidateModule
           ),
       },
       {
-        path: "scheduletiming",
+        path: 'scheduletiming',
         loadChildren: () =>
-          import("./scheduletiming/scheduletiming.module").then(
+          import('./scheduletiming/scheduletiming.module').then(
             (m) => m.ScheduletimingModule
           ),
       },
       {
-        path: "aptitute",
+        path: 'aptitute',
         loadChildren: () =>
-          import("./aptitute/aptitute.module").then((m) => m.AptituteModule),
+          import('./aptitute/aptitute.module').then((m) => m.AptituteModule),
       },
       {
-        path: "useralljobs",
+        path: 'useralljobs',
         loadChildren: () =>
-          import("./useralljobs/useralljobs.module").then(
+          import('./useralljobs/useralljobs.module').then(
             (m) => m.UseralljobsModule
           ),
       },
       {
-        path: "savedjobs",
+        path: 'savedjobs',
         loadChildren: () =>
-          import("./savedjobs/savedjobs.module").then((m) => m.SavedjobsModule),
+          import('./savedjobs/savedjobs.module').then((m) => m.SavedjobsModule),
       },
       {
-        path: "appliedjobs",
+        path: 'appliedjobs',
         loadChildren: () =>
-          import("./appliedjobs/appliedjobs.module").then(
+          import('./appliedjobs/appliedjobs.module').then(
             (m) => m.AppliedjobsModule
           ),
       },
       {
-        path: "interviewing",
+        path: 'interviewing',
         loadChildren: () =>
-          import("./interviewing/interviewing.module").then(
+          import('./interviewing/interviewing.module').then(
             (m) => m.InterviewingModule
           ),
       },
       {
-        path: "offeredjobs",
+        path: 'offeredjobs',
         loadChildren: () =>
-          import("./offeredjobs/offeredjobs.module").then(
+          import('./offeredjobs/offeredjobs.module').then(
             (m) => m.OfferedjobsModule
           ),
       },
       {
-        path: "visitedjobs",
+        path: 'visitedjobs',
         loadChildren: () =>
-          import("./visitedjobs/visitedjobs.module").then(
+          import('./visitedjobs/visitedjobs.module').then(
             (m) => m.VisitedjobsModule
           ),
       },
       {
-        path: "archivedjobs",
+        path: 'archivedjobs',
         loadChildren: () =>
-          import("./archivedjobs/archivedjobs.module").then(
+          import('./archivedjobs/archivedjobs.module').then(
             (m) => m.ArchivedjobsModule
           ),
       },
