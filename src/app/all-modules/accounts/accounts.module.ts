@@ -25,6 +25,7 @@ import { SharingModule } from 'src/app/sharing/sharing.module';
   imports: [
     CommonModule,
     AccountsRoutingModule,
+    FormsModule,,
     DataTablesModule,
     FormsModule,
     ReactiveFormsModule,

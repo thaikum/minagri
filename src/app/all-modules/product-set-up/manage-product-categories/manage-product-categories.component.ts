@@ -1,8 +1,7 @@
 import {Component, HostListener, NgZone, OnInit} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {SubsidyService} from "../../subsidy/subsidy.service";
 import {ProductService} from "../product.service";
-import {NgForm} from "@angular/forms";
+import {FormBuilder, NgForm} from "@angular/forms";
 
 interface Category {
 }
@@ -22,7 +21,7 @@ export class ManageProductCategoriesComponent implements OnInit {
     this.innerHeight = window.innerHeight + 'px';
   }
 
-  constructor(private ngZone: NgZone,http: HttpClient, public ps: ProductService,) {
+  constructor(private ngZone: NgZone,http: HttpClient, public ps: ProductService,private formBuilder: FormBuilder) {
     window.onresize = (e) => {
       this.ngZone.run(() => {
         this.innerHeight = window.innerHeight + 'px';
@@ -46,7 +45,7 @@ export class ManageProductCategoriesComponent implements OnInit {
   //  Endpoints
 //  1. get Product Categories
   public getCategory(): void{
-    this.ps.getCategory('').subscribe((response:any) => {
+    this.ps.getCategory('/products/listcategory').subscribe((response:any) => {
       console.log(response)
     })
   }

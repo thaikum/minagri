@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { CommissionRoutingModule } from './commission-routing.module';
 import { CommissionComponent } from './commission.component';
 import { ManageCommissionComponent } from './manage-commission/manage-commission.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -13,7 +15,10 @@ import { ManageCommissionComponent } from './manage-commission/manage-commission
   ],
   imports: [
     CommonModule,
-    CommissionRoutingModule
+    CommissionRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ]
 })
 export class CommissionModule { }

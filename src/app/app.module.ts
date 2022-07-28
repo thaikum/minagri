@@ -4,16 +4,21 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
 
 // Bootstrap DataTable
 import { DataTablesModule } from 'angular-datatables';
 import { ToastrModule } from 'ngx-toastr';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     DataTablesModule,

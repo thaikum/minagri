@@ -1,7 +1,8 @@
 import {Component, HostListener, NgZone, OnInit} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {SubsidyService} from "../subsidy.service";
-import {NgForm} from "@angular/forms";
+import {FormGroup, FormBuilder, Validators, NgForm} from "@angular/forms";
+
 
 interface Subsidy {
 
@@ -17,14 +18,12 @@ interface Subsidy {
 export class ManageSubsidyComponent implements OnInit {
 
   public innerHeight: any;
-  addSubsidyForm: any;
-  editSubsidyForm: any;
 
   getScreenHeight() {
     this.innerHeight = window.innerHeight + 'px';
   }
 
-  constructor(private ngZone: NgZone,http: HttpClient, public sb: SubsidyService,) {
+  constructor(private ngZone: NgZone, private http: HttpClient, public sb: SubsidyService,private formBuilder: FormBuilder) {
     window.onresize = (e) => {
       this.ngZone.run(() => {
         this.innerHeight = window.innerHeight + 'px';
@@ -35,7 +34,7 @@ export class ManageSubsidyComponent implements OnInit {
 
   ngOnInit() {
     //subsidies
-    this.getData();
+
   }
 
   onResize(event) {
@@ -65,7 +64,7 @@ export class ManageSubsidyComponent implements OnInit {
 
 //  2. Add susbsidy
   public onAddSubsidy(addForm: NgForm): void {
-    this.sb.addSubsidy('',addForm.value).subscribe(
+    this.sb.addSubsidy('', addForm.value).subscribe(
       (response:Subsidy) => {
         console.log(response);
         this.getData();

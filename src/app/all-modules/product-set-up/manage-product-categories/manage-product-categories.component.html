@@ -106,17 +106,17 @@
         </button>
       </div>
       <div class="modal-body">
-        <form #addForm="ngForm" (ngSubmit)="onAddProduct(addForm)" [formGroup]="addForm">
+        <form #addForm="ngForm" (ngSubmit)="onAddProduct(addForm)" [formGroup]="addProductForm">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
                 <label>Category Name</label>
-                <input class="form-control" type="text" [class.invalid]="addForm.get('itemName').invalid && addForm.get('itemName').touched"
+                <input class="form-control" type="text" [class.invalid]="addProductForm.get('itemName').invalid && addProductForm.get('itemName').touched"
                        formControlName="itemName">
                 <div
-                  *ngIf="addForm.get('itemName').invalid && addForm.get('itemName').touched">
+                  *ngIf="addProductForm.get('itemName').invalid && addProductForm.get('itemName').touched">
                   <small
-                    *ngIf="addForm.get('itemName').invalid && addForm.get('itemName').touched"
+                    *ngIf="addProductForm.get('itemName').invalid && addProductForm.get('itemName').touched"
                     class="text-danger"> *Item name is required</small>
                 </div>
               </div>
@@ -124,19 +124,19 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Description</label>
-                <input class="form-control" type="text" [class.invalid]="addForm.get('itemName').invalid && addForm.get('itemName').touched"
+                <input class="form-control" type="text" [class.invalid]="addProductForm.get('itemName').invalid && addProductForm.get('itemName').touched"
                        formControlName="itemName">
                 <div
-                  *ngIf="addForm.get('itemName').invalid && addForm.get('itemName').touched">
+                  *ngIf="addProductForm.get('itemName').invalid && addProductForm.get('itemName').touched">
                   <small
-                    *ngIf="addForm.get('itemName').invalid && addForm.get('itemName').touched"
+                    *ngIf="addProductForm.get('itemName').invalid && addProductForm.get('itemName').touched"
                     class="text-danger"> *Item name is required</small>
                 </div>
               </div>
             </div>
           </div>
           <div class="submit-section">
-            <button type="submit" class="btn btn-primary" [disabled]="!addForm.valid">Submit</button>
+            <button class="btn btn-primary submit-btn">Submit</button>
           </div>
         </form>
       </div>

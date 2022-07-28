@@ -6,6 +6,8 @@ import { ManageProductCategoriesComponent } from './manage-product-categories/ma
 import { ManageProductTypeComponent } from './manage-product-type/manage-product-type.component';
 import { ManageProductsComponent } from './manage-products/manage-products.component';
 import { ProductSetUpComponent } from './product-set-up.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
 
 
 @NgModule({
@@ -17,7 +19,10 @@ import { ProductSetUpComponent } from './product-set-up.component';
   ],
   imports: [
     CommonModule,
-    ProductSetUpRoutingModule
+    ProductSetUpRoutingModule,
+    FormsModule,
+    HttpClientModule,
+    ReactiveFormsModule
   ]
 })
 export class ProductSetUpModule { }
