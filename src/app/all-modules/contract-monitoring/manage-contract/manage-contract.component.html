@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12">
-        <a class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#add_review"><i
+        <a class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#add_contract"><i
           class="fa fa-plus"></i> Add Contract Review</a>
       </div>
     </div>
@@ -59,7 +59,7 @@
 <!-- /Page Content -->
 
 <!-- Add Contract Review Modal -->
-<div id="add_review" class="modal custom-modal fade" role="dialog" style="width: fit-content; margin-left: 30%">
+<div id="add_contract" class="modal custom-modal fade" role="dialog" style="width: fit-content; margin-left: 30%">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header" style="border-bottom: 1px solid #dee2e6;">
@@ -69,17 +69,17 @@
         </button>
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="addReview()" [formGroup]="addReviewForm">
+        <form (ngSubmit)="addContract()" [formGroup]="addContractForm">
           <div class="row">
               <div class="form-group">
                 <label>Product Name</label>
                 <span class="text-danger" style="padding-left: 5px">*</span>
-                <input class="form-control" type="text" [class.invalid]="addReviewForm.get('subsidyName').invalid && addReviewForm.get('subsidyName').touched"
-                       formControlName="subsidyName">
+                <input class="form-control" type="text" [class.invalid]="addContractForm.get('subsidyName').invalid && addReviewForm.get('subsidyName').touched"
+                       formControlName="productName">
                 <div
-                  *ngIf="addReviewForm.get('subsidyName').invalid && addReviewForm.get('subsidyName').touched">
+                  *ngIf="addContractForm.get('productName').invalid && addContractForm.get('productName').touched">
                   <small
-                    *ngIf="addReviewForm.get('subsidyName').invalid && addReviewForm.get('subsidyName').touched"
+                    *ngIf="addContractForm.get('productName').invalid && addContractForm.get('productName').touched"
                     class="text-danger"> *Item name is required</small>
                 </div>
               </div>
@@ -88,12 +88,12 @@
             <div class="form-group">
               <label>Contract Name</label>
               <span class="text-danger" style="padding-left: 5px">*</span>
-              <input class="form-control" type="text" [class.invalid]="addReviewForm.get('subsidyName').invalid && addReviewForm.get('subsidyName').touched"
-                     formControlName="subsidyName">
+              <input class="form-control" type="text" [class.invalid]="addContractForm.get('contractName').invalid && addContractForm.get('contractName').touched"
+                     formControlName="contractName">
               <div
-                *ngIf="addReviewForm.get('subsidyName').invalid && addReviewForm.get('subsidyName').touched">
+                *ngIf="addContractForm.get('contractName').invalid && addContractForm.get('contractName').touched">
                 <small
-                  *ngIf="addReviewForm.get('subsidyName').invalid && addReviewForm.get('subsidyName').touched"
+                  *ngIf="addContractForm.get('contractName').invalid && addContractForm.get('contractName').touched"
                   class="text-danger"> *Item name is required</small>
               </div>
             </div>
@@ -104,7 +104,16 @@
               <span class="text-danger" style="padding-left: 5px">*</span>
               <div class="form-group form-focus">
                 <div class="cal-icon">
-                  <input class="form-control floating datetimepicker" type="text" bsDatepicker type="text"  [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }" (bsValueChange)="searchByFrom($event)">
+                  <input class="form-control datetimepicker" type="text" bsDatepicker type="text"
+                         [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }"
+                         [class.invalid]="addContractForm.get('StartDate').invalid && addContractForm.get('StartDate').touched"
+                         formControlName="contractStartDate">
+                </div>
+                <div
+                  *ngIf="addContractForm.get('StartDate').invalid && addContractForm.get('StartDate').touched">
+                  <small
+                    *ngIf="addContractForm.get('StartDate').invalid && addContractForm.get('StartDate').touched"
+                    class="text-danger"> *Start Date is required</small>
                 </div>
               </div>
             </div>
@@ -113,7 +122,16 @@
               <span class="text-danger" style="padding-left: 5px">*</span>
               <div class="form-group form-focus">
                 <div class="cal-icon">
-                  <input class="form-control floating datetimepicker" bsDatepicker type="text" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }" (bsValueChange)="searchByTo($event)">
+                  <input class="form-control datetimepicker" type="text" bsDatepicker type="text"
+                         [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }"
+                         [class.invalid]="addContractForm.get('EndDate').invalid && addContractForm.get('EndDate').touched"
+                         formControlName="contractEndDate">
+                </div>
+                <div
+                  *ngIf="addContractForm.get('EndDate').invalid && addContractForm.get('EndDate').touched">
+                  <small
+                    *ngIf="addContractForm.get('EndDate').invalid && addContractForm.get('EndDate').touched"
+                    class="text-danger"> *Date is required</small>
                 </div>
               </div>
             </div>
@@ -125,7 +143,7 @@
             </div>
           </div>
           <div class="submit-section">
-            <button class="btn btn-primary submit-btn">Submit</button>
+            <button class="btn btn-primary submit-btn" (click)="addContract()">Submit</button>
           </div>
         </form>
       </div>

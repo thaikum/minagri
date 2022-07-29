@@ -7,7 +7,7 @@ import {HttpClient} from "@angular/common/http";
 export class SubsidyService {
 
   constructor(private http: HttpClient) { }
-  url = 'http://157.230.190.229:8843/v2/api-docs'
+  url = 'http://157.230.190.229:8843'
 
   //Get All Subsidies
   getSubsidy(endpoint: string){

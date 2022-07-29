@@ -1,11 +1,13 @@
-import {Component, HostListener, NgZone, OnInit} from '@angular/core';
+import {Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {ProductService} from "../product.service";
-import {NgForm} from "@angular/forms";
+import {FormGroup, FormBuilder, Validators} from "@angular/forms";
+import { ToastrService } from "ngx-toastr";
+import { Subject } from "rxjs";
+import { DatePipe } from "@angular/common";
+import { DataTableDirective } from "angular-datatables";
 
-interface productType {
-}
-
+@HostListener('window: resize', ['$event'])
 @Component({
   selector: 'app-manage-product-type',
   templateUrl: './manage-product-type.component.html',
@@ -13,7 +15,18 @@ interface productType {
 })
 
 @HostListener('window: resize', ['$event'])
-export class ManageProductTypeComponent implements OnInit {
+export class ManageProductTypeComponent implements OnInit, OnDestroy {
+  @ViewChild(DataTableDirective, { static: false })
+  public dtElement: DataTableDirective;
+  public dtOptions: DataTables.Settings = {};
+  public productTypes = [];
+  public addProductTypeForm: FormGroup;
+
+  public rows = [];
+  public srch = [];
+  public statusValue;
+  public dtTrigger: Subject<any> = new Subject();
+  public pipe = new DatePipe("en-US");
 
   public innerHeight: any;
 
@@ -21,44 +34,79 @@ export class ManageProductTypeComponent implements OnInit {
     this.innerHeight = window.innerHeight + 'px';
   }
 
-  constructor(private ngZone: NgZone,http: HttpClient, public ps: ProductService,) {
-    window.onresize = (e) => {
-      this.ngZone.run(() => {
-        this.innerHeight = window.innerHeight + 'px';
-      });
-    };
-    this.getScreenHeight();
-  }
+  constructor(http: HttpClient, public ps: ProductService,private formBuilder: FormBuilder,private toastr: ToastrService,) {}
 
   ngOnInit() {
-    this.getProduct();
-  }
+    $(document).ready(function () {
+      // @ts-ignore
+      $('[data-bs-toggle="tooltip"]').tooltip();
+    });
+    // Add ProductType  Form Validation
+    this.addProductTypeForm = this.formBuilder.group({
+      productName: ["", [Validators.required]],
+      productType: ["", [Validators.required]],
+      version: ["", [Validators.required]],
+      farmerCategory: ["", [Validators.required]],
+      rate: ["", [Validators.required]],
+      loading: ["", [Validators.required]],
+      loadingRate: ["", [Validators.required]],
+      productMatrix: ["", [Validators.required]],
+      documents: ["", [Validators.required]],
+    });
 
-  onResize(event) {
-    this.innerHeight = event.target.innerHeight + 'px';
+    this.listProduct();
   }
-
 
 
   //  Endpoints
 //  1. get Product Types
-  public getProduct(): void{
-    this.ps.getType('').subscribe((response:any) => {
-      console.log(response)
-    })
+  public listProduct(): void {
+    this.ps.getproductType('').subscribe((data) => {
+      // @ts-ignore
+      this.productTypes = data;
+      this.dtTrigger.next();
+      this.rows = this.productTypes;
+      this.srch = [...this.rows];
+    });
+  }
+
+  private markFormGroupTouched(formGroup: FormGroup) {
+    (<any>Object).values(formGroup.controls).forEach((control) => {
+      control.markAsTouched();
+      if (control.controls) {
+        this.markFormGroupTouched(control);
+      }
+    });
   }
 
 //  2. Add Product Type
-  public onAddProduct(addForm: NgForm): void {
-    this.ps.addCategory('',addForm.value).subscribe(
-      (response:productType) => {
-        console.log(response);
-        this.getProduct();
-      },
-      (error:HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
+  public addProductType() {
+    if(this.addProductTypeForm.invalid){
+      this.markFormGroupTouched(this.addProductTypeForm)
+      return
+    }
+    let newProductType = {
+      productName: this.addProductTypeForm.value.productName,
+      productType: this.addProductTypeForm.value.productType,
+      version: this.addProductTypeForm.value.version,
+      farmerCategory: this.addProductTypeForm.value.farmerCategory,
+      rate: this.addProductTypeForm.value.rate,
+      loading: this.addProductTypeForm.value.loading,
+      loadingRate: this.addProductTypeForm.value.loadingRate,
+      productMatrix: this.addProductTypeForm.value.productMatrix,
+      document: this.addProductTypeForm.value.document,
+    };
+    this.ps.addProduct('', newProductType).subscribe();
+    this.listProduct();
+    this.addProductTypeForm.reset();
+    // @ts-ignore
+    $("#add_product_type").modal("hide");
+    this.toastr.success("Product Type added sucessfully...!", "Success");
+  }
 
+  // for unsubscribe datatable
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+    this.dtTrigger.unsubscribe();
   }
 }

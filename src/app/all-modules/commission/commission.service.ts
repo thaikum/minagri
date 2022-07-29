@@ -16,8 +16,8 @@ export class CommissionService {
     return this.http.get(this.url + endpoint);
   }
 
-  //  Add New Sales Commission
-  addCommission(endpoint: string, model: any){
+  //  Creat New Sales Commission
+  createCommission(endpoint: string, model: any){
     return this.http.post(this.url + endpoint, model);
   }
 }

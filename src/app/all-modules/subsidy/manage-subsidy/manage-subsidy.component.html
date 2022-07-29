@@ -51,13 +51,13 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let expenses of allSubsidy;let i = index">
+          <tr *ngFor="let subsidy of subsidy;let i = index">
             <td></td>
             <td></td>
             <td></td>
             <td></td>
           </tr>
-          <tr *ngIf="allSubsidy.length === 0">
+          <tr *ngIf="subsidy.length === 0">
             <td colspan="10">
               <h5 style="text-align: center;">No data found</h5>
             </td>
@@ -82,7 +82,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form #addForm="ngForm" (ngSubmit)="onaddSubsidy()" [formGroup]="addSubsidyForm">
+        <form (ngSubmit)="addSubsidy()" [formGroup]="addSubsidyForm">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
@@ -93,7 +93,7 @@
                   *ngIf="addSubsidyForm.get('subsidyName').invalid && addSubsidyForm.get('subsidyName').touched">
                   <small
                     *ngIf="addSubsidyForm.get('subsidyName').invalid && addSubsidyForm.get('subsidyName').touched"
-                    class="text-danger"> *Item name is required</small>
+                    class="text-danger"> *Subsidy Name is required</small>
                 </div>
               </div>
             </div>
@@ -109,10 +109,10 @@
                   <option>Indemnity Livestock</option>
                 </select>
                 <div
-                  *ngIf="addSubsidyForm.get('purchasedBy').invalid && addSubsidyForm.get('purchasedBy').touched">
+                  *ngIf="addSubsidyForm.get('productType').invalid && addSubsidyForm.get('productType').touched">
                   <small
-                    *ngIf="addSubsidyForm.get('purchasedBy').invalid && addSubsidyForm.get('purchasedBy').touched"
-                    class="text-danger"> *Purchased by is required</small>
+                    *ngIf="addSubsidyForm.get('productType').invalid && addSubsidyForm.get('productType').touched"
+                    class="text-danger"> *Product Type is required</small>
                 </div>
               </div>
             </div>
@@ -121,13 +121,13 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Subsidy Rate</label>
-                <input class="form-control" type="text" [class.invalid]="addSubsidyForm.get('subsidyName').invalid && editSubsidyForm.get('subsidyName').touched"
-                       formControlName="subsidyName">
+                <input class="form-control" type="text" [class.invalid]="addSubsidyForm.get('subsidyRate').invalid && addSubsidyForm.get('subsidyRate').touched"
+                       formControlName="subsidyRate">
                 <div
-                  *ngIf="addSubsidyForm.get('subsidyName').invalid && addSubsidyForm.get('subsidyName').touched">
+                  *ngIf="addSubsidyForm.get('subsidyRate').invalid && addSubsidyForm.get('subsidyRate').touched">
                   <small
-                    *ngIf="addSubsidyForm.get('subsidyName').invalid && addSubsidyForm.get('subsidyName').touched"
-                    class="text-danger"> *Item rate is required</small>
+                    *ngIf="addSubsidyForm.get('subsidyRate').invalid && addSubsidyForm.get('subsidyRate').touched"
+                    class="text-danger"> *Subsidy Rate is required</small>
                 </div>
               </div>
             </div>
@@ -149,20 +149,8 @@
               </div>
             </div>
           </div>
-<!--          <div class="attach-files">-->
-<!--            <ul>-->
-<!--              <li>-->
-<!--                <img src="assets/img/placeholder.jpg" alt="">-->
-<!--                <a class="fa fa-close file-remove"></a>-->
-<!--              </li>-->
-<!--              <li>-->
-<!--                <img src="assets/img/placeholder.jpg" alt="">-->
-<!--                <a class="fa fa-close file-remove"></a>-->
-<!--              </li>-->
-<!--            </ul>-->
-<!--          </div>-->
           <div class="submit-section">
-            <button class="btn btn-primary submit-btn">Submit</button>
+            <button class="btn btn-primary submit-btn" (click)="addSubsidy()" ]>Submit</button>
           </div>
         </form>
       </div>
