@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {DataTableDirective} from "angular-datatables";
-import {Subject} from "rxjs";
-import {User} from "../../interface/User";
-import {UsersService} from "../../services/users.service";
+import {DataTableDirective} from 'angular-datatables';
+import {Subject} from 'rxjs';
+import {User} from '../../interface/User';
+import {UsersService} from '../../services/users.service';
+import {MatDialogRef} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-user-modal',
@@ -16,12 +17,10 @@ export class UserModalComponent implements OnInit {
 
   users: User[]
 
-  constructor(private _userService: UsersService) {
-    this._userService.getAllUsers().subscribe((users)=>{
-      this.users = users.body;
-    })
+  constructor(private _userService: UsersService,public dialogRef: MatDialogRef<UserModalComponent>) {
   }
   ngOnInit(): void {
+    this.getUsers();
   }
 
   getUsers(): void{

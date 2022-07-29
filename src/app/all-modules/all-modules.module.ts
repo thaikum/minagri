@@ -21,6 +21,7 @@ import { AllModulesService } from './all-modules.service';
 
 // Api All Modules Database
 import { AllModulesData } from 'src/assets/all-modules-data/all-modules-data';
+import {MatDialogModule} from "@angular/material/dialog";
 
 
 

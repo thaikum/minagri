@@ -20,6 +20,8 @@ import {Organization} from '../../../interface/Organization';
 import {OrganizationService} from "../../../services/organization.service";
 import {User} from "../../../interface/User";
 import {UsersService} from "../../../services/users.service";
+import {MatDialog} from "@angular/material/dialog";
+import {UserModalComponent} from "../../../modals/user-modal/user-modal.component";
 
 declare const $: any;
 
@@ -57,7 +59,8 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private _organizationService: OrganizationService,
-    private _userService: UsersService
+    private _userService: UsersService,
+    private _dialog: MatDialog
   ) {
   }
 
@@ -110,12 +113,16 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
       pageLength: 10,
       dom: 'lrtip',
     };
+  }
 
-    this._userService.getAllUsers().subscribe((users)=>{
-      this.users = users.body;
-      console.log(users)
-      console.log(this.users);
-    })
+  openUserModal(): void{
+    const dialogRef = this._dialog.open(UserModalComponent);
+
+    // dialogRef.afterClosed((data)=>{
+    //   if(data.action){
+    //     this.addOrganization.controls['contactuserid'].setValue(data.userId);
+    //   }
+    // })
   }
 
   ngAfterViewInit(): void {
