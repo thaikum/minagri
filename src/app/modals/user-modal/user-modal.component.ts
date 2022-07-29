@@ -15,7 +15,7 @@ export class UserModalComponent implements OnInit {
   public dtOptions: DataTables.Settings = {};
   public dtTrigger: Subject<any> = new Subject();
 
-  users: User[]
+  users: User[] = []
 
   constructor(private _userService: UsersService,public dialogRef: MatDialogRef<UserModalComponent>) {
   }
@@ -25,7 +25,8 @@ export class UserModalComponent implements OnInit {
 
   getUsers(): void{
     this._userService.getAllUsers().subscribe((resp)=>{
-      this.users = resp.body;
+      console.log(resp.body)
+      // this.users = resp.body;
     })
   }
 
