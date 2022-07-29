@@ -22,7 +22,7 @@ export class OrganizationService {
   }
 
   create(data): Observable<any>{
-    return this._http.post(this.baseUrl+'createorgtype/',this.httpOptions)
+    return this._http.post(this.baseUrl+'createorgtype/',data, this.httpOptions)
   }
 
   getAll(): Observable<any>{

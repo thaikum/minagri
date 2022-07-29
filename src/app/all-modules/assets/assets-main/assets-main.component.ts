@@ -17,11 +17,11 @@ import {Subject} from 'rxjs';
 import {DataTableDirective} from 'angular-datatables';
 import {DatePipe} from '@angular/common';
 import {Organization} from '../../../interface/Organization';
-import {OrganizationService} from "../../../services/organization.service";
-import {User} from "../../../interface/User";
-import {UsersService} from "../../../services/users.service";
-import {MatDialog} from "@angular/material/dialog";
-import {UserModalComponent} from "../../../modals/user-modal/user-modal.component";
+import {OrganizationService} from '../../../services/organization.service';
+import {User} from '../../../interface/User';
+import {UsersService} from '../../../services/users.service';
+import {MatDialog} from '@angular/material/dialog';
+import {UserModalComponent} from '../../../modals/user-modal/user-modal.component';
 
 declare const $: any;
 
@@ -48,10 +48,10 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
   public editPurchaseDateFormat;
   public editPurchaseToDateFormat;
 
-  public userDt: DataTables.Settings = {};
-  userDtTrigger:Subject<any> = new Subject();
+  public userDtOptions: DataTables.Settings = {};
+  userDtTrigger: Subject<any> = new Subject();
 
-  users: User[];
+  users: User[] = [{}];
 
 
   constructor(
@@ -107,6 +107,8 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
       website: [''],
     });
 
+    this.getUsers();
+
     // for data table configuration
     this.dtOptions = {
       // ... skipped ...
@@ -115,14 +117,8 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
     };
   }
 
-  openUserModal(): void{
-    const dialogRef = this._dialog.open(UserModalComponent);
-
-    // dialogRef.afterClosed((data)=>{
-    //   if(data.action){
-    //     this.addOrganization.controls['contactuserid'].setValue(data.userId);
-    //   }
-    // })
+  setUser(user: User): void {
+    this.addOrganization.controls.contactuserid.setValue(user.userid);
   }
 
   ngAfterViewInit(): void {
@@ -138,6 +134,7 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
     });
+
     this.allAssets = [];
     this.getAssets();
     setTimeout(() => {
@@ -148,10 +145,17 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
   // get data for data table
   getAssets() {
     this._organizationService.getAll().subscribe((data) => {
-      this.allAssets = data;
+      this.allAssets = data.body;
       this.rows = this.allAssets;
       this.srch = [...this.rows];
     });
+  }
+
+  getUsers(): void {
+    this._userService.getAllUsers().subscribe(data => {
+      this.users = data.body;
+      this.userDtTrigger.next();
+    })
   }
 
   private markFormGroupTouched(formGroup: FormGroup) {
@@ -181,7 +185,7 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
       const obj = {
         contactuserid: this.addOrganization.value.contactuserid,
         email: this.addOrganization.value.email,
-        licensenumber:  this.addOrganization.value.licensenumber,
+        licensenumber: this.addOrganization.value.licensenumber,
         locationid: this.addOrganization.value.locationid,
         name: this.addOrganization.value.name,
         orgtype: this.addOrganization.value.orgtype,
@@ -190,7 +194,7 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
         website: this.addOrganization.value.website,
       };
 
-      this.allModuleService.add(obj, this.url).subscribe((data) => {
+      this._organizationService.create(obj).subscribe((data) => {
         $('#datatable').DataTable().clear();
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.destroy();
@@ -222,7 +226,7 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
       const obj = {
         contactuserid: this.editOrganization.value.contactuserid,
         email: this.editOrganization.value.email,
-        licensenumber:  this.editOrganization.value.licensenumber,
+        licensenumber: this.editOrganization.value.licensenumber,
         locationid: this.editOrganization.value.locationid,
         name: this.editOrganization.value.name,
         orgtype: this.editOrganization.value.orgtype,
@@ -255,7 +259,7 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
     this.editOrganization.setValue({
       contactuserid: toSetValues.contactuserid,
       email: toSetValues.email,
-      licensenumber:  toSetValues.licensenumber,
+      licensenumber: toSetValues.licensenumber,
       locationid: toSetValues.locationid,
       name: toSetValues.name,
       orgtype: toSetValues.orgtype,

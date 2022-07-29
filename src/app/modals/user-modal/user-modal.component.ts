@@ -12,8 +12,8 @@ import {MatDialogRef} from '@angular/material/dialog';
 })
 export class UserModalComponent implements OnInit {
   public dtElement: DataTableDirective;
-  // public dtOptions: DataTables.Settings = {};
-  // public dtTrigger: Subject<any> = new Subject();
+  public dtOptions: DataTables.Settings = {};
+  public dtTrigger: Subject<any> = new Subject();
 
   users: User[] = []
 

@@ -215,14 +215,14 @@
                 <label>Contact user</label>
                 <div class="input-group">
                   <input type="text" class="form-control" formControlName="contactuserid">
-                  <div class="input-group-append" (click)="openUserModal()">
-                    <i class=" fa fa-search" aria-hidden="true"></i>
-                  </div>
+                  <a class="input-group-append btn"  data-bs-toggle="modal" data-bs-target="#org-user">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                  </a>
                 </div>
                 <select class="form-select form-control"
                         [class.invalid]="addOrganization.get('contactuserid').invalid && addOrganization.get('contactuserid').touched"
                         formControlName="contactuserid">
-                  <option *ngFor="let user of users" [value]="user.userid" >{{user.name}}</option>
+                  <option *ngFor="let user of users" [value]="user.userid">{{user.name}}</option>
                 </select>
                 <div
                   *ngIf="addOrganization.get('contactuserid').invalid && addOrganization.get('contactuserid').touched">
@@ -365,4 +365,39 @@
     </div>
   </div>
 </div>
+
+{{users | json}}
+
+<!--================================== user table =======================================================-->
+
+<!--<div id="org-users" class="modal custom-modal fade" role="dialog">-->
+<!--  <div class="modal-dialog modal-md" role="document">-->
+<!--    <div class="modal-content">-->
+<!--      <div class="modal-header">-->
+<!--        <h5 class="modal-title">Edit Asset</h5>-->
+<!--        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">-->
+<!--          <span aria-hidden="true">&times;</span>-->
+<!--        </button>-->
+<!--      </div>-->
+<!--      <div class="modal-body">-->
+<!--        <table>-->
+<!--          <thead>-->
+<!--          <tr>-->
+<!--            <th>User Id</th>-->
+<!--            <th>User Name</th>-->
+<!--          </tr>-->
+<!--          </thead>-->
+<!--          <tbody>-->
+<!--          <tr *ngFor="let user of users" (click)="user = setUser(user)">-->
+<!--            <td>{{user?.userid}}</td>-->
+<!--            <td>{{user?.name}}</td>-->
+<!--          </tr>-->
+<!--          </tbody>-->
+<!--        </table>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+
 

@@ -17,4 +17,8 @@ export class FarmerService {
   getAllFarmers(): Observable<any> {
     return this._http.get<any>(this.baseUrl+'listfarmers', {headers});
   }
+
+  createFarmer(obj) {
+    return this._http.post(this.baseUrl+'editprofile', obj, {headers})
+  }
 }

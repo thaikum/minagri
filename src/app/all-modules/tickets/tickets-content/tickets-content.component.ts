@@ -70,6 +70,7 @@ export class TicketsContentComponent implements OnInit, OnDestroy, AfterViewInit
       nidaverification: ['N'],
       photo: [''],
       rlmaverification: ['N'],
+      userid: ['N']
     });
 
     // Edit Ticket Form Validation And Getting Values
@@ -140,28 +141,20 @@ export class TicketsContentComponent implements OnInit, OnDestroy, AfterViewInit
       return
     }
     if (this.addTicketForm.valid) {
-      // let created = this.pipe.transform(
-      //   "12-05-2020",
-      //   "dd-MM-yyyy"
-      // );
-      // let lastDate = this.pipe.transform(
-      //   "13-05-2020",
-      //   "dd-MM-yyyy"
-      // );
       const obj = {
-        ticketSubject: this.addTicketForm.value.ticketSubject,
-        ticketId: this.addTicketForm.value.ticketId,
-        assignedStaff: this.addTicketForm.value.assignStaff,
-        client: this.addTicketForm.value.clientName,
-        cc: this.addTicketForm.value.ccName,
-        priority: this.addTicketForm.value.PriorityName,
-        assigne: this.addTicketForm.value.AssignName,
-        addfollow: this.addTicketForm.value.addFlowers,
-        createdDate: '05-05-2020',
-        lastReply: '11-05-2020',
-        status: 'Pending',
+        accountname: this.addTicketForm.value.accountname,
+        accountnumber: this.addTicketForm.value.accountnumber,
+        bankname: this.addTicketForm.value.bankname,
+        branch: this.addTicketForm.value.branch,
+        fieldagentid: this.addTicketForm.value.fieldagentid,
+        locationid: this.addTicketForm.value.locationid,
+        maritalstatus: this.addTicketForm.value.maritalstatus,
+        nidaverification: this.addTicketForm.value.nidaverification,
+        photo: '',
+        rlmaverification: this.addTicketForm.value.rlmaverification,
+        userid: this.addTicketForm.value.userid || 1
       };
-      this.allModuleService.add(obj, this.url).subscribe((data) => {
+      this._farmerService.createFarmer(obj).subscribe((data) => {
         $('#datatable').DataTable().clear();
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.destroy();

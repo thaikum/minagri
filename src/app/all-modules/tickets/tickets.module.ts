@@ -7,8 +7,8 @@ import { TicketsContentComponent } from './tickets-content/tickets-content.compo
 import { DataTablesModule } from 'angular-datatables';
 import { TicketsViewComponent } from './tickets-view/tickets-view.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BsDatepickerModule } from 'ngx-bootstrap';
 import { SharingModule } from 'src/app/sharing/sharing.module';
+import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
 
 @NgModule({
   declarations: [TicketsComponent, TicketsContentComponent, TicketsViewComponent],
