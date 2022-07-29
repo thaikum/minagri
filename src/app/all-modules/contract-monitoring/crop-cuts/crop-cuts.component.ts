@@ -5,6 +5,7 @@ import { Subject } from "rxjs";
 import { DatePipe } from "@angular/common";
 import { DataTableDirective } from "angular-datatables";
 import {ContractService} from "../contract.service";
+import {CropCuts} from "../interface/crop-cuts";
 
 declare const $: any;
 @Component({
@@ -16,7 +17,7 @@ export class CropCutsComponent implements OnInit, OnDestroy {
   @ViewChild(DataTableDirective, { static: false })
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
-  public cropcuts = [];
+  public Cropcuts: CropCuts[] = [];
   public addCropcutsForm: FormGroup;
 
   public rows = [];
@@ -31,7 +32,7 @@ export class CropCutsComponent implements OnInit, OnDestroy {
     $(document).ready(function () {
       $('[data-bs-toggle="tooltip"]').tooltip();
     });
-    // this.getCropcuts();
+    this.getCropcuts();
 
     // Add Contract Review Form Validation
     this.addCropcutsForm = this.formBuilder.group({
@@ -46,13 +47,30 @@ export class CropCutsComponent implements OnInit, OnDestroy {
     });
   }
 
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.dtTrigger.next();
+    }, 1000);
+  }
+
+  // manually rendering Data table
+  rerender(): void {
+    $('#datatable').DataTable().clear();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+    });
+    this.Cropcuts = [];
+    this.getCropcuts();
+    setTimeout(() => {
+      this.dtTrigger.next();
+    }, 1000);
+  }
+
   //Get All Cropcuts
   public getCropcuts(): void {
-    this.cs.getCropcuts('').subscribe((data) => {
-      // @ts-ignore
-      this.cropcuts = data;
-      this.dtTrigger.next();
-      this.rows = this.cropcuts;
+    this.cs.getAllCropcuts().subscribe((data) => {
+      this.Cropcuts = data;
+      this.rows = this.Cropcuts;
       this.srch = [...this.rows];
     });
   }
@@ -90,11 +108,27 @@ export class CropCutsComponent implements OnInit, OnDestroy {
       provinceName: this.addCropcutsForm.value.provinceName,
       districtName: this.addCropcutsForm.value.districtName,
     };
-    this.cs.addCropcut('', newCropcut).subscribe();
+    this.cs.addCropcut(newCropcut).subscribe((data) =>{
+      $('#datatable').DataTable().clear();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.destroy();
+      });
+      this.dtTrigger.next();
+    });
     this.getCropcuts();
     this.addCropcutsForm.reset();
     $("#add_contract").modal("hide");
     this.toastr.success("Contract Review added sucessfully...!", "Success");
+  }
+
+  // search by name
+  searchName(val) {
+    this.rows.splice(0, this.rows.length);
+    const temp = this.srch.filter(function (d) {
+      val = val.toLowerCase();
+      return d.productName.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+    this.rows.push(...temp);
   }
 
   // for unsubscribe datatable

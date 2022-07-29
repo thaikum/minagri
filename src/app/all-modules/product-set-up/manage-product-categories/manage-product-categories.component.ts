@@ -6,6 +6,7 @@ import { ToastrService } from "ngx-toastr";
 import { Subject } from "rxjs";
 import { DatePipe } from "@angular/common";
 import { DataTableDirective } from "angular-datatables";
+import {Categories} from "../interface/categories";
 
 
 @HostListener('window: resize', ['$event'])
@@ -20,7 +21,7 @@ export class ManageProductCategoriesComponent implements OnInit, OnDestroy {
   @ViewChild(DataTableDirective, { static: false })
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
-  public products = [];
+  public products: Categories[] = [];
   public addProductForm: FormGroup;
 
   public rows = [];
@@ -50,14 +51,31 @@ export class ManageProductCategoriesComponent implements OnInit, OnDestroy {
     this.getCategory();
   }
 
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.dtTrigger.next();
+    }, 1000);
+  }
+
+  // manually rendering Data table
+  rerender(): void {
+    $('#datatable').DataTable().clear();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+    });
+    this.products = [];
+    this.getCategory();
+    setTimeout(() => {
+      this.dtTrigger.next();
+    }, 1000);
+  }
+
 
   //  Endpoints
 //  1. get Product Categories
   public getCategory(): void {
-    this.ps.getCategory('/products/listcategory').subscribe((data) => {
-      // @ts-ignore
+    this.ps.getAllCategory().subscribe((data) => {
       this.products = data;
-      this.dtTrigger.next();
       this.rows = this.products;
       this.srch = [...this.rows];
     });
@@ -82,12 +100,29 @@ export class ManageProductCategoriesComponent implements OnInit, OnDestroy {
       productName: this.addProductForm.value.productName,
       contractName: this.addProductForm.value.contractName,
     };
-    this.ps.addProduct('', newProduct).subscribe();
+    // @ts-ignore
+    this.ps.addProduct(newProduct).subscribe((data) => {
+      $('#datatable').DataTable().clear();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.destroy();
+      });
+      this.dtTrigger.next();
+    });
     this.getCategory();
     this.addProductForm.reset();
     // @ts-ignore
     $("#add_product").modal("hide");
     this.toastr.success("Contract Review added sucessfully...!", "Success");
+  }
+
+  // search by name
+  searchName(val) {
+    this.rows.splice(0, this.rows.length);
+    const temp = this.srch.filter(function (d) {
+      val = val.toLowerCase();
+      return d.productName.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+    this.rows.push(...temp);
   }
 
   // for unsubscribe datatable

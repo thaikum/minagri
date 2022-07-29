@@ -1,36 +1,45 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {environment} from "../../../environments/environment";
+import {headers} from "../../http/http-headers";
+import {Observable} from "rxjs";
+import {Categories} from "./interface/categories";
+import {Producttypes} from "./interface/producttypes";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
+  private baseUrl = environment.apiUrl+'products/'
+
+  httpOptions = {
+    headers: headers
+  }
 
   constructor(private http: HttpClient) { }
-  url = 'http://157.230.190.229:8843'
 
   // Product Category
 
   //Get All Product Categories
-  getCategory(endpoint: string){
-    return this.http.get(this.url + endpoint);
+  getAllCategory(): Observable<any>{
+    return this.http.get(this.baseUrl+'listcategory',this.httpOptions);
   }
 
 //  Add New Product Category
-  addProduct(endpoint: string, model: any){
-    return this.http.post(this.url + endpoint, model);
+  addProduct(category: Categories): Observable<any>{
+    return this.http.post(this.baseUrl+'createtype' ,category, this.httpOptions);
   }
 
   // Product Type
 
   //Get All Product Types
-  getproductType(endpoint: string){
-    return this.http.get(this.url + endpoint);
+  getproductType(): Observable<any>{
+    return this.http.get(this.baseUrl+'', this.httpOptions);
   }
 
 //  Add New Product Type
-  addproductType(endpoint: string, model: any){
-    return this.http.post(this.url + endpoint, model);
+  addproductType(producttypes: Producttypes): Observable<any>{
+    return this.http.post(this.baseUrl+'createtype', producttypes, this.httpOptions);
   }
 
 

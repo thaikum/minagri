@@ -5,6 +5,7 @@ import { Subject } from "rxjs";
 import { DatePipe } from "@angular/common";
 import { DataTableDirective } from "angular-datatables";
 import {ContractService} from "../contract.service";
+import {Contract} from "../interface/contract";
 
 declare const $: any;
 @Component({
@@ -16,7 +17,7 @@ export class ManageContractComponent implements OnInit, OnDestroy {
   @ViewChild(DataTableDirective, { static: false })
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
-  public contracts = [];
+  public Contract: Contract[] = [];
   public addContractForm: FormGroup;
 
   public rows = [];
@@ -40,18 +41,35 @@ export class ManageContractComponent implements OnInit, OnDestroy {
       farmerCategory: ["", [Validators.required]],
       StartDate: ["", [Validators.required]],
       EndDate: ["", [Validators.required]],
+      contractFile: ["",[Validators.required]]
     });
+  }
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.dtTrigger.next();
+    }, 1000);
+  }
+
+  // manually rendering Data table
+  rerender(): void {
+    $('#datatable').DataTable().clear();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+    });
+    this.Contract = [];
+    this.getContracts();
+    setTimeout(() => {
+      this.dtTrigger.next();
+    }, 1000);
   }
 
   //Get All Contracts
-  public getContracts(): void {
-    this.cs.getContracts('').subscribe((data) => {
-      // @ts-ignore
-      this.contracts = data;
-      this.dtTrigger.next();
-      this.rows = this.contracts;
+  public getContracts() {
+    this.cs.getAllContracts().subscribe((data) =>{
+      this.Contract = data;
+      this.rows = this.Contract;
       this.srch = [...this.rows];
-    });
+    })
   }
 
   private markFormGroupTouched(formGroup: FormGroup) {
@@ -86,11 +104,27 @@ export class ManageContractComponent implements OnInit, OnDestroy {
       endDate: EndDate,
       startDate: StartDate,
     };
-    this.cs.addContract('', newContract).subscribe();
+    this.cs.addContract(newContract).subscribe((data) =>{
+      $('#datatable').DataTable().clear();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.destroy();
+      });
+      this.dtTrigger.next();
+    });
     this.getContracts();
     this.addContractForm.reset();
     $("#add_contract").modal("hide");
     this.toastr.success("Contract Review added sucessfully...!", "Success");
+  }
+
+  // search by name
+  searchName(val) {
+    this.rows.splice(0, this.rows.length);
+    const temp = this.srch.filter(function (d) {
+      val = val.toLowerCase();
+      return d.productName.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+    this.rows.push(...temp);
   }
 
   // for unsubscribe datatable

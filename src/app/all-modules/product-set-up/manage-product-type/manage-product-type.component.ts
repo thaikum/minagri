@@ -6,6 +6,7 @@ import { ToastrService } from "ngx-toastr";
 import { Subject } from "rxjs";
 import { DatePipe } from "@angular/common";
 import { DataTableDirective } from "angular-datatables";
+import {Producttypes} from "../interface/producttypes";
 
 @HostListener('window: resize', ['$event'])
 @Component({
@@ -19,7 +20,7 @@ export class ManageProductTypeComponent implements OnInit, OnDestroy {
   @ViewChild(DataTableDirective, { static: false })
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
-  public productTypes = [];
+  public productTypes: Producttypes[] = [];
   public addProductTypeForm: FormGroup;
 
   public rows = [];
@@ -57,14 +58,32 @@ export class ManageProductTypeComponent implements OnInit, OnDestroy {
     this.listProduct();
   }
 
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.dtTrigger.next();
+    }, 1000);
+  }
+
+  // manually rendering Data table
+  rerender(): void {
+    $('#datatable').DataTable().clear();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+    });
+    this.productTypes = [];
+    this.listProduct();
+    setTimeout(() => {
+      this.dtTrigger.next();
+    }, 1000);
+  }
+
 
   //  Endpoints
 //  1. get Product Types
   public listProduct(): void {
-    this.ps.getproductType('').subscribe((data) => {
+    this.ps.getproductType().subscribe((data) => {
       // @ts-ignore
       this.productTypes = data;
-      this.dtTrigger.next();
       this.rows = this.productTypes;
       this.srch = [...this.rows];
     });
@@ -96,12 +115,29 @@ export class ManageProductTypeComponent implements OnInit, OnDestroy {
       productMatrix: this.addProductTypeForm.value.productMatrix,
       document: this.addProductTypeForm.value.document,
     };
-    this.ps.addProduct('', newProductType).subscribe();
+    // @ts-ignore
+    this.ps.addProduct(newProductType).subscribe((data) => {
+      $('#datatable').DataTable().clear();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.destroy();
+      });
+      this.dtTrigger.next();
+    });
     this.listProduct();
     this.addProductTypeForm.reset();
     // @ts-ignore
     $("#add_product_type").modal("hide");
     this.toastr.success("Product Type added sucessfully...!", "Success");
+  }
+
+  // search by name
+  searchName(val) {
+    this.rows.splice(0, this.rows.length);
+    const temp = this.srch.filter(function (d) {
+      val = val.toLowerCase();
+      return d.productName.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+    this.rows.push(...temp);
   }
 
   // for unsubscribe datatable

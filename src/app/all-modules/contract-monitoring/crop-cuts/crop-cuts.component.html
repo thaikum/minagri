@@ -41,7 +41,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let expenses of allSubsidy;let i = index">
+          <tr *ngFor="let cropcuts of Cropcuts;let i = index">
             <td></td>
             <td></td>
             <td></td>
@@ -50,8 +50,8 @@
             <td></td>
             <td></td>
           </tr>
-          <tr *ngIf="allSubsidy.length === 0">
-            <td colspan="10">
+          <tr *ngIf="Cropcuts.length === 0">
+            <td colspan="7">
               <h5 style="text-align: center;">No data found</h5>
             </td>
 

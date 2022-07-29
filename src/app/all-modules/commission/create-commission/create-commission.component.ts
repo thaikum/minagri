@@ -66,7 +66,15 @@ export class CreateCommissionComponent implements OnInit, OnDestroy {
       discount: this.createCommisssiomForm.value.discount,
       otherInformation: this.createCommisssiomForm.value.otherInformation,
     };
-    this.cs.createCommission('', newCommission).subscribe();
+    // @ts-ignore
+    this.cs.createCommission(newCommission).subscribe((data) => {
+      $('#datatable').DataTable().clear();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.destroy();
+      });
+      this.dtTrigger.next();
+    });
+    // this.getCommissions();
     this.createCommisssiomForm.reset();
     this.toastr.success("Commission created sucessfully...!", "Success");
   }

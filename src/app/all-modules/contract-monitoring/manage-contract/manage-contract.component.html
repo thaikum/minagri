@@ -38,17 +38,16 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let expenses of allSubsidy;let i = index">
+          <tr *ngFor="let contracts of contracts;let i = index">
             <td></td>
             <td></td>
             <td></td>
             <td></td>
           </tr>
-          <tr *ngIf="allSubsidy.length === 0">
-            <td colspan="10">
+          <tr *ngIf="contracts.length === 0">
+            <td colspan="4">
               <h5 style="text-align: center;">No data found</h5>
             </td>
-
           </tr>
           </tbody>
         </table>

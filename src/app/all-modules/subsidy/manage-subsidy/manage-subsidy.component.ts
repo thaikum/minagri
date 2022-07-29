@@ -6,6 +6,7 @@ import { Subject } from "rxjs";
 import { DatePipe } from "@angular/common";
 import { DataTableDirective } from "angular-datatables";
 import {SubsidyService} from "../subsidy.service";
+import { Subsidy } from '../interface/subsidy';
 
 
 @HostListener('window: resize', ['$event'])
@@ -20,7 +21,7 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
   @ViewChild(DataTableDirective, { static: false })
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
-  public subsidy = [];
+  public Subsidy: Subsidy[] = [];
   public addSubsidyForm: FormGroup;
 
   public rows = [];
@@ -52,21 +53,50 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
       farmerCategory: ["", [Validators.required]],
     });
     //subsidies
-    this.listSubsidy();
+    this.getSubsidy();
 
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.dtTrigger.next();
+    }, 1000);
+  }
+
+  // manually rendering Data table
+
+  rerender(): void {
+    $('#datatable').DataTable().clear();
+    this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+      dtInstance.destroy();
+    });
+    this.Subsidy = [];
+    this.getSubsidy();
+    setTimeout(() => {
+      this.dtTrigger.next();
+    }, 1000);
   }
 //  Endpoints
 //  1. get all Subsidies
-  public listSubsidy(): void {
-    this.sb.getSubsidy('/products/listsubsidy').subscribe((data) => {
-      // @ts-ignore
-      this.subsidy = data;
-      console.log(this.subsidy)
-      this.dtTrigger.next();
-      this.rows = this.subsidy;
+
+  public getSubsidy() {
+    this.sb.getAllSubsidies().subscribe((data) =>{
+      this.Subsidy = data;
+      this.rows = this.Subsidy;
       this.srch = [...this.rows];
-    });
+    })
   }
+
+  // public listSubsidy(): void {
+  //   this.sb.getSubsidy('/products/listsubsidy').subscribe((data) => {
+  //     // @ts-ignore
+  //     this.subsidy = data;
+  //     console.log(this.subsidy)
+  //     this.dtTrigger.next();
+  //     this.rows = this.subsidy;
+  //     this.srch = [...this.rows];
+  //   });
+  // }
 
   private markFormGroupTouched(formGroup: FormGroup) {
     (<any>Object).values(formGroup.controls).forEach((control) => {
@@ -89,12 +119,28 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
       subsidyRate: this.addSubsidyForm.value.subsidyRate,
       farmerCategory: this.addSubsidyForm.value.farmerCategory,
     };
-    this.sb.addSubsidy('', newSubsidy).subscribe();
-    this.listSubsidy();
+    this.sb.addSubsidy(newSubsidy).subscribe((data) =>{
+      $('#datatable').DataTable().clear();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.destroy();
+      });
+      this.dtTrigger.next();
+    });
+    this.getSubsidy();
     this.addSubsidyForm.reset();
     // @ts-ignore
     $("#add_subsidy").modal("hide");
     this.toastr.success("New Subsisy added sucessfully...!", "Success");
+  }
+
+  // search by name
+  searchName(val) {
+    this.rows.splice(0, this.rows.length);
+    const temp = this.srch.filter(function (d) {
+      val = val.toLowerCase();
+      return d.subsidyName.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+    this.rows.push(...temp);
   }
 
   // for unsubscribe datatable

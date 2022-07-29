@@ -54,7 +54,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let expenses of allProducts;let i = index">
+          <tr *ngFor="let types of productTypes;let i = index">
             <td></td>
             <td></td>
             <td></td>
@@ -63,8 +63,8 @@
             <td></td>
             <td></td>
           </tr>
-          <tr *ngIf="allProducts.length === 0">
-            <td colspan="10">
+          <tr *ngIf="productTypes.length === 0">
+            <td colspan="7">
               <h5 style="text-align: center;">No data found</h5>
             </td>
           </tr>

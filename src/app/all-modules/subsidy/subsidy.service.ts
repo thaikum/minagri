@@ -1,21 +1,38 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {environment} from "../../../environments/environment";
+import {headers} from "../../http/http-headers";
+import {Observable} from "rxjs";
+import {Subsidy} from "./interface/subsidy";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubsidyService {
+  private baseUrl = environment.apiUrl+'products/'
+
+  httpOptions = {
+    headers: headers
+  }
 
   constructor(private http: HttpClient) { }
-  url = 'http://157.230.190.229:8843'
 
-  //Get All Subsidies
-  getSubsidy(endpoint: string){
-    return this.http.get(this.url + endpoint);
+
+
+  getAllSubsidies(): Observable<any>{
+    return this.http.get(this.baseUrl+'listsubsidy',this.httpOptions)
   }
 
-//  Add New Subsidy
-  addSubsidy(endpoint: string, model: any){
-    return this.http.post(this.url + endpoint, model);
+  addSubsidy(subsidy: Subsidy): Observable<any>{
+    return this.http.post(this.baseUrl+'addsubsidy', subsidy,this.httpOptions);
   }
+// //Get All Subsidies
+//   getSubsidy(endpoint: string){
+//     return this.http.get(this.url + endpoint);
+//   }
+//
+// //  Add New Subsidy
+//   addSubsidy(endpoint: string, model: any){
+//     return this.http.post(this.url + endpoint, model);
+//   }
 }
