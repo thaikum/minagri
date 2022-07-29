@@ -26,13 +26,4 @@ export class SubsidyService {
   addSubsidy(subsidy: Subsidy): Observable<any>{
     return this.http.post(this.baseUrl+'addsubsidy', subsidy,this.httpOptions);
   }
-// //Get All Subsidies
-//   getSubsidy(endpoint: string){
-//     return this.http.get(this.url + endpoint);
-//   }
-//
-// //  Add New Subsidy
-//   addSubsidy(endpoint: string, model: any){
-//     return this.http.post(this.url + endpoint, model);
-//   }
 }
