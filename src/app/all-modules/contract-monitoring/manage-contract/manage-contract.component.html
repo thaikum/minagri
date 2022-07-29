@@ -1,0 +1,135 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+  <!-- Page Header -->
+  <div class="page-header" style="margin-top: 30px">
+    <div class="row align-items-center">
+      <div class="col">
+        <h3 class="page-title">Manage Contracts</h3>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/layout/dashboard/admin">Dashboard</a></li>
+          <li class="breadcrumb-item active">Contracts</li>
+        </ul>
+      </div>
+      <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12" style="margin-right: -2em">
+        <div class="view-icons" style="float: right;margin-right: 10px;">
+          <a href="#" class="grid-view btn btn-link"><i class="fa fa-th"></i></a>
+          <a href="#" class="list-view btn btn-link active"><i class="fa fa-bars"></i></a>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12">
+        <a class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#add_review"><i
+          class="fa fa-plus"></i> Add Contract Review</a>
+      </div>
+    </div>
+  </div>
+  <!-- /Page Header -->
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="table-responsive">
+        <table  datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id = "datatable" class="table table-striped custom-table mb-0 datatable">
+          <thead>
+          <tr>
+            <th>Contract Name</th>
+            <th>Product</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let expenses of allSubsidy;let i = index">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr *ngIf="allSubsidy.length === 0">
+            <td colspan="10">
+              <h5 style="text-align: center;">No data found</h5>
+            </td>
+
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Page Content -->
+
+<!-- Add Contract Review Modal -->
+<div id="add_review" class="modal custom-modal fade" role="dialog" style="width: fit-content; margin-left: 30%">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="border-bottom: 1px solid #dee2e6;">
+        <h5 class="modal-title"> Add New Contract Review</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="addReview()" [formGroup]="addReviewForm">
+          <div class="row">
+              <div class="form-group">
+                <label>Product Name</label>
+                <span class="text-danger" style="padding-left: 5px">*</span>
+                <input class="form-control" type="text" [class.invalid]="addReviewForm.get('subsidyName').invalid && addReviewForm.get('subsidyName').touched"
+                       formControlName="subsidyName">
+                <div
+                  *ngIf="addReviewForm.get('subsidyName').invalid && addReviewForm.get('subsidyName').touched">
+                  <small
+                    *ngIf="addReviewForm.get('subsidyName').invalid && addReviewForm.get('subsidyName').touched"
+                    class="text-danger"> *Item name is required</small>
+                </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <label>Contract Name</label>
+              <span class="text-danger" style="padding-left: 5px">*</span>
+              <input class="form-control" type="text" [class.invalid]="addReviewForm.get('subsidyName').invalid && addReviewForm.get('subsidyName').touched"
+                     formControlName="subsidyName">
+              <div
+                *ngIf="addReviewForm.get('subsidyName').invalid && addReviewForm.get('subsidyName').touched">
+                <small
+                  *ngIf="addReviewForm.get('subsidyName').invalid && addReviewForm.get('subsidyName').touched"
+                  class="text-danger"> *Item name is required</small>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label>Start Date</label>
+              <span class="text-danger" style="padding-left: 5px">*</span>
+              <div class="form-group form-focus">
+                <div class="cal-icon">
+                  <input class="form-control floating datetimepicker" type="text" bsDatepicker type="text"  [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }" (bsValueChange)="searchByFrom($event)">
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label>End Date</label>
+              <span class="text-danger" style="padding-left: 5px">*</span>
+              <div class="form-group form-focus">
+                <div class="cal-icon">
+                  <input class="form-control floating datetimepicker" bsDatepicker type="text" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }" (bsValueChange)="searchByTo($event)">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <label>Contract File</label>
+              <input class="form-control" type="file">
+            </div>
+          </div>
+          <div class="submit-section">
+            <button class="btn btn-primary submit-btn">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Add Contract Review Modal -->

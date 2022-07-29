@@ -1,0 +1,412 @@
+<div>
+  <!-- Page Wrapper -->
+  <div class="page-wrapper">
+    <!-- Page Content -->
+    <div class="content container-fluid">
+
+      <!-- Page Header -->
+      <div class="page-header" style="margin-top: 10px">
+        <div class="row align-items-center">
+          <div class="col">
+            <h3 class="page-title">Manage Claims</h3>
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item"><a routerLink="/layout/dashboard/admin">Dashboard</a></li>
+              <li class="breadcrumb-item active">Claims</li>
+            </ul>
+          </div>
+<!--          <div class="col-auto float-end ms-auto">-->
+<!--            <a href="#" class="btn add-btn" style=" elevation: higher;color: #212529;border: 1px solid transparent;border-radius: .25rem;transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;">-->
+<!--              <i class="fa fa-plus"></i> Add Commission</a>-->
+<!--          </div>-->
+        </div>
+      </div>
+      <!-- /Page Header -->
+
+      <!-- Search Filter -->
+      <div class="row filter-row">
+        <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12">
+          <div class="form-group form-focus">
+            <input type="text" class="form-control floating" (input)="searchName($event.target.value)" (focusout) = "rerender()">
+            <label class="focus-label">Farmer ID</label>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12">
+          <div class="form-group form-focus">
+            <input type="text" class="form-control floating" (input)="searchName($event.target.value)" (focusout) = "rerender()">
+            <label class="focus-label">Farmer Name</label>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12">
+<!--          <a  class="btn btn-success w-100"> Search </a>-->
+        </div>
+        <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12"></div>
+      </div>
+      <!-- /Search Filter -->
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table table-striped custom-table mb-0">
+              <thead>
+              <tr>
+                <th>#</th>
+                <th>Notification<br>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone<br>Number</th>
+                <th>Notification<br>Date</th>
+                <th>NIDA ID</th>
+                <th>Region</th>
+                <th>Farm<br>Size</th>
+                <th>UoM</th>
+                <th>Claim<br>Type</th>
+                <th class="text-end">Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>
+                  <div class="status-toggle">
+                    <input type="checkbox" id="leave_module" class="check">
+                    <label for="leave_module" class="checktoggle">checkbox</label>
+                  </div>
+                </td>
+                <td>FT-0001</td>
+                <td>Joseph Karanja</td>
+                <td>joebidden1273@gmail.com</td>
+                <td>0700000000</td>
+                <td>1 Jan 2013</td>
+                <td>NIDA-6718278</td>
+                <td>Kigali</td>
+                <td>23</td>
+                <td>Acres</td>
+                <td>Drought</td>
+                <td>
+                  <select class="form-select form-control" name="cars" id="cars" disabled="">
+                    <option value="Approve Claim">Approve Claim</option>
+                    <option value="Notify Client">Notify Client</option>
+                    <option value="Approve Payment">Approve Payment</option>
+                    <option value="Execute Payment">Execute Payment</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="status-toggle">
+                    <input type="checkbox" id="leave_module" class="check">
+                    <label for="leave_module" class="checktoggle">checkbox</label>
+                  </div>
+                </td>
+                <td>FT-0002</td>
+                <td>Evans Gangla</td>
+                <td>gangla09@gmail.com</td>
+                <td>9876543210</td>
+                <td>1 Jan 2013</td>
+                <td>NIDA-6718278</td>
+                <td>Kigali</td>
+                <td>23</td>
+                <td>Acres</td>
+                <td>Drought</td>
+                <td>
+                  <select class="form-select form-control" name="cars" id="cars" disabled="">
+                    <option value="Approve Claim">Approve Claim</option>
+                    <option value="Notify Client">Notify Client</option>
+                    <option value="Approve Payment">Approve Payment</option>
+                    <option value="Execute Payment">Execute Payment</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="status-toggle">
+                    <input type="checkbox" id="leave_module" class="check">
+                    <label for="leave_module" class="checktoggle">checkbox</label>
+                  </div>
+                </td>
+                <td>FT-0006</td>
+                <td>Brian Kimathi</td>
+                <td>brian@gmail.com</td>
+                <td>0700000000</td>
+                <td>1 Jan 2016</td>
+                <td>NIDA-6718278</td>
+                <td>Kigali</td>
+                <td>40</td>
+                <td>Acres</td>
+                <td>Drought</td>
+                <td style="width: 8em">
+                  <select class="form-select form-control" name="cars" id="cars" disabled="">
+                    <option value="Approve Claim">Approve Claim</option>
+                    <option value="Notify Client">Notify Client</option>
+                    <option value="Approve Payment">Approve Payment</option>
+                    <option value="Execute Payment">Execute Payment</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="status-toggle">
+                    <input type="checkbox" id="leave_module" class="check">
+                    <label for="leave_module" class="checktoggle">checkbox</label>
+                  </div>
+                </td>
+                <td>FT-0001</td>
+                <td>Joseph Karanja</td>
+                <td>joebidden1273@gmail.com</td>
+                <td>0700000000</td>
+                <td>1 Jan 2013</td>
+                <td>NIDA-6718278</td>
+                <td>Kigali</td>
+                <td>23</td>
+                <td>Acres</td>
+                <td>Drought</td>
+                <td>
+                  <select class="form-select form-control" name="cars" id="cars" disabled="">
+                    <option value="Approve Claim">Approve Claim</option>
+                    <option value="Notify Client">Notify Client</option>
+                    <option value="Approve Payment">Approve Payment</option>
+                    <option value="Execute Payment">Execute Payment</option>
+                  </select>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Page Content -->
+
+    <!-- Add Modal -->
+    <div class="modal custom-modal fade" id="add_categories" role="dialog">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Set Commission</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form (ngSubmit)="addRevenue()" [formGroup]="addRevenueForm">
+              <div class="form-group form-row row">
+                <label class="col-lg-12 control-label">Name <span class="text-danger"></span></label>
+                <div class="col-lg-6">
+                  <input type="text" class="form-control" placeholder="800.00" name="amount" [class.invalid]="addRevenueForm.get('RevenueName').invalid && addRevenueForm.get('RevenueName').touched"
+                         formControlName="RevenueName">
+                  <div
+                    *ngIf="addRevenueForm.get('RevenueName').invalid && addRevenueForm.get('RevenueName').touched">
+                    <small
+                      *ngIf="addRevenueForm.get('RevenueName').invalid && addRevenueForm.get('RevenueName').touched"
+                      class="text-danger"> *Commission Name required</small>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <label class="col-lg-12 control-label">Name</label>
+                  <select name="currency_symbol" class="form-control">
+                    <option value="$ - AUD">$ - Australian Dollar</option>
+                    <option value="Bs. - VEF">Bs. - Bolívar Fuerte</option>
+                    <option value="R$ - BRL">R$ - Brazilian Real</option>
+                    <option value="£ - GBP">£ - British Pound</option>
+                    <option value="$ - CAD">$ - Canadian Dollar</option>
+
+                  </select>
+                </div>
+              </div>
+              <div class="form-group form-row">
+                <label class="col-lg-12 control-label">Notes <span class="text-danger">*</span></label>
+                <div class="col-lg-12">
+                                        <textarea class="form-control ta" name="notes" [class.invalid]="addRevenueForm.get('RevenueNotes').invalid && addRevenueForm.get('RevenueNotes').touched"
+                                                  formControlName="RevenueNotes"></textarea>
+                </div>
+                <div
+                  *ngIf="addRevenueForm.get('RevenueNotes').invalid && addRevenueForm.get('RevenueNotes').touched">
+                  <small
+                    *ngIf="addRevenueForm.get('RevenueNotes').invalid && addRevenueForm.get('RevenueNotes').touched"
+                    class="text-danger"> *Revenue Notes required</small>
+                </div>
+              </div>
+              <div class="form-group form-row">
+                <label class="col-lg-12 control-label">Expense Date <span class="text-danger">*</span></label>
+                <div class="col-lg-12">
+                  <input class="datepicker-input form-control" type="text" bsDatepicker value="07-05-2021" name="expense_date" data-date-format="dd-mm-yyyy" [class.invalid]="addRevenueForm.get('RevenueDate').invalid && addRevenueForm.get('RevenueDate').touched"
+                         formControlName="RevenueDate">
+                </div>
+                <div
+                  *ngIf="addRevenueForm.get('RevenueDate').invalid && addRevenueForm.get('RevenueDate').touched">
+                  <small
+                    *ngIf="addRevenueForm.get('RevenueDate').invalid && addRevenueForm.get('RevenueDate').touched"
+                    class="text-danger"> *Expense date required</small>
+                </div>
+
+              </div>
+              <div class="form-group form-row">
+                <label class="col-lg-12 control-label">Category <span class="text-danger">*</span></label>
+                <div class="col-lg-12">
+                  <select name="category" class="form-control m-b" id="main_category">
+                    <option value="" disabled="" selected="">Choose Category</option>
+                    <option value="1">project1</option>
+                    <option value="3">test category</option>
+                    <option value="4">Hardware</option>
+                    <option value="5">Material</option>
+                    <option value="6">Vehicle</option>
+                    <option value="8">TestctrE</option>
+                    <option value="9">Twocatr</option>
+                    <option value="10">fesferwf</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group form-row">
+                <label class="col-lg-12 control-label">Sub Category <span class="text-danger">*</span></label>
+                <div class="col-lg-12">
+                  <select name="sub_category" class="form-control m-b" id="sub_category">
+                    <option value="">Choose Sub-Category</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group form-row  position-relative">
+                <label class="col-lg-12 control-label">Attach File</label>
+                <div class="col-lg-12">
+
+                  <input type="file" class="form-control" data-buttontext="Choose File" data-icon="false" data-classbutton="btn btn-default" data-classinput="form-control inline input-s" name="receipt">
+                </div>
+              </div>
+              <div class="submit-section">
+                <button class="btn btn-primary submit-btn">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Add Modal -->
+
+    <!-- Edit Modal -->
+    <div class="modal custom-modal fade" id="edit_categories" role="dialog">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Edit Expenses</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form (ngSubmit)="editRevenue()" [formGroup]="editRevenueForm">
+              <div class="form-group form-row">
+                <label class="col-lg-12 control-label">Amount <span class="text-danger">*</span></label>
+                <div class="col-lg-6">
+                  <input type="text" class="form-control" placeholder="800.00" name="amount" [class.invalid]="editRevenueForm.get('RevenueName').invalid && editRevenueForm.get('RevenueName').touched"
+                         formControlName="RevenueName">
+                  <div
+                    *ngIf="editRevenueForm.get('RevenueName').invalid && editRevenueForm.get('RevenueName').touched">
+                    <small
+                      *ngIf="editRevenueForm.get('RevenueName').invalid && editRevenueForm.get('RevenueName').touched"
+                      class="text-danger"> *Amount required</small>
+                  </div>
+                </div>
+                <div class="col-lg-6">
+                  <select name="currency_symbol" class="form-control">
+                    <option value="$ - AUD">$ - Australian Dollar</option>
+                    <option value="Bs. - VEF">Bs. - Bolívar Fuerte</option>
+                    <option value="R$ - BRL">R$ - Brazilian Real</option>
+                    <option value="£ - GBP">£ - British Pound</option>
+                    <option value="$ - CAD">$ - Canadian Dollar</option>
+
+                  </select>
+                </div>
+              </div>
+              <div class="form-group form-row">
+                <label class="col-lg-12 control-label">Notes <span class="text-danger">*</span></label>
+                <div class="col-lg-12">
+                                        <textarea class="form-control ta" name="notes" [class.invalid]="editRevenueForm.get('RevenueNotes').invalid && editRevenueForm.get('RevenueNotes').touched"
+                                                  formControlName="RevenueNotes"></textarea>
+                </div>
+                <div
+                  *ngIf="editRevenueForm.get('RevenueNotes').invalid && editRevenueForm.get('RevenueNotes').touched">
+                  <small
+                    *ngIf="editRevenueForm.get('RevenueNotes').invalid && editRevenueForm.get('RevenueNotes').touched"
+                    class="text-danger"> *Revenue Notes required</small>
+                </div>
+              </div>
+              <div class="form-group form-row">
+                <label class="col-lg-12 control-label">Expense Date <span class="text-danger">*</span></label>
+                <div class="col-lg-12">
+                  <input class="datepicker-input form-control" type="text" bsDatepicker value="07-05-2021" name="expense_date" data-date-format="dd-mm-yyyy" [class.invalid]="editRevenueForm.get('RevenueDate').invalid && editRevenueForm.get('RevenueDate').touched"
+                         formControlName="RevenueDate">
+                </div>
+                <div
+                  *ngIf="editRevenueForm.get('RevenueDate').invalid && editRevenueForm.get('RevenueDate').touched">
+                  <small
+                    *ngIf="editRevenueForm.get('RevenueDate').invalid && editRevenueForm.get('RevenueDate').touched"
+                    class="text-danger"> *Expense date required</small>
+                </div>
+              </div>
+              <div class="form-group form-row">
+                <label class="col-lg-12 control-label">Category <span class="text-danger">*</span></label>
+                <div class="col-lg-12">
+                  <select name="category" class="form-control m-b" id="main_category1">
+                    <option value="" disabled="" selected="">Choose Category</option>
+                    <option value="1">project1</option>
+                    <option value="3">test category</option>
+                    <option value="4">Hardware</option>
+                    <option value="5">Material</option>
+                    <option value="6">Vehicle</option>
+                    <option value="8">TestctrE</option>
+                    <option value="9">Twocatr</option>
+                    <option value="10">fesferwf</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group form-row">
+                <label class="col-lg-12 control-label">Sub Category <span class="text-danger">*</span></label>
+                <div class="col-lg-12">
+                  <select name="sub_category" class="form-control m-b" id="sub_category1">
+                    <option value="">Choose Sub-Category</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group form-row  position-relative">
+                <label class="col-lg-12 control-label">Attach File</label>
+                <div class="col-lg-12">
+
+                  <input type="file" class="form-control" data-buttontext="Choose File" data-icon="false" data-classbutton="btn btn-default" data-classinput="form-control inline input-s" name="receipt">
+                </div>
+              </div>
+              <div class="submit-section">
+                <button class="btn btn-primary submit-btn">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Edit Modal -->
+
+    <!-- Delete Holiday Modal -->
+    <div class="modal custom-modal fade" id="delete" role="dialog">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="form-header">
+              <h3>Delete </h3>
+              <p>Are you sure want to delete?</p>
+            </div>
+            <div class="modal-btn delete-action">
+              <div class="row">
+                <div class="col-6">
+                  <a href="javascript:void(0);" class="btn btn-primary continue-btn" (click)="deleteRevenue()">Delete</a>
+                </div>
+                <div class="col-6">
+                  <a href="javascript:void(0);" data-bs-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Delete Holiday Modal -->
+
+  </div>
+  <!-- /Page Wrapper -->
+</div>

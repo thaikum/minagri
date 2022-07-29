@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../environments/environment";
+import {headers} from "../http/http-headers";
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,6 @@ export class FarmerService {
   }
 
   getAllFarmers(): Observable<any> {
-    return this._http.get<any>(this.baseUrl+'listfarmers');
+    return this._http.get<any>(this.baseUrl+'listfarmers', {headers});
   }
 }

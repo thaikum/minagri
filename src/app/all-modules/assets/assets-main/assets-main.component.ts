@@ -18,6 +18,8 @@ import {DataTableDirective} from 'angular-datatables';
 import {DatePipe} from '@angular/common';
 import {Organization} from '../../../interface/Organization';
 import {OrganizationService} from "../../../services/organization.service";
+import {User} from "../../../interface/User";
+import {UsersService} from "../../../services/users.service";
 
 declare const $: any;
 
@@ -44,11 +46,18 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
   public editPurchaseDateFormat;
   public editPurchaseToDateFormat;
 
+  public userDt: DataTables.Settings = {};
+  userDtTrigger:Subject<any> = new Subject();
+
+  users: User[];
+
+
   constructor(
     private allModuleService: AllModulesService,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
-    private _organizationService: OrganizationService
+    private _organizationService: OrganizationService,
+    private _userService: UsersService
   ) {
   }
 
@@ -101,6 +110,12 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
       pageLength: 10,
       dom: 'lrtip',
     };
+
+    this._userService.getAllUsers().subscribe((users)=>{
+      this.users = users.body;
+      console.log(users)
+      console.log(this.users);
+    })
   }
 
   ngAfterViewInit(): void {

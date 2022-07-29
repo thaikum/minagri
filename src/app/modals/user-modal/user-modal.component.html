@@ -1,0 +1,14 @@
+<table [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" >
+  <thead>
+  <tr>
+    <th>User Id</th>
+    <th>User Name</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of users">
+    <td>{{user.userid}}</td>
+    <td>{{user.name}}</td>
+  </tr>
+  </tbody>
+</table>

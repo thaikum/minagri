@@ -11,7 +11,6 @@ const routes: Routes = [
     loadChildren: () => import(`./all-modules/all-modules.module`).then((m) => m.AllModulesModule),
     canActivate: [AuthenticationGuard],
   },
-  {path: '**', redirectTo: '/login'},
 ];
 
 @NgModule({

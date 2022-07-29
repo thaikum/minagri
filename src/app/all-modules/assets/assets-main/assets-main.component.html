@@ -29,15 +29,6 @@
       </div>
     </div>
     <div class="col-sm-6 col-md-3">
-      <div class="form-group form-focus select-focus">
-        <select class="form-select form-control" (input)="searchStatus($event.target.value)">
-          <option value=""> -- Select --</option>
-          <option value="Pending"> Pending</option>
-          <option value="Approved"> Approved</option>
-          <option value="Returned"> Returned</option>
-        </select>
-        <label class="focus-label">Status</label>
-      </div>
     </div>
     <div class="col-sm-12 col-md-4">
       <div class="row">
@@ -225,8 +216,7 @@
                 <select class="form-select form-control"
                         [class.invalid]="addOrganization.get('contactuserid').invalid && addOrganization.get('contactuserid').touched"
                         formControlName="contactuserid">
-                  <option>John Doe</option>
-                  <option>Richard Miles</option>
+                  <option *ngFor="let user of users" [value]="user.userid" >{{user.name}}</option>
                 </select>
                 <div
                   *ngIf="addOrganization.get('contactuserid').invalid && addOrganization.get('contactuserid').touched">
@@ -369,4 +359,4 @@
     </div>
   </div>
 </div>
-<!-- /Delete Asset Modal -->
+
