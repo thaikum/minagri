@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {DataTableDirective} from 'angular-datatables';
-import {UserType} from '../../../interface/UsetType';
+import {OrganizationType} from '../../../interface/UsetType';
 import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {Subject} from 'rxjs';
 import {User} from '../../../interface/User';

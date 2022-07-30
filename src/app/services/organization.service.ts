@@ -3,7 +3,8 @@ import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {headers} from '../http/http-headers';
-import {Response} from "../interface/Response";
+import {Response} from '../interface/Response';
+import {Organization} from '../interface/Organization';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +26,11 @@ export class OrganizationService {
   }
 
   create(data): Observable<any> {
-    return this._http.post(this.baseUrl + 'createorg', data, this.httpOptions)
+    return this._http.post(this.baseUrl + 'createorg', data, this.httpOptions);
+  }
+
+  edit(data: Organization): Observable<any>{
+    return this._http.put(this.baseUrl+'editorg/'+data.id, data, this.httpOptions);
   }
 
   // ================================== organization type ==============================
@@ -34,7 +39,7 @@ export class OrganizationService {
     return this._http.post(this.baseUrl + 'createorgtype', data, this.httpOptions)
   }
 
-  getUserTypes(): Observable<Response> {
+  getAllOrganizationTypes(): Observable<Response> {
     return this._http.get<Response>(this.baseUrl + 'orgtypelist', this.httpOptions)
   }
 
@@ -53,7 +58,7 @@ export class OrganizationService {
   // ================================ roles ============================================
 
   getAllRoles(): Observable<Response> {
-    return this._http.get<Response>(this.baseUrl + 'listroles', this.httpOptions);
+    return this._http.get<Response>(this.baseUrl + 'listroles?paged=false', this.httpOptions);
   }
 
   createRole(obj): Observable<any> {

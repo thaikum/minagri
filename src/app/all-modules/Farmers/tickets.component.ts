@@ -1,7 +1,7 @@
 import { Component, OnInit,HostListener, NgZone } from '@angular/core';
 
 @Component({
-  selector: 'app-tickets',
+  selector: 'app-Farmers',
   templateUrl: './tickets.component.html',
   styleUrls: ['./tickets.component.css']
 })
@@ -23,7 +23,7 @@ export class TicketsComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
   onResize(event) {

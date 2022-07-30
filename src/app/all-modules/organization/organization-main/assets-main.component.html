@@ -54,7 +54,7 @@
         </div>
       </div>
     </div>
-    <div class="col-sm-6 col-md-2" (click)="openUserModal()">
+    <div class="col-sm-6 col-md-2">
       <a class="btn btn-success w-100"> Search </a>
     </div>
   </div>
@@ -67,6 +67,7 @@
                class="table table-striped custom-table mb-0 datatable">
           <thead>
           <tr>
+            <td>Id</td>
             <th>Name</th>
             <th>Organization ID</th>
             <th>Contact Person</th>
@@ -200,7 +201,11 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Organization type</label>
-                  <input class="form-control" type="text" formControlName="orgtype">
+                  <select class="form-select form-control"
+                  [class.invalid]="addOrganization.get('orgtype').invalid && addOrganization.get('orgtype').touched"
+                  formControlName="orgtype">
+                  <option *ngFor="let type of organizationType" [value]="type.id">{{type.name}}</option>
+                  </select>
                 </div>
               </div>
               <div class="col-md-6">
@@ -296,7 +301,11 @@
               <div class="col-md-6">
                 <div class="form-group">
                   <label>Organization type</label>
-                  <input class="form-control" type="text" formControlName="orgtype">
+                  <select class="form-select form-control"
+                          [class.invalid]="addOrganization.get('orgtype').invalid && addOrganization.get('orgtype').touched"
+                          formControlName="orgtype">
+                    <option *ngFor="let type of organizationType" [value]="type.id">{{type.name}}</option>
+                  </select>
                 </div>
               </div>
               <div class="col-md-6">
@@ -312,8 +321,7 @@
                 <select class="form-select form-control"
                         [class.invalid]="addOrganization.get('contactuserid').invalid && addOrganization.get('contactuserid').touched"
                         formControlName="contactuserid">
-                  <option>John Doe</option>
-                  <option>Richard Miles</option>
+                  <option *ngFor="let user of users" [value]="user.userid">{{user.name}}</option>
                 </select>
                 <div
                   *ngIf="addOrganization.get('contactuserid').invalid && addOrganization.get('contactuserid').touched">

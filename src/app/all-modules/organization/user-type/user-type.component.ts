@@ -18,7 +18,7 @@ import {DataTableDirective} from 'angular-datatables';
 import {UsersService} from '../../../services/users.service';
 import {User} from '../../../interface/User';
 import {OrganizationService} from "../../../services/organization.service";
-import {UserType} from "../../../interface/UsetType";
+import {OrganizationType} from "../../../interface/UsetType";
 
 @Component({
   selector: 'app-user-type',
@@ -30,7 +30,7 @@ export class UserTypeComponent implements OnInit, AfterViewInit, OnDestroy {
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
   public url: any = 'users';
-  public allUserTypes: UserType[];
+  public allUserTypes: OrganizationType[];
   public addUserType: FormGroup;
   public editType: FormGroup;
   public editId: any;
@@ -107,7 +107,7 @@ export class UserTypeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getTypes() {
-    this._orgService.getUserTypes().subscribe(data => {
+    this._orgService.getAllOrganizationTypes().subscribe(data => {
       this.allUserTypes = data.body;
       console.log(this.allUserTypes);
       this.rows = this.allUserTypes;

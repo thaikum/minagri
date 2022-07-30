@@ -12,11 +12,13 @@ import {DatePipe} from '@angular/common';
 import {DataTableDirective} from 'angular-datatables';
 import {FarmerService} from '../../../services/farmer.service';
 import {Farmer} from '../../../interface/Farmer';
+import {UsersService} from "../../../services/users.service";
+import {User} from "../../../interface/User";
 
 declare const $: any;
 
 @Component({
-  selector: 'app-tickets-content',
+  selector: 'app-farmers-content',
   templateUrl: './tickets-content.component.html',
   styleUrls: ['./tickets-content.component.css'],
 })
@@ -26,7 +28,7 @@ export class TicketsContentComponent implements OnInit, OnDestroy, AfterViewInit
   public dtElement: DataTableDirective;
   public url: any = 'tickets';
   public allTickets: Farmer[] = [];
-  public addTicketForm: FormGroup;
+  public addFarmerForm: FormGroup;
   public editTicketForm: FormGroup;
   public editId: any;
   public tempId: any;
@@ -36,14 +38,15 @@ export class TicketsContentComponent implements OnInit, OnDestroy, AfterViewInit
   public statusValue;
   public dtTrigger: Subject<any> = new Subject();
   public pipe = new DatePipe('en-US');
-  public editCreated: any;
-  public editLastDate: any;
+
+  public users: User[] = [];
 
   constructor(
     private allModuleService: AllModulesService,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
-    private _farmerService: FarmerService
+    private _farmerService: FarmerService,
+    private _userService: UsersService
   ) {
   }
 
@@ -59,7 +62,7 @@ export class TicketsContentComponent implements OnInit, OnDestroy, AfterViewInit
 
     this.getFarmers();
     // Add Ticket Form Validation And Getting Values
-    this.addTicketForm = this.formBuilder.group({
+    this.addFarmerForm = this.formBuilder.group({
       accountname: ['', [Validators.required]],
       accountnumber: ['', [Validators.required]],
       bankname: ['', [Validators.required]],
@@ -94,6 +97,12 @@ export class TicketsContentComponent implements OnInit, OnDestroy, AfterViewInit
       pageLength: 10,
       dom: 'lrtip',
     };
+
+    this._userService.getAllUsers().subscribe((resp) => {
+      console.log(resp.body)
+      this.users = resp.body;
+    })
+
   }
 
   ngAfterViewInit(): void {
@@ -118,6 +127,7 @@ export class TicketsContentComponent implements OnInit, OnDestroy, AfterViewInit
 
   getFarmers() {
     this._farmerService.getAllFarmers().subscribe((data) => {
+      console.log(data.body)
       this.allTickets = data.body;
       this.rows = this.allTickets;
       this.srch = [...this.rows];
@@ -136,23 +146,23 @@ export class TicketsContentComponent implements OnInit, OnDestroy, AfterViewInit
   // Add Ticket Modal Api Call
 
   addTickets() {
-    if (this.addTicketForm.invalid) {
-      this.markFormGroupTouched(this.addTicketForm)
+    if (this.addFarmerForm.invalid) {
+      this.markFormGroupTouched(this.addFarmerForm)
       return
     }
-    if (this.addTicketForm.valid) {
+    if (this.addFarmerForm.valid) {
       const obj = {
-        accountname: this.addTicketForm.value.accountname,
-        accountnumber: this.addTicketForm.value.accountnumber,
-        bankname: this.addTicketForm.value.bankname,
-        branch: this.addTicketForm.value.branch,
-        fieldagentid: this.addTicketForm.value.fieldagentid,
-        locationid: this.addTicketForm.value.locationid,
-        maritalstatus: this.addTicketForm.value.maritalstatus,
-        nidaverification: this.addTicketForm.value.nidaverification,
+        accountname: this.addFarmerForm.value.accountname,
+        accountnumber: this.addFarmerForm.value.accountnumber,
+        bankname: this.addFarmerForm.value.bankname,
+        branch: this.addFarmerForm.value.branch,
+        fieldagentid: this.addFarmerForm.value.fieldagentid,
+        locationid: this.addFarmerForm.value.locationid,
+        maritalstatus: this.addFarmerForm.value.maritalstatus,
+        nidaverification: this.addFarmerForm.value.nidaverification,
         photo: '',
-        rlmaverification: this.addTicketForm.value.rlmaverification,
-        userid: this.addTicketForm.value.userid || 1
+        rlmaverification: this.addFarmerForm.value.rlmaverification,
+        userid: this.addFarmerForm.value.userid
       };
       this._farmerService.createFarmer(obj).subscribe((data) => {
         $('#datatable').DataTable().clear();
@@ -163,7 +173,7 @@ export class TicketsContentComponent implements OnInit, OnDestroy, AfterViewInit
       });
       this.getFarmers();
       $('#add_ticket').modal('hide');
-      this.addTicketForm.reset();
+      this.addFarmerForm.reset();
       this.toastr.success('Tickets added', 'Success');
     } else {
       this.toastr.warning('Mandatory fields required', '');
@@ -268,7 +278,7 @@ export class TicketsContentComponent implements OnInit, OnDestroy, AfterViewInit
   searchFrom(val) {
     const mySimpleFormat = this.pipe.transform(val, 'dd-MM-yyyy');
     this.rows.splice(0, this.rows.length);
-    const temp = this.srch.filter((d) =>{
+    const temp = this.srch.filter((d) => {
       return d.createdDate.indexOf(mySimpleFormat) !== -1 || !mySimpleFormat;
     });
     this.rows.push(...temp);
@@ -285,7 +295,7 @@ export class TicketsContentComponent implements OnInit, OnDestroy, AfterViewInit
   searchTo(val) {
     const mySimpleFormat = this.pipe.transform(val, 'dd-MM-yyyy');
     this.rows.splice(0, this.rows.length);
-    const temp = this.srch.filter((d) =>{
+    const temp = this.srch.filter((d) => {
       return d.lastReply.indexOf(mySimpleFormat) !== -1 || !mySimpleFormat;
     });
     this.rows.push(...temp);

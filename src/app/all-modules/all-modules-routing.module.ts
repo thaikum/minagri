@@ -30,7 +30,7 @@ const routes: Routes = [
       {
         path: 'projects',
         loadChildren: () =>
-          import('./projects/projects.module').then((m) => m.ProjectsModule),
+          import('./Sales/projects.module').then((m) => m.ProjectsModule),
       },
       {
         path: 'leads',
@@ -40,7 +40,7 @@ const routes: Routes = [
       {
         path: 'tickets',
         loadChildren: () =>
-          import('./tickets/tickets.module').then((m) => m.TicketsModule),
+          import('./Farmers/tickets.module').then((m) => m.TicketsModule),
       },
       {
         path: 'accounts',

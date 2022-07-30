@@ -22,6 +22,7 @@ import {User} from '../../../interface/User';
 import {UsersService} from '../../../services/users.service';
 import {MatDialog} from '@angular/material/dialog';
 import {UserModalComponent} from '../../../modals/user-modal/user-modal.component';
+import {OrganizationType} from "../../../interface/UsetType";
 
 declare const $: any;
 
@@ -49,6 +50,8 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
   public editPurchaseToDateFormat;
 
   public userDtOptions: DataTables.Settings = {};
+  public organizationType: OrganizationType[];
+
   userDtTrigger: Subject<any> = new Subject();
 
   users: User[] = [{}];
@@ -77,7 +80,7 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
 
     // get organization data from API
 
-    this.getAssets();
+    this.getOrganizations();
 
     // Add Assets Form Validation And Getting Values
 
@@ -105,6 +108,9 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
       phonenumber: [''],
       registrationnumber: [''],
       website: [''],
+      id: [''],
+      createdby: [''],
+      createdon: ['']
     });
 
     this.getUsers();
@@ -115,6 +121,11 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
       pageLength: 10,
       dom: 'lrtip',
     };
+
+    this._organizationService.getAllOrganizationTypes().subscribe(resp => {
+      this.organizationType = resp.body;
+    })
+
   }
 
   setUser(user: User): void {
@@ -136,15 +147,16 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
     });
 
     this.allAssets = [];
-    this.getAssets();
+    this.getOrganizations();
     setTimeout(() => {
       this.dtTrigger.next();
     }, 1000);
   }
 
   // get data for data table
-  getAssets() {
+  getOrganizations() {
     this._organizationService.getAll().subscribe((data) => {
+      console.log(data.body)
       this.allAssets = data.body;
       this.rows = this.allAssets;
       this.srch = [...this.rows];
@@ -201,7 +213,7 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
         });
         this.dtTrigger.next();
       });
-      this.getAssets();
+      this.getOrganizations();
       $('#add_asset').modal('hide');
       this.addOrganization.reset();
       this.toastr.success('Assets is added', 'Success');
@@ -223,7 +235,7 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
   // Edit Assets Modal Api Call
   editAssetSubmit() {
     if (this.editOrganization.valid) {
-      const obj = {
+      const obj: Organization = {
         contactuserid: this.editOrganization.value.contactuserid,
         email: this.editOrganization.value.email,
         licensenumber: this.editOrganization.value.licensenumber,
@@ -233,15 +245,18 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
         phonenumber: this.editOrganization.value.phonenumber,
         registrationnumber: this.editOrganization.value.registrationnumber,
         website: this.editOrganization.value.website,
+        createdby: this.editOrganization.value.createdby,
+        creationdate: this.editOrganization.value.createdon,
+        id: this.editOrganization.value.id
       };
-      this.allModuleService.update(obj, this.url).subscribe((data1) => {
+      this._organizationService.edit(obj).subscribe((data1) => {
         $('#datatable').DataTable().clear();
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.destroy();
         });
         this.dtTrigger.next();
       });
-      this.getAssets();
+      this.getOrganizations();
       $('#edit_asset').modal('hide');
       this.toastr.success('Assets is edited', 'Success');
     } else {
@@ -266,6 +281,9 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
       phonenumber: toSetValues.phonenumber,
       registrationnumber: toSetValues.registrationnumber,
       website: toSetValues.website,
+      id: toSetValues.id,
+      createdby: toSetValues.createdby,
+      createdon: toSetValues.creationdate
     });
   }
 
@@ -278,7 +296,7 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
       });
       this.dtTrigger.next();
     });
-    this.getAssets();
+    this.getOrganizations();
     $('#delete_asset').modal('hide');
     this.toastr.success('Assets is deleted', 'Success');
   }

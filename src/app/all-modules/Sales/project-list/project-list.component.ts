@@ -20,7 +20,7 @@ export class ProjectListComponent implements OnInit, OnDestroy , AfterViewInit{
   @ViewChild(DataTableDirective, { static: false })
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
-  public Sales: Sale[] = [];
+  public sales: Sale[] = [];
   public addSalesForm: FormGroup;
   public editProjectForm: FormGroup;
   public tempId: any;
@@ -31,6 +31,8 @@ export class ProjectListComponent implements OnInit, OnDestroy , AfterViewInit{
   public statusValue;
   public dtTrigger: Subject<any> = new Subject();
   public pipe = new DatePipe('en-US');
+  public products: any;
+
   constructor(
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
@@ -44,7 +46,7 @@ export class ProjectListComponent implements OnInit, OnDestroy , AfterViewInit{
       pageLength: 10,
       dom: 'lrtip',
     };
-    this.getProjects();
+    this.getSales();
 
     this._farmerService.getAllFarmers().subscribe(data=>{
       this.farmers = data.body;
@@ -69,6 +71,10 @@ export class ProjectListComponent implements OnInit, OnDestroy , AfterViewInit{
       productid: ['', Validators.required],
       subsidyvalue: ['', Validators.required]
     });
+
+    this._salesService.getAllProducts().subscribe((resp)=>{
+      this.products = resp.body;
+    })
   }
 
   ngAfterViewInit(): void {
@@ -84,16 +90,18 @@ export class ProjectListComponent implements OnInit, OnDestroy , AfterViewInit{
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
     });
-    this.Sales = [];
-    this.getProjects();
+    this.sales = [];
+    this.getSales();
     setTimeout(() => {
       this.dtTrigger.next();
     }, 1000);
   }
-  getProjects() {
+
+  getSales() {
     this._salesService.getAllSales().subscribe((data) => {
-      this.Sales = data;
-      this.rows = this.Sales;
+      // @ts-ignore
+      this.sales = data.body;
+      this.rows = this.sales;
       this.srch = [...this.rows];
     });
   }
@@ -143,7 +151,7 @@ export class ProjectListComponent implements OnInit, OnDestroy , AfterViewInit{
       });
       this.dtTrigger.next();
     });
-    this.getProjects();
+    this.getSales();
     this.addSalesForm.reset();
     $('#create_project').modal('hide');
     this.toastr.success('Project added sucessfully...!', 'Success');
@@ -171,7 +179,7 @@ export class ProjectListComponent implements OnInit, OnDestroy , AfterViewInit{
     };
     // this.allModulesService
     //
-    //   .update(editedProject, 'projects')
+    //   .update(editedProject, 'Sales')
     //   .subscribe((data) => {
     //     $('#datatable').DataTable().clear();
     //     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
@@ -187,7 +195,7 @@ export class ProjectListComponent implements OnInit, OnDestroy , AfterViewInit{
 
   // Delete project
   public deleteProject() {
-    // this.allModulesService.delete(this.tempId, 'projects').subscribe((data) => {
+    // this.allModulesService.delete(this.tempId, 'Sales').subscribe((data) => {
     //   $('#datatable').DataTable().clear();
     //   this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
     //     dtInstance.destroy();

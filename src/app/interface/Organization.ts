@@ -1,4 +1,5 @@
 export interface Organization {
+  id?: number;
   contactuserid?: number;
   email?: string;
   licensenumber?: string;
@@ -8,4 +9,6 @@ export interface Organization {
   phonenumber?: string;
   registrationnumber?: string;
   website?: string;
+  createdby?: string;
+  creationdate?: bigint
 }

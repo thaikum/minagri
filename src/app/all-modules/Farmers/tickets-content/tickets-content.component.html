@@ -110,7 +110,7 @@
       </div>
 
       <div class="modal-body">
-        <form (ngSubmit)="addTickets()" [formGroup]="addTicketForm">
+        <form (ngSubmit)="addTickets()" [formGroup]="addFarmerForm">
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
@@ -118,9 +118,9 @@
                 <input class="form-control" type="text"
                        formControlName="accountname">
                 <div
-                  *ngIf="addTicketForm.get('ticketSubject').invalid && addTicketForm.get('accountname').touched">
+                  *ngIf="addFarmerForm.get('accountname').invalid && addFarmerForm.get('accountname').touched">
                   <small
-                    *ngIf="addTicketForm.get('accountname').invalid && addTicketForm.get('accountname').touched"
+                    *ngIf="addFarmerForm.get('accountname').invalid && addFarmerForm.get('accountname').touched"
                     class="text-danger"> *Account number is required</small>
                 </div>
               </div>
@@ -131,9 +131,9 @@
                 <input class="form-control" type="text"
                        formControlName="accountnumber">
                 <div
-                  *ngIf="addTicketForm.get('accountnumber').invalid && addTicketForm.get('accountnumber').touched">
+                  *ngIf="addFarmerForm.get('accountnumber').invalid && addFarmerForm.get('accountnumber').touched">
                   <small
-                    *ngIf="addTicketForm.get('accountnumber').invalid && addTicketForm.get('accountnumber').touched"
+                    *ngIf="addFarmerForm.get('accountnumber').invalid && addFarmerForm.get('accountnumber').touched"
                     class="text-danger"> *Account number is required</small>
                 </div>
               </div>
@@ -146,9 +146,9 @@
                 <input class="form-control" type="text"
                        formControlName="bankname">
                 <div
-                  *ngIf="addTicketForm.get('bankname').invalid && addTicketForm.get('bankname').touched">
+                  *ngIf="addFarmerForm.get('bankname').invalid && addFarmerForm.get('bankname').touched">
                   <small
-                    *ngIf="addTicketForm.get('bankname').invalid && addTicketForm.get('bankname').touched"
+                    *ngIf="addFarmerForm.get('bankname').invalid && addFarmerForm.get('bankname').touched"
                     class="text-danger"> *Bankname is required</small>
                 </div>
               </div>
@@ -159,9 +159,9 @@
                 <input class="form-control" type="text"
                        formControlName="fieldagentid">
                 <div
-                  *ngIf="addTicketForm.get('fieldagentid').invalid && addTicketForm.get('fieldagentid').touched">
+                  *ngIf="addFarmerForm.get('fieldagentid').invalid && addFarmerForm.get('fieldagentid').touched">
                   <small
-                    *ngIf="addTicketForm.get('fieldagentid').invalid && addTicketForm.get('fieldagentid').touched"
+                    *ngIf="addFarmerForm.get('fieldagentid').invalid && addFarmerForm.get('fieldagentid').touched"
                     class="text-danger"> *Field agent ID is required</small>
                 </div>
               </div>
@@ -180,9 +180,9 @@
                 <label>Location</label>
                 <input class="form-control" type="text"
                        formControlName="locationid">
-                <div *ngIf="addTicketForm.get('ccName').invalid && addTicketForm.get('ccName').touched">
+                <div *ngIf="addFarmerForm.get('locationid').invalid && addFarmerForm.get('locationid').touched">
                   <small
-                    *ngIf="addTicketForm.get('ccName').invalid && addTicketForm.get('ccName').touched"
+                    *ngIf="addFarmerForm.get('locationid').invalid && addFarmerForm.get('locationid').touched"
                     class="text-danger"> *Location is required</small>
                 </div>
               </div>
@@ -193,10 +193,19 @@
               <div class="form-group">
                 <label>Marital Status</label>
                 <input type="text" class="form-control"
-                       [class.invalid]="addTicketForm.get('AssignName').invalid && addTicketForm.get('AssignName').touched"
-                       formControlName="AssignName">
+                       [class.invalid]="addFarmerForm.get('maritalstatus').invalid && addFarmerForm.get('maritalstatus').touched"
+                       formControlName="maritalstatus">
               </div>
             </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>User</label>
+                <select class="form-select floating form-control" formControlName="userid">
+                  <option *ngFor="let user of users" [value]="user.userid">{{user.name}}</option>
+                </select>
+              </div>
+            </div>
+
           </div>
           <div class="submit-section">
             <button class="btn btn-primary submit-btn" type="submit">Submit</button>
@@ -227,9 +236,9 @@
               <input class="form-control" type="text"
                      formControlName="accountname">
               <div
-                *ngIf="addTicketForm.get('ticketSubject').invalid && addTicketForm.get('accountname').touched">
+                *ngIf="addFarmerForm.get('accountname').invalid && addFarmerForm.get('accountname').touched">
                 <small
-                  *ngIf="addTicketForm.get('accountname').invalid && addTicketForm.get('accountname').touched"
+                  *ngIf="addFarmerForm.get('accountname').invalid && addFarmerForm.get('accountname').touched"
                   class="text-danger"> *Account number is required</small>
               </div>
             </div>
@@ -240,9 +249,9 @@
               <input class="form-control" type="text"
                      formControlName="accountnumber">
               <div
-                *ngIf="addTicketForm.get('accountnumber').invalid && addTicketForm.get('accountnumber').touched">
+                *ngIf="addFarmerForm.get('accountnumber').invalid && addFarmerForm.get('accountnumber').touched">
                 <small
-                  *ngIf="addTicketForm.get('accountnumber').invalid && addTicketForm.get('accountnumber').touched"
+                  *ngIf="addFarmerForm.get('accountnumber').invalid && addFarmerForm.get('accountnumber').touched"
                   class="text-danger"> *Account number is required</small>
               </div>
             </div>
@@ -255,9 +264,9 @@
                 <input class="form-control" type="text"
                        formControlName="bankname">
                 <div
-                  *ngIf="addTicketForm.get('bankname').invalid && addTicketForm.get('bankname').touched">
+                  *ngIf="addFarmerForm.get('bankname').invalid && addFarmerForm.get('bankname').touched">
                   <small
-                    *ngIf="addTicketForm.get('bankname').invalid && addTicketForm.get('bankname').touched"
+                    *ngIf="addFarmerForm.get('bankname').invalid && addFarmerForm.get('bankname').touched"
                     class="text-danger"> *Bankname is required</small>
                 </div>
               </div>
@@ -268,9 +277,9 @@
                 <input class="form-control" type="text"
                        formControlName="fieldagentid">
                 <div
-                  *ngIf="addTicketForm.get('fieldagentid').invalid && addTicketForm.get('fieldagentid').touched">
+                  *ngIf="addFarmerForm.get('fieldagentid').invalid && addFarmerForm.get('fieldagentid').touched">
                   <small
-                    *ngIf="addTicketForm.get('fieldagentid').invalid && addTicketForm.get('fieldagentid').touched"
+                    *ngIf="addFarmerForm.get('fieldagentid').invalid && addFarmerForm.get('fieldagentid').touched"
                     class="text-danger"> *Field agent ID is required</small>
                 </div>
               </div>
@@ -289,9 +298,9 @@
                 <label>Location</label>
                 <input class="form-control" type="text"
                        formControlName="locationid">
-                <div *ngIf="addTicketForm.get('ccName').invalid && addTicketForm.get('ccName').touched">
+                <div *ngIf="addFarmerForm.get('locationid').invalid && addFarmerForm.get('locationid').touched">
                   <small
-                    *ngIf="addTicketForm.get('ccName').invalid && addTicketForm.get('ccName').touched"
+                    *ngIf="addFarmerForm.get('locationid').invalid && addFarmerForm.get('locationid').touched"
                     class="text-danger"> *Location is required</small>
                 </div>
               </div>
@@ -302,8 +311,8 @@
               <div class="form-group">
                 <label>Marital Status</label>
                 <input type="text" class="form-control"
-                       [class.invalid]="addTicketForm.get('AssignName').invalid && addTicketForm.get('AssignName').touched"
-                       formControlName="AssignName">
+                       [class.invalid]="addFarmerForm.get('maritalstatus').invalid && addFarmerForm.get('maritalstatus').touched"
+                       formControlName="maritalstatus">
               </div>
             </div>
           </div>

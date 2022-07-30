@@ -13,7 +13,7 @@
       </div>
       <div class="col-auto float-end ms-auto">
         <a class="btn add-btn" data-bs-toggle="modal" data-bs-target="#create_project"><i class="fa fa-plus"></i>
-          Create Project</a>
+          Sell Product</a>
         <div class="view-icons">
           <a routerLink="/layout/projects/projectpage" class="grid-view btn btn-link"><i class="fa fa-th"></i></a>
           <a routerLink="/layout/projects/projectlist" class="list-view btn btn-link active"><i
@@ -61,9 +61,9 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let sale of Sales;let i = index">
+          <tr *ngFor="let sale of sales;let i = index">
             <!--                            <td>-->
-            <!--                                <a routerLink="/layout/projects/projectview/{{sale.id}}">{{sale.name}}</a>-->
+            <!--                                <a routerLink="/layout/Sales/projectview/{{sale.id}}">{{sale.name}}</a>-->
             <!--                            </td>-->
             <td>{{sale.farmeruserid}}</td>
             <td>
@@ -89,7 +89,7 @@
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Create Project</h5>
+        <h5 class="modal-title">Make a Sale</h5>
         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -117,8 +117,7 @@
               <div class="form-group">
                 <label>Product</label>
                 <select class="form-select form-control" formControl="productid">
-                  <option>Global Technologies</option>
-                  <option>Delta Infotech</option>
+                  <option *ngFor="let product of products" [value]="product.id">{{product.name}}</option>
                 </select>
               </div>
             </div>
@@ -151,7 +150,7 @@
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Edit Project</h5>
+        <h5 class="modal-title">Edit a Sale</h5>
         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -180,8 +179,7 @@
               <div class="form-group">
                 <label>Product</label>
                 <select class="form-select form-control" formControl="productid">
-                  <option>Global Technologies</option>
-                  <option>Delta Infotech</option>
+                  <option *ngFor="let product of products" [value]="product.id">{{product.name}}</option>
                 </select>
               </div>
             </div>

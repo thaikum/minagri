@@ -5,27 +5,30 @@ import {
   ViewChild,
   AfterViewInit,
 } from '@angular/core';
-import { AllModulesService } from '../../all-modules.service';
+import {AllModulesService} from '../../all-modules.service';
 import {
   FormBuilder,
   FormGroup,
-  FormControl,
   Validators,
 } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
-import { Subject } from 'rxjs';
-import { DataTableDirective } from 'angular-datatables';
+import {ToastrService} from 'ngx-toastr';
+import {Subject} from 'rxjs';
+import {DataTableDirective} from 'angular-datatables';
 import {UsersService} from '../../../services/users.service';
 import {User} from '../../../interface/User';
+import {OrganizationType} from "../../../interface/UsetType";
+import {OrganizationService} from "../../../services/organization.service";
+import {UserGroup} from "../../../interface/UserGroup";
 
 declare const $: any;
+
 @Component({
   selector: 'app-user-main',
   templateUrl: './user-main.component.html',
   styleUrls: ['./user-main.component.css'],
 })
 export class UserMainComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild(DataTableDirective, { static: false })
+  @ViewChild(DataTableDirective, {static: false})
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
   public url: any = 'users';
@@ -37,12 +40,16 @@ export class UserMainComponent implements OnInit, OnDestroy, AfterViewInit {
   public rows = [];
   public srch = [];
   public dtTrigger: Subject<any> = new Subject();
+  public userGroups: UserGroup[] = [];
+
   constructor(
     private allModuleService: AllModulesService,
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
-    private _userService: UsersService
-  ) {}
+    private _userService: UsersService,
+    private _orgService: OrganizationService
+  ) {
+  }
 
   ngOnInit() {
     $('.floating')
@@ -58,7 +65,7 @@ export class UserMainComponent implements OnInit, OnDestroy, AfterViewInit {
     // Add Provident Form Validation And Getting Values
 
     this.addUsers = this.formBuilder.group({
-      firstName: ['',Validators.required],
+      firstName: ['', Validators.required],
       surname: ['', [Validators.required]],
       email: ['', [Validators.required]],
       nationalid: ['', [Validators.required]],
@@ -81,6 +88,10 @@ export class UserMainComponent implements OnInit, OnDestroy, AfterViewInit {
       pageLength: 10,
       dom: 'lrtip',
     };
+
+    this._orgService.getAllUserGroups().subscribe(resp => {
+      this.userGroups = resp.body;
+    })
   }
 
   ngAfterViewInit(): void {
@@ -104,7 +115,7 @@ export class UserMainComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   getUsers() {
-    this._userService.getAllUsers().subscribe(data=>{
+    this._userService.getAllUsers().subscribe(data => {
       this.allUsers = data.body;
       console.log(this.allUsers);
       this.rows = this.allUsers;
@@ -149,7 +160,7 @@ export class UserMainComponent implements OnInit, OnDestroy, AfterViewInit {
         phonenumber: this.editUsers.value.phonenumber,
         userId: this.editUsers.value.userId
       };
-      this.allModuleService.update(obj, this.url).subscribe((data1) => {
+      this._userService.registerUser(obj).subscribe((data1) => {
         $('#datatable').DataTable().clear();
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.destroy();
@@ -219,7 +230,7 @@ export class UserMainComponent implements OnInit, OnDestroy, AfterViewInit {
   // search by name
   searchRole(val) {
     this.rows.splice(0, this.rows.length);
-    const temp = this.srch.filter( (d) =>{
+    const temp = this.srch.filter((d) => {
       val = val.toLowerCase();
       return d.role.toLowerCase().indexOf(val) !== -1 || !val;
     });
