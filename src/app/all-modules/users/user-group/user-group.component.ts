@@ -1,43 +1,38 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  ViewChild,
-  AfterViewInit,
-} from '@angular/core';
-import {AllModulesService} from '../../all-modules.service';
-import {
-  FormBuilder,
-  FormGroup,
-  FormControl,
-  Validators,
-} from '@angular/forms';
-import {ToastrService} from 'ngx-toastr';
-import {Subject} from 'rxjs';
+import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {DataTableDirective} from 'angular-datatables';
-import {UsersService} from '../../../services/users.service';
+import {UserType} from '../../../interface/UsetType';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {Subject} from 'rxjs';
 import {User} from '../../../interface/User';
-import {OrganizationService} from "../../../services/organization.service";
-import {UserType} from "../../../interface/UsetType";
+import {AllModulesService} from '../../all-modules.service';
+import {ToastrService} from 'ngx-toastr';
+import {UsersService} from '../../../services/users.service';
+import {OrganizationService} from '../../../services/organization.service';
+import {UserGroup} from '../../../interface/UserGroup';
+
+declare const $: any;
 
 @Component({
-  selector: 'app-user-type',
-  templateUrl: './user-type.component.html',
-  styleUrls: ['./user-type.component.css']
+  selector: 'app-user-group',
+  templateUrl: './user-group.component.html',
+  styleUrls: ['./user-group.component.css']
 })
-export class UserTypeComponent implements OnInit, AfterViewInit, OnDestroy {
+export class UserGroupComponent implements OnInit, AfterViewInit, OnDestroy {
+
   @ViewChild(DataTableDirective, {static: false})
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
   public url: any = 'users';
-  public allUserTypes: UserType[];
-  public addUserType: FormGroup;
-  public editType: FormGroup;
+  public allUserGroups: UserGroup[];
+  public addUserGroup: FormGroup;
+  public editUserGroup: FormGroup;
   public editId: any;
   public tempId: any;
   public rows = [];
   public srch = [];
   public dtTrigger: Subject<any> = new Subject();
+
+  private allUsers: User[] = []
 
   constructor(
     private allModuleService: AllModulesService,
@@ -52,8 +47,7 @@ export class UserTypeComponent implements OnInit, AfterViewInit, OnDestroy {
     $('.floating')
       .on('focus blur', function (e) {
         $(this)
-        // .parents('.form-focus')
-        // .toggleClass('focused', e.type === 'focus' || this.value.length > 0);
+        .parents('.form-focus').toggleClass('focused', e.type === 'focus' || this.value.length > 0);
       })
       .trigger('blur');
 
@@ -61,16 +55,14 @@ export class UserTypeComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // Add Provident Form Validation And Getting Values
 
-    this.addUserType = this.formBuilder.group({
+    this.addUserGroup = this.formBuilder.group({
       name: new FormControl(''),
-      description: new FormControl(''),
     });
 
     // Edit Provident Form Validation And Getting Values
 
-    this.editType = this.formBuilder.group({
+    this.editUserGroup = this.formBuilder.group({
       name: new FormControl(''),
-      description: new FormControl(''),
     });
     // for data table configuration
     this.dtOptions = {
@@ -78,6 +70,10 @@ export class UserTypeComponent implements OnInit, AfterViewInit, OnDestroy {
       pageLength: 10,
       dom: 'lrtip',
     };
+
+    this._userService.getAllUsers().subscribe(users=>{
+      this.allUsers = users.body;
+    })
   }
 
   ngAfterViewInit(): void {
@@ -93,7 +89,7 @@ export class UserTypeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
     });
-    this.allUserTypes = [];
+    this.allUserGroups = [];
     this.getTypes();
     setTimeout(() => {
       this.dtTrigger.next();
@@ -101,33 +97,40 @@ export class UserTypeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getTypes() {
-    this._orgService.getUserTypes().subscribe(data => {
-      this.allUserTypes = data.body;
-      console.log(this.allUserTypes);
-      this.rows = this.allUserTypes;
+    this._orgService.getAllUserGroups().subscribe(data => {
+      console.log(data.body);
+      this.allUserGroups = data.body;
+      console.log(this.allUserGroups);
+      this.rows = this.allUserGroups;
       this.srch = [...this.rows];
     })
   }
 
+  getUser(id): User{
+    return this.allUsers.filter((user)=>user.userid = id)[0];
+  }
+
+
   // Add Provident Modal Api Call
 
   addUsersSubmit() {
-    if (this.addUserType.valid) {
+    if (this.addUserGroup.valid) {
       const obj = {
-        name: this.addUserType.value.name,
-        description: this.addUserType.value.description,
+        name: this.addUserGroup.value.name,
       };
-      this._userService.registerUser(obj).subscribe((data) => {
+      this._orgService.createUserGroup(obj).subscribe((data) => {
         $('#datatable').DataTable().clear();
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.destroy();
         });
         this.dtTrigger.next();
+        this.getTypes();
+        $('#add_user_group').hide()
+        this.addUserGroup.reset();
+        this.toastr.success('Users is added', 'Success');
+      }, error => {
+        this.toastr.error(error.message, 'Error');
       });
-      this.getTypes();
-      $('#add_user').hide()
-      this.addUserType.reset();
-      this.toastr.success('Users is added', 'Success');
     } else {
       this.toastr.warning('Mandatory fields required', '');
     }
@@ -136,10 +139,10 @@ export class UserTypeComponent implements OnInit, AfterViewInit, OnDestroy {
   // Edit Provident Modal Api Call
 
   editUsersSubmit() {
-    if (this.editType.valid) {
+    if (this.editUserGroup.valid) {
       const obj = {
-        name: this.editType.value.name,
-        description: this.editType.value.description,
+        name: this.editUserGroup.value.name,
+        description: this.editUserGroup.value.description,
       };
       this.allModuleService.update(obj, this.url).subscribe((data1) => {
         $('#datatable').DataTable().clear();
@@ -149,7 +152,7 @@ export class UserTypeComponent implements OnInit, AfterViewInit, OnDestroy {
         this.dtTrigger.next();
       });
       this.getTypes();
-      $('#edit_user').hide()
+      $('#edit_user_group').hide()
       this.toastr.success('Users is edited', 'Success');
     } else {
       this.toastr.warning('Mandatory fields required', '');
@@ -158,15 +161,14 @@ export class UserTypeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   edit(value) {
     this.editId = value;
-    const index = this.allUserTypes.findIndex((item) => {
+    const index = this.allUserGroups.findIndex((item) => {
       return item.id === value;
     });
-    const toSetValues = this.allUserTypes[index];
+    const toSetValues = this.allUserGroups[index];
     console.log(toSetValues.name)
-    this.editType.setValue({
+    this.editUserGroup.setValue({
       id : value,
       name: toSetValues.name,
-      description: toSetValues.description,
     });
   }
 

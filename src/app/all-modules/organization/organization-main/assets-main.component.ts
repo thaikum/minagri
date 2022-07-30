@@ -26,7 +26,7 @@ import {UserModalComponent} from '../../../modals/user-modal/user-modal.componen
 declare const $: any;
 
 @Component({
-  selector: 'app-assets-main',
+  selector: 'app-organization-main',
   templateUrl: './assets-main.component.html',
   styleUrls: ['./assets-main.component.css'],
 })
@@ -75,7 +75,7 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
       })
       .trigger('blur');
 
-    // get assets data from API
+    // get organization data from API
 
     this.getAssets();
 

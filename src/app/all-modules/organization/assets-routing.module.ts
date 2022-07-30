@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AssetsComponent } from './assets.component';
-import { AssetsMainComponent } from './assets-main/assets-main.component';
+import { AssetsMainComponent } from './organization-main/assets-main.component';
 import {UserTypeComponent} from './user-type/user-type.component';
 
 const routes: Routes = [
@@ -10,7 +10,7 @@ const routes: Routes = [
     component:AssetsComponent,
     children:[
       {
-        path:'assets-main',
+        path:'organization-main',
         component:AssetsMainComponent
       },
       // {

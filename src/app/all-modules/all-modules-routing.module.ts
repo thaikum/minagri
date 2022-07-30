@@ -99,9 +99,9 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'assets',
+        path: 'organization',
         loadChildren: () =>
-          import('./assets/assets.module').then((m) => m.AssetsModule),
+          import('./organization/assets.module').then((m) => m.AssetsModule),
       },
       {
         path: 'jobs',

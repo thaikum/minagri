@@ -52,6 +52,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
         console.log(userData);
 
+        localStorage.removeItem('userData');
         localStorage.setItem('userData', JSON.stringify(userData));
 
         const expDate = +new Date() + dt.expires_in * 1000000

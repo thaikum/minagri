@@ -146,7 +146,7 @@
   <div class="modal-dialog modal-md" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Add Asset</h5>
+        <h5 class="modal-title">Create organization</h5>
         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -213,12 +213,6 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Contact user</label>
-                <div class="input-group">
-                  <input type="text" class="form-control" formControlName="contactuserid">
-                  <a class="input-group-append btn"  data-bs-toggle="modal" data-bs-target="#org-user">
-                    <i class="fa fa-search" aria-hidden="true"></i>
-                  </a>
-                </div>
                 <select class="form-select form-control"
                         [class.invalid]="addOrganization.get('contactuserid').invalid && addOrganization.get('contactuserid').touched"
                         formControlName="contactuserid">
@@ -365,8 +359,6 @@
     </div>
   </div>
 </div>
-
-{{users | json}}
 
 <!--================================== user table =======================================================-->
 

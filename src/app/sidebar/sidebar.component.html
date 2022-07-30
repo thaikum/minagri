@@ -52,6 +52,9 @@
             ><i class="la la-users"></i> <span>Clients</span></a
             >
           </li>
+
+          <!-- =========================================== users ============================================================-->
+
           <li
             class="submenu"
             [ngClass]="{
@@ -91,14 +94,28 @@
               <li routerLink="/layout/users/user-type">
                 <a
                   href="javascript:"
-                  [ngClass]="{ active: urlComplete.subUrl === 'tasks' }"
+                  [ngClass]="{ active: urlComplete.subUrl === 'user-type' }"
                 >Manage User type
+                </a>
+              </li>
+              <li routerLink="/layout/users/user-group">
+                <a
+                  href="javascript:"
+                  [ngClass]="{ active: urlComplete.subUrl === 'user-group' }"
+                >Manage User Group
+                </a>
+              </li>
+              <li routerLink="/layout/users/user-roles">
+                <a
+                  href="javascript:"
+                  [ngClass]="{ active: urlComplete.subUrl === 'user-roles' }"
+                >Manage User Role
                 </a>
               </li>
             </ul>
           </li>
 
-<!--          ======================================== org ============================================================ -->
+          <!--======================================== org ============================================================ -->
 
           <li
             class="submenu"
@@ -133,7 +150,7 @@
               }"
             >
               <li [ngClass]="{ active: urlComplete.subUrl === 'user-main' }">
-                <a routerLink="/layout/assets/assets-main"
+                <a routerLink="/layout/organization/organization-main"
                 ><span>Manage Organization</span></a>
               </li>
               <li routerLink="/layout/users/user-type">
@@ -147,14 +164,13 @@
           </li>
 
 
+          <!--          =================================================================================================================-->
 
-<!--          =================================================================================================================-->
-
-<!--          <li [ngClass]="{ active: urlComplete.subUrl === 'leadscontent' }">-->
-<!--            <a routerLink="/layout/leads/leadscontent"-->
-<!--            ><i class="la la-user-secret"></i> <span>Leads</span></a-->
-<!--            >-->
-<!--          </li>-->
+          <!--          <li [ngClass]="{ active: urlComplete.subUrl === 'leadscontent' }">-->
+          <!--            <a routerLink="/layout/leads/leadscontent"-->
+          <!--            ><i class="la la-user-secret"></i> <span>Leads</span></a-->
+          <!--            >-->
+          <!--          </li>-->
           <li
             [ngClass]="{
               active:

@@ -1,7 +1,7 @@
 import { Component, OnInit,HostListener, NgZone } from '@angular/core';
 
 @Component({
-  selector: 'app-assets',
+  selector: 'app-organization',
   templateUrl: './assets.component.html',
   styleUrls: ['./assets.component.css']
 })

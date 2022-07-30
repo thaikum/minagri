@@ -19,7 +19,7 @@ export class ChatMessageComponent implements OnInit {
     acceptedFileTypes: "image/jpeg, image/png",
   };
 
-  pondFiles = ["assets/img/logo2.png"];
+  pondFiles = ["organization/img/logo2.png"];
 
   constructor(private allModuleService: AllModulesService) {
     // this.allModuleService.getChats().subscribe(data => {
