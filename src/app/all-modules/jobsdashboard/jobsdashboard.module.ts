@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { JobsdashboardRoutingModule } from './jobsdashboard-routing.module';
 import { JobsdashboardComponent } from './jobsdashboard.component';
 import { JobsdashboardListComponent } from './jobsdashboard-list/jobsdashboard-list.component';
-import { MorrisJsModule } from 'angular-morris-js';
+// import { MorrisJsModule } from 'angular-morris-js';
 
 
 @NgModule({
@@ -12,7 +12,7 @@ import { MorrisJsModule } from 'angular-morris-js';
   imports: [
     CommonModule,
     JobsdashboardRoutingModule,
-    MorrisJsModule
+    // MorrisJsModule
   ]
 })
 export class JobsdashboardModule { }

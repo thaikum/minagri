@@ -11,6 +11,7 @@ import { DataTablesModule } from 'angular-datatables';
 import { ToastrModule } from 'ngx-toastr';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { UserModalComponent } from './modals/user-modal/user-modal.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { UserModalComponent } from './modals/user-modal/user-modal.component';
   ],
   imports: [
     HttpClientModule,
+    MatDialogModule,
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,

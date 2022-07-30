@@ -18,6 +18,7 @@ import {DataTableDirective} from 'angular-datatables';
 import {UsersService} from '../../../services/users.service';
 import {User} from '../../../interface/User';
 import {OrganizationService} from "../../../services/organization.service";
+import {UserType} from "../../../interface/UsetType";
 
 @Component({
   selector: 'app-user-type',
@@ -29,8 +30,8 @@ export class UserTypeComponent implements OnInit, AfterViewInit, OnDestroy {
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
   public url: any = 'users';
-  public allUsers: any;
-  public addUsers: FormGroup;
+  public allUserTypes: UserType[];
+  public addUserType: FormGroup;
   public editType: FormGroup;
   public editId: any;
   public tempId: any;
@@ -60,7 +61,7 @@ export class UserTypeComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // Add Provident Form Validation And Getting Values
 
-    this.addUsers = this.formBuilder.group({
+    this.addUserType = this.formBuilder.group({
       name: new FormControl(''),
       description: new FormControl(''),
     });
@@ -92,7 +93,7 @@ export class UserTypeComponent implements OnInit, AfterViewInit, OnDestroy {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
     });
-    this.allUsers = [];
+    this.allUserTypes = [];
     this.getTypes();
     setTimeout(() => {
       this.dtTrigger.next();
@@ -101,9 +102,9 @@ export class UserTypeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   getTypes() {
     this._orgService.getUserTypes().subscribe(data => {
-      this.allUsers = data.body;
-      console.log(this.allUsers);
-      this.rows = this.allUsers;
+      this.allUserTypes = data.body;
+      console.log(this.allUserTypes);
+      this.rows = this.allUserTypes;
       this.srch = [...this.rows];
     })
   }
@@ -111,10 +112,10 @@ export class UserTypeComponent implements OnInit, AfterViewInit, OnDestroy {
   // Add Provident Modal Api Call
 
   addUsersSubmit() {
-    if (this.addUsers.valid) {
+    if (this.addUserType.valid) {
       const obj = {
-        name: this.addUsers.value.name,
-        description: this.addUsers.value.description,
+        name: this.addUserType.value.name,
+        description: this.addUserType.value.description,
       };
       this._userService.registerUser(obj).subscribe((data) => {
         $('#datatable').DataTable().clear();
@@ -125,7 +126,7 @@ export class UserTypeComponent implements OnInit, AfterViewInit, OnDestroy {
       });
       this.getTypes();
       $('#add_user').hide()
-      this.addUsers.reset();
+      this.addUserType.reset();
       this.toastr.success('Users is added', 'Success');
     } else {
       this.toastr.warning('Mandatory fields required', '');
@@ -157,18 +158,15 @@ export class UserTypeComponent implements OnInit, AfterViewInit, OnDestroy {
 
   edit(value) {
     this.editId = value;
-    const index = this.allUsers.findIndex((item) => {
-      return item.userid === value;
+    const index = this.allUserTypes.findIndex((item) => {
+      return item.id === value;
     });
-    const toSetValues = this.allUsers[index];
+    const toSetValues = this.allUserTypes[index];
     console.log(toSetValues.name)
     this.editType.setValue({
-      firstName: toSetValues.name?.trim().split(' ')[0] || '',
-      surname: toSetValues.name?.trim().split(' ')[1] || '',
-      email: toSetValues?.email,
-      nationalid: toSetValues?.nationalid,
-      phonenumber: toSetValues?.phonenumber,
-      userid: toSetValues?.userid
+      id : value,
+      name: toSetValues.name,
+      description: toSetValues.description,
     });
   }
 
