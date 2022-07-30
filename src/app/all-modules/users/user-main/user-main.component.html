@@ -99,11 +99,13 @@
                     <a class="dropdown-item" data-bs-toggle="modal"
                        data-bs-target="#delete_user" (click)="tempId = users?.userid"><i class="fa fa-trash-o m-r-5"></i>
                       Delete</a>
+                    <a class="dropdown-item" data-bs-toggle="modal"
+                       data-bs-target="#edit_user_group"><i class="fa fa-pencil m-r-5"></i> Edit User Group</a>
                   </div>
                 </div>
               </td>
             </tr>
-            <tr *ngIf="allUsers.length === 0">
+            <tr *ngIf="allUsers?.length === 0">
               <td colspan="10">
                 <h5 style="text-align: center;">No data found</h5>
               </td>
@@ -169,17 +171,9 @@
               <div class="col-sm-6">
                 <div class="form-group">
                   <label>User Group</label>
-                  <select class="form-select form-control" formControl="userGroup">
+                  <select class="form-select form-control" formControl="">
                     <option *ngFor="let group of userGroups" [value]="group.id">{{group.name}}</option>
-                    <option>Client</option>
-                    <option>Employee</option>
                   </select>
-<!--                  <div-->
-<!--                    *ngIf="addUsers.get('addRole').invalid && addUsers.get('addRole').touched">-->
-<!--                    <small-->
-<!--                      *ngIf="addUsers.get('addRole').invalid && addUsers.get('addRole').touched"-->
-<!--                      class="text-danger"> *User Group required</small>-->
-<!--                  </div>-->
                 </div>
               </div>
 
@@ -307,5 +301,21 @@
       </div>
     </div>
   </div>
-  <!-- /Delete User Modal -->
+
+<!--  Change user type -->
+  <div id="edit_user_group" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit User Group</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>

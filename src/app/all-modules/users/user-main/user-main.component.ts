@@ -35,6 +35,7 @@ export class UserMainComponent implements OnInit, OnDestroy, AfterViewInit {
   public allUsers: User[];
   public addUsers: FormGroup;
   public editUsers: FormGroup;
+  public editUserGroup: FormGroup;
   public editId: any;
   public tempId: any;
   public rows = [];
