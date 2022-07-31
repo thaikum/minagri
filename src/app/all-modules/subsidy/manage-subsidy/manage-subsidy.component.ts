@@ -48,9 +48,9 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
     // Add SubsidyForm Validation
     this.addSubsidyForm = this.formBuilder.group({
       name: ["", [Validators.required]],
-      productType: ["", [Validators.required]],
-      subsidyRate: ["", [Validators.required]],
-      farmerCategory: ["", [Validators.required]],
+      producttypeid: ["", [Validators.required]],
+      rate: ["", [Validators.required]],
+      farmercategoryid: ["", [Validators.required]],
     });
     //subsidies
     this.getSubsidy();
