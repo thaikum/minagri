@@ -17,6 +17,11 @@ export class WeatherService {
 
   constructor(private http: HttpClient) { }
 
+// get Weather Dakad
+getDakadWeather(): Observable<any> {
+  return this.http.get(this.baseUrl+'dekadforecast', this.httpOptions);
+}
+
 //  Add Weather Data
   addWeatherData(weatheradata: AddWeatherData): Observable<any> {
     return this.http.post(this.baseUrl+'upload', weatheradata, this.httpOptions);
@@ -27,6 +32,6 @@ export class WeatherService {
   }
 //  Weather Reports
   getWeatherReports(): Observable<any> {
-    return this.http.get(this.baseUrl+'', this.httpOptions);
+    return this.http.get(this.baseUrl+'seasonalforecast', this.httpOptions);
   }
 }

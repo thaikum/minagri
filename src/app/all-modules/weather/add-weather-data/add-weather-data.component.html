@@ -61,6 +61,7 @@
             <table class="table table-striped custom-table mb-0">
               <thead>
               <tr>
+                <th>#</th>
                 <th>District</th>
                 <th>Dekad</th>
                 <th>Start Day (GC):</th>
@@ -70,7 +71,18 @@
                 <th class="text-center">Temperature forecast:</th>
               </tr>
               </thead>
-              <tbody></tbody>
+              <tbody>
+                <tr *ngFor="let item of dakarweatherdata;let i = index">
+                  <td>{{item.id}}</td>
+                <td>{{item.district}}</td>
+                <td>{{item.dakad}}</td>
+                <td>{{item.startday}}</td>
+                <td>{{item.endday}}</td>
+                <td>{{item.rainfallrange}}</td>
+                <td>{{item.windspeed}}</td>
+                <td>{{item.temparature}}</td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </div>
