@@ -16,7 +16,7 @@ export class ManageCommissionComponent implements OnInit {
   @ViewChild(DataTableDirective, { static: false })
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
-  public commissions: Commission[] = [];
+  public commissions: Commission[];
   public rows = [];
   public srch = [];
   public statusValue;
@@ -51,8 +51,9 @@ export class ManageCommissionComponent implements OnInit {
   //  Endpoints
 //  1. get all Sales Commissions
   public getCommissions(): void {
-    this.cs.getAllCommissions().subscribe((data) => {
-      this.commissions = data;
+    this.cs.getAllCommissions().subscribe(data => {
+      this.commissions = data.body;
+      console.log(this.commissions)
       this.rows = this.commissions;
       this.srch = [...this.rows];
     });

@@ -9,7 +9,7 @@ import {Commission} from "./interface/commission";
   providedIn: 'root'
 })
 export class CommissionService {
-  private baseUrl = environment.apiUrl+'claims/'
+  private baseUrl = environment.apiUrl+'products/'
 
   httpOptions = {
     headers: headers
@@ -18,7 +18,7 @@ export class CommissionService {
   constructor(private http: HttpClient) { }
 //Get All Sales Commissions
   getAllCommissions(): Observable<any> {
-    return this.http.get(this.baseUrl+'',this.httpOptions);
+    return this.http.get(this.baseUrl+'listcommission',this.httpOptions);
   }
 
   //  Creat New Sales Commission
@@ -26,15 +26,4 @@ export class CommissionService {
     return this.http.post(this.baseUrl+'',commission, this.httpOptions);
   }
 
-  // // Product Category
-  //
-  // //Get All Sales Commissions
-  // getCommissions(endpoint: string){
-  //   return this.http.get(this.url + endpoint);
-  // }
-  //
-  // //  Creat New Sales Commission
-  // createCommission(endpoint: string, model: any){
-  //   return this.http.post(this.url + endpoint, model);
-  // }
 }

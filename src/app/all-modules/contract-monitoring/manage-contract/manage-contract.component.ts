@@ -17,7 +17,7 @@ export class ManageContractComponent implements OnInit, OnDestroy {
   @ViewChild(DataTableDirective, { static: false })
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
-  public Contract: Contract[] = [];
+  public contract: Contract[];
   public addContractForm: FormGroup;
 
   public rows = [];
@@ -35,13 +35,11 @@ export class ManageContractComponent implements OnInit, OnDestroy {
 
     // Add Contract Review Form Validation
     this.addContractForm = this.formBuilder.group({
-      productName: ["", [Validators.required]],
-      contractName: ["", [Validators.required]],
-      subsidyRate: ["", [Validators.required]],
-      farmerCategory: ["", [Validators.required]],
-      StartDate: ["", [Validators.required]],
-      EndDate: ["", [Validators.required]],
-      contractFile: ["",[Validators.required]]
+      name: ["", [Validators.required]],
+      contracttype: ["", [Validators.required]],
+      productid: ["", [Validators.required]],
+      startdate: ["", [Validators.required]],
+      enddate: ["", [Validators.required]],
     });
   }
   ngAfterViewInit(): void {
@@ -56,7 +54,7 @@ export class ManageContractComponent implements OnInit, OnDestroy {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
     });
-    this.Contract = [];
+    this.contract = [];
     this.getContracts();
     setTimeout(() => {
       this.dtTrigger.next();
@@ -65,9 +63,10 @@ export class ManageContractComponent implements OnInit, OnDestroy {
 
   //Get All Contracts
   public getContracts() {
-    this.cs.getAllContracts().subscribe((data) =>{
-      this.Contract = data;
-      this.rows = this.Contract;
+    this.cs.getAllContracts().subscribe(data =>{
+      this.contract = data.body;
+      console.log(this.contract)
+      this.rows = this.contract;
       this.srch = [...this.rows];
     })
   }
@@ -88,21 +87,20 @@ export class ManageContractComponent implements OnInit, OnDestroy {
       this.markFormGroupTouched(this.addContractForm)
       return
     }
-    let StartDate = this.pipe.transform(
-      this.addContractForm.value.contractStartDate,
-      "dd-MM-yyyy"
-    );
-    let EndDate = this.pipe.transform(
-      this.addContractForm.value.contractEndDate,
-      "dd-MM-yyyy"
-    );
+    // let startdate = this.pipe.transform(
+    //   this.addContractForm.value.startdate,
+    //   "dd-MM-yyyy"
+    // );
+    // let enddate = this.pipe.transform(
+    //   this.addContractForm.value.enddate,
+    //   "dd-MM-yyyy"
+    // );
     let newContract = {
-      productName: this.addContractForm.value.productName,
-      contractName: this.addContractForm.value.contractName,
-      subsidyRate: this.addContractForm.value.subsidyRate,
-      farmerCategory: this.addContractForm.value.farmerCategory,
-      endDate: EndDate,
-      startDate: StartDate,
+      name: this.addContractForm.value.name,
+      contracttype: this.addContractForm.value.contracttype,
+      productid: this.addContractForm.value.productid,
+      startdate: this.addContractForm.value.startdate,
+      enddate: this.addContractForm.value.enddate,
     };
     this.cs.addContract(newContract).subscribe((data) =>{
       $('#datatable').DataTable().clear();
@@ -122,7 +120,7 @@ export class ManageContractComponent implements OnInit, OnDestroy {
     this.rows.splice(0, this.rows.length);
     const temp = this.srch.filter(function (d) {
       val = val.toLowerCase();
-      return d.productName.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.name.toLowerCase().indexOf(val) !== -1 || !val;
     });
     this.rows.push(...temp);
   }

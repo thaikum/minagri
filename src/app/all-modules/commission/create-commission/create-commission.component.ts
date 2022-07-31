@@ -5,6 +5,7 @@ import { Subject } from "rxjs";
 import { DatePipe } from "@angular/common";
 import { DataTableDirective } from "angular-datatables";
 import {CommissionService} from "../commission.service";
+import { Commission } from '../interface/commission';
 
 declare const $: any;
 @Component({
@@ -16,7 +17,7 @@ export class CreateCommissionComponent implements OnInit, OnDestroy {
   @ViewChild(DataTableDirective, { static: false })
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
-  public commission = [];
+  public commissions: Commission[];
   public createCommisssiomForm: FormGroup;
 
   public rows = [];
@@ -40,6 +41,17 @@ export class CreateCommissionComponent implements OnInit, OnDestroy {
       quantity: ["", [Validators.required]],
       discount: ["", [Validators.required]],
       otherInformation: ["", [Validators.required]],
+    });
+  }
+
+
+  //  1. get all Sales Commissions
+  public getCommissions() {
+    this.cs.getAllCommissions().subscribe(data => {
+      this.commissions = data.body;
+      console.log(this.commissions)
+      this.rows = this.commissions;
+      this.srch = [...this.rows];
     });
   }
 

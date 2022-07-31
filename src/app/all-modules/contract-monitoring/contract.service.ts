@@ -27,15 +27,6 @@ export class ContractService {
     return this.http.post(this.baseUrl+'createcontract', contract,this.httpOptions);
   }
 
-//   //Get All Contracts
-//   getContracts(endpoint: string){
-//     return this.http.get(this.url + endpoint);
-//   }
-//
-// //  Add New Contract Review
-//   addContract(endpoint: string, model: any){
-//     return this.http.post(this.url + endpoint, model);
-//   }
 
 //Get All Cropcuts
   getAllCropcuts(): Observable<any>{
