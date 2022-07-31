@@ -1,3 +1,4 @@
+import { ProductLoading } from './interface/product-loading';
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
@@ -40,6 +41,23 @@ export class ProductService {
 //  Add New Product Type
   addproductType(producttypes: Producttypes): Observable<any>{
     return this.http.post(this.baseUrl+'createproduct', producttypes, this.httpOptions);
+  }
+
+  // list product types
+
+  listProductType(): Observable<any>{
+    return this.http.get(this.baseUrl+'listtype', this.httpOptions);
+  }
+
+  // Product Loading
+  // list Product Loading
+  listProductLoading(): Observable<any>{
+    return this.http.get(this.baseUrl+'listloadings', this.httpOptions);
+  }
+
+  // add product loading
+  addproductLoading(productloading: ProductLoading): Observable<any>{
+    return this.http.post(this.baseUrl+'addproductloading', productloading, this.httpOptions);
   }
 
 

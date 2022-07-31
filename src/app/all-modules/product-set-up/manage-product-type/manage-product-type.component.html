@@ -44,7 +44,7 @@
         <table  datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id = "datatable" class="table table-striped custom-table mb-0 datatable">
           <thead>
           <tr>
-            <th>Id</th>
+            <th>#</th>
             <th>Name</th>
             <th>Product Type</th>
             <th>Product Version</th>
@@ -112,10 +112,7 @@
                 <select class="form-select form-control"
                         [class.invalid]="addProductTypeForm.get('producttypeid').invalid && addProductTypeForm.get('producttypeid').touched"
                         formControlName="producttypeid">
-                  <option>Good Conduct</option>
-                  <option>Livestock Insurance</option>
-                  <option>Livestock Insurance Product</option>
-                  <option>Crop Insurance</option>
+                  <option *ngFor="let item of types;let i = index">{{item.name}}</option>
                 </select>
                 <div
                   *ngIf="addProductTypeForm.get('producttypeid').invalid && addProductTypeForm.get('producttypeid').touched">

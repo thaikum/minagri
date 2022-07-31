@@ -1,3 +1,5 @@
+import { TypeList } from './../interface/typelist';
+import { ProductLoading } from './../interface/product-loading';
 import {Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {ProductService} from "../product.service";
@@ -8,7 +10,7 @@ import { DatePipe } from "@angular/common";
 import { DataTableDirective } from "angular-datatables";
 import {Producttypes} from "../interface/producttypes";
 
-@HostListener('window: resize', ['$event'])
+declare const $: any;
 @Component({
   selector: 'app-manage-product-type',
   templateUrl: './manage-product-type.component.html',
@@ -30,6 +32,8 @@ export class ManageProductTypeComponent implements OnInit, OnDestroy {
   public pipe = new DatePipe("en-US");
 
   public innerHeight: any;
+  public types: TypeList[];
+  public productloadings: ProductLoading[];
 
   getScreenHeight() {
     this.innerHeight = window.innerHeight + 'px';
@@ -51,11 +55,31 @@ export class ManageProductTypeComponent implements OnInit, OnDestroy {
       premiumrate: ["", [Validators.required]],
       loading: ["", [Validators.required]],
       loadingRate: ["", [Validators.required]],
-      productMatrix: ["", [Validators.required]],
-      documents: ["", [Validators.required]],
+      // productid: ["", [Validators.required]],
     });
 
+    // for floating label
+    $('.floating')
+      .on('focus blur', function (e) {
+        $(this)
+          .parents('.form-focus')
+          .toggleClass('focused', e.type === 'focus' || this.value.length > 0);
+      })
+      .trigger('blur');
+
     this.listProduct();
+
+// productLoadingList
+    this.productLoadings();
+
+    // Product Types
+    this.productType();
+
+    this.dtOptions = {
+      // ... skipped ...
+      pageLength: 10,
+      dom: 'lrtip',
+    };
   }
 
   ngAfterViewInit(): void {
@@ -77,17 +101,38 @@ export class ManageProductTypeComponent implements OnInit, OnDestroy {
     }, 1000);
   }
 
+  
+
 
   //  Endpoints
-//  1. get Product Types
-  public listProduct(): void {
+//  1. list All Product Types
+  public listProduct() {
     this.ps.getproductType().subscribe(data => {
       // @ts-ignore
       this.producttypes = data.body;
+      console.log('All Products')
       console.log(this.producttypes)
       this.rows = this.producttypes;
       this.srch = [...this.rows];
     });
+  }
+
+  // get producttype list
+  public productType() {
+    this.ps.listProductType().subscribe(data => {
+      this.types = data.body;
+      console.log('producttypeslist')
+      console.log(this.types)
+    });
+  }
+
+  // list ProductLoadings
+  public productLoadings(){
+    this.ps.listProductLoading().subscribe(data => {
+      this.productloadings = data.body;
+      console.log('productloadings list')
+      console.log(this.productloadings)
+    })
   }
 
   private markFormGroupTouched(formGroup: FormGroup) {
@@ -111,11 +156,12 @@ export class ManageProductTypeComponent implements OnInit, OnDestroy {
       version: this.addProductTypeForm.value.version,
       productcategoryid: this.addProductTypeForm.value.productcategoryid,
       premiumrate: this.addProductTypeForm.value.premiumrate,
-      loading: this.addProductTypeForm.value.loading,
-      loadingRate: this.addProductTypeForm.value.loadingRate,
-      productMatrix: this.addProductTypeForm.value.productMatrix,
-      document: this.addProductTypeForm.value.document,
+      // loading: this.addProductTypeForm.value.loading,
+      // loadingRate: this.addProductTypeForm.value.loadingRate,
+      // productMatrix: this.addProductTypeForm.value.productMatrix,
+      // document: this.addProductTypeForm.value.document,
     };
+   
     // @ts-ignore
     this.ps.addProduct(newProducttype).subscribe((data) => {
       $('#datatable').DataTable().clear();
@@ -139,6 +185,11 @@ export class ManageProductTypeComponent implements OnInit, OnDestroy {
       return d.name.toLowerCase().indexOf(val) !== -1 || !val;
     });
     this.rows.push(...temp);
+  }
+
+  // getting the status value
+  getStatus(data) {
+    this.statusValue = data;
   }
 
   // for unsubscribe datatable

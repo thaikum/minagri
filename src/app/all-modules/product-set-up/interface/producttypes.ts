@@ -4,8 +4,8 @@ export interface Producttypes{
   version?: number;
   productcategoryid?: number;
   premiumrate?: number;
-  loading?: string;
-  loadingRate?: number;
+  // loading?: string;
+  // loadingRate?: number;
   // productMatrix?: ;
   // documents?: ;
 
