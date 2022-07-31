@@ -21,7 +21,7 @@ export class ManageProductCategoriesComponent implements OnInit, OnDestroy {
   @ViewChild(DataTableDirective, { static: false })
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
-  public products: Categories[] = [];
+  public products: Categories[];
   public addProductForm: FormGroup;
 
   public rows = [];
@@ -36,7 +36,7 @@ export class ManageProductCategoriesComponent implements OnInit, OnDestroy {
     this.innerHeight = window.innerHeight + 'px';
   }
 
-  constructor(http: HttpClient, public ps: ProductService,private formBuilder: FormBuilder,private toastr: ToastrService,) {}
+  constructor(public ps: ProductService,private formBuilder: FormBuilder,private toastr: ToastrService,) {}
 
   ngOnInit() {
     $(document).ready(function () {
@@ -45,7 +45,7 @@ export class ManageProductCategoriesComponent implements OnInit, OnDestroy {
     });
     // Add ProductForm Validation
     this.addProductForm = this.formBuilder.group({
-      categoryName: ["", [Validators.required]],
+      name: ["", [Validators.required]],
       description: ["", [Validators.required]],
     });
     this.getCategory();
@@ -73,9 +73,10 @@ export class ManageProductCategoriesComponent implements OnInit, OnDestroy {
 
   //  Endpoints
 //  1. get Product Categories
-  public getCategory(): void {
-    this.ps.getAllCategory().subscribe((data) => {
-      this.products = data;
+  public getCategory() {
+    this.ps.getAllCategory().subscribe(data => {
+      this.products = data.body;
+      console.log(this.products)
       this.rows = this.products;
       this.srch = [...this.rows];
     });
@@ -97,8 +98,8 @@ export class ManageProductCategoriesComponent implements OnInit, OnDestroy {
       return
     }
     let newProduct = {
-      productName: this.addProductForm.value.productName,
-      contractName: this.addProductForm.value.contractName,
+      name: this.addProductForm.value.name,
+      description: this.addProductForm.value.description,
     };
     // @ts-ignore
     this.ps.addProduct(newProduct).subscribe((data) => {
@@ -120,7 +121,7 @@ export class ManageProductCategoriesComponent implements OnInit, OnDestroy {
     this.rows.splice(0, this.rows.length);
     const temp = this.srch.filter(function (d) {
       val = val.toLowerCase();
-      return d.productName.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.name.toLowerCase().indexOf(val) !== -1 || !val;
     });
     this.rows.push(...temp);
   }

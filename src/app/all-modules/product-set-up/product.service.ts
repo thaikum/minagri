@@ -27,19 +27,19 @@ export class ProductService {
 
 //  Add New Product Category
   addProduct(category: Categories): Observable<any>{
-    return this.http.post(this.baseUrl+'createtype' ,category, this.httpOptions);
+    return this.http.post(this.baseUrl+'createcategory' ,category, this.httpOptions);
   }
 
   // Product Type
 
   //Get All Product Types
   getproductType(): Observable<any>{
-    return this.http.get(this.baseUrl+'', this.httpOptions);
+    return this.http.get(this.baseUrl+'listproducts', this.httpOptions);
   }
 
 //  Add New Product Type
   addproductType(producttypes: Producttypes): Observable<any>{
-    return this.http.post(this.baseUrl+'createtype', producttypes, this.httpOptions);
+    return this.http.post(this.baseUrl+'createproduct', producttypes, this.httpOptions);
   }
 
 

@@ -1,6 +1,7 @@
 export interface Categories{
-  categoryName?: string;
+  name?: string;
   description?: string;
-  dateCreated?: string;
+  createdby?: string;
+  createdon?: string;
   status?: string
 }

@@ -1,9 +1,9 @@
 export interface Producttypes{
-  productName?: string;
-  productType?: string;
+  name?: string;
+  producttypeid?: number;
   version?: number;
-  farmerCategory?: string;
-  rate?: number;
+  productcategoryid?: number;
+  premiumrate?: number;
   loading?: string;
   loadingRate?: number;
   // productMatrix?: ;

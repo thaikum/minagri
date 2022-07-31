@@ -17,6 +17,6 @@ export class ClaimsService {
 
   //Get All Claims
   getAllClaims(): Observable<any>{
-    return this.http.get(this.baseUrl+'listcontracts',this.httpOptions)
+    return this.http.get(this.baseUrl+'',this.httpOptions)
   }
 }

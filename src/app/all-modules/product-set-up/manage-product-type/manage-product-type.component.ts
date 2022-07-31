@@ -20,7 +20,7 @@ export class ManageProductTypeComponent implements OnInit, OnDestroy {
   @ViewChild(DataTableDirective, { static: false })
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
-  public productTypes: Producttypes[] = [];
+  public producttypes: Producttypes[];
   public addProductTypeForm: FormGroup;
 
   public rows = [];
@@ -44,11 +44,11 @@ export class ManageProductTypeComponent implements OnInit, OnDestroy {
     });
     // Add ProductType  Form Validation
     this.addProductTypeForm = this.formBuilder.group({
-      productName: ["", [Validators.required]],
-      productType: ["", [Validators.required]],
+      name: ["", [Validators.required]],
+      producttypeid: ["", [Validators.required]],
       version: ["", [Validators.required]],
-      farmerCategory: ["", [Validators.required]],
-      rate: ["", [Validators.required]],
+      productcategoryid: ["", [Validators.required]],
+      premiumrate: ["", [Validators.required]],
       loading: ["", [Validators.required]],
       loadingRate: ["", [Validators.required]],
       productMatrix: ["", [Validators.required]],
@@ -70,7 +70,7 @@ export class ManageProductTypeComponent implements OnInit, OnDestroy {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
     });
-    this.productTypes = [];
+    this.producttypes = [];
     this.listProduct();
     setTimeout(() => {
       this.dtTrigger.next();
@@ -81,10 +81,11 @@ export class ManageProductTypeComponent implements OnInit, OnDestroy {
   //  Endpoints
 //  1. get Product Types
   public listProduct(): void {
-    this.ps.getproductType().subscribe((data) => {
+    this.ps.getproductType().subscribe(data => {
       // @ts-ignore
-      this.productTypes = data;
-      this.rows = this.productTypes;
+      this.producttypes = data.body;
+      console.log(this.producttypes)
+      this.rows = this.producttypes;
       this.srch = [...this.rows];
     });
   }
@@ -104,19 +105,19 @@ export class ManageProductTypeComponent implements OnInit, OnDestroy {
       this.markFormGroupTouched(this.addProductTypeForm)
       return
     }
-    let newProductType = {
-      productName: this.addProductTypeForm.value.productName,
-      productType: this.addProductTypeForm.value.productType,
+    let newProducttype = {
+      name: this.addProductTypeForm.value.name,
+      producttypeid: this.addProductTypeForm.value.producttypeid,
       version: this.addProductTypeForm.value.version,
-      farmerCategory: this.addProductTypeForm.value.farmerCategory,
-      rate: this.addProductTypeForm.value.rate,
+      productcategoryid: this.addProductTypeForm.value.productcategoryid,
+      premiumrate: this.addProductTypeForm.value.premiumrate,
       loading: this.addProductTypeForm.value.loading,
       loadingRate: this.addProductTypeForm.value.loadingRate,
       productMatrix: this.addProductTypeForm.value.productMatrix,
       document: this.addProductTypeForm.value.document,
     };
     // @ts-ignore
-    this.ps.addProduct(newProductType).subscribe((data) => {
+    this.ps.addProduct(newProducttype).subscribe((data) => {
       $('#datatable').DataTable().clear();
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.destroy();
@@ -135,7 +136,7 @@ export class ManageProductTypeComponent implements OnInit, OnDestroy {
     this.rows.splice(0, this.rows.length);
     const temp = this.srch.filter(function (d) {
       val = val.toLowerCase();
-      return d.productName.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.name.toLowerCase().indexOf(val) !== -1 || !val;
     });
     this.rows.push(...temp);
   }

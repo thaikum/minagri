@@ -46,15 +46,17 @@
           <tr>
             <th>Category Name</th>
             <th>Product Description</th>
+            <th>Created By</th>
             <th>Date Created</th>
             <th>Status</th>
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let categories of products;let i = index">
-            <td></td>
-            <td></td>
-            <td></td>
+          <tr *ngFor="let item of products;let i = index">
+            <td>{{item.name}}</td>
+            <td>{{item.description}}</td>
+            <td>{{item.createdby}}</td>
+            <td>{{item.createdon}}</td>
             <td class="text-center">
               <div class="dropdown action-label">
                 <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -70,11 +72,7 @@
             </td>
           </tr>
           <tr *ngIf="products.length === 0">
-<<<<<<< HEAD
-            <td colspan="4">
-=======
             <td colspan="10">
->>>>>>> da4fadc4a53df406c35a324f8b349e2a3334ec6d
               <h5 style="text-align: center;">No data found</h5>
             </td>
 
@@ -103,12 +101,12 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Category Name</label>
-                <input class="form-control" type="text" [class.invalid]="addProductForm.get('categoryName').invalid && addProductForm.get('categoryName').touched"
-                       formControlName="categoryName">
+                <input class="form-control" type="text" [class.invalid]="addProductForm.get('name').invalid && addProductForm.get('name').touched"
+                       formControlName="name">
                 <div
-                  *ngIf="addProductForm.get('categoryName').invalid && addProductForm.get('categoryName').touched">
+                  *ngIf="addProductForm.get('name').invalid && addProductForm.get('name').touched">
                   <small
-                    *ngIf="addProductForm.get('categoryName').invalid && addProductForm.get('categoryName').touched"
+                    *ngIf="addProductForm.get('name').invalid && addProductForm.get('name').touched"
                     class="text-danger"> *Category Name is required</small>
                 </div>
               </div>
