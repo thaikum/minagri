@@ -6,10 +6,7 @@ import { Subject } from "rxjs";
 import { DatePipe } from "@angular/common";
 import { DataTableDirective } from "angular-datatables";
 import {FormGroup} from "@angular/forms";
-<<<<<<< HEAD
 import {Claims} from "../interface/claims";
-=======
->>>>>>> da4fadc4a53df406c35a324f8b349e2a3334ec6d
 
 declare const $: any;
 @Component({
@@ -21,11 +18,8 @@ export class ManageClaimComponent implements OnInit, OnDestroy {
   @ViewChild(DataTableDirective, { static: false })
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
-<<<<<<< HEAD
   public Claims: Claims[] = [];
-=======
   public claims = [];
->>>>>>> da4fadc4a53df406c35a324f8b349e2a3334ec6d
   public addContractForm: FormGroup;
 
   public rows = [];
@@ -60,19 +54,8 @@ export class ManageClaimComponent implements OnInit, OnDestroy {
     }, 1000);
   }
 
-
-  //  Endpoints
-//  1. get all Claims
-<<<<<<< HEAD
-  public getClaims() {
-    this.cs.getAllClaims().subscribe((data) =>{
-      this.Claims = data;
-      this.rows = this.Claims;
-      this.srch = [...this.rows];
-    })
-=======
   public getClaims(): void {
-    this.cs.getClaims('').subscribe((data) => {
+    this.cs.getAllClaims().subscribe((data) => {
       // @ts-ignore
       this.claims = data;
       this.dtTrigger.next();
@@ -81,12 +64,6 @@ export class ManageClaimComponent implements OnInit, OnDestroy {
     });
   }
 
-  // for unsubscribe datatable
-  ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
-    this.dtTrigger.unsubscribe();
->>>>>>> da4fadc4a53df406c35a324f8b349e2a3334ec6d
-  }
 
   // search by name
   searchName(val) {
