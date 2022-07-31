@@ -51,7 +51,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let expenses of Categoty;let i = index">
+          <tr *ngFor="let categories of products;let i = index">
             <td></td>
             <td></td>
             <td></td>
@@ -68,21 +68,13 @@
                 </div>
               </div>
             </td>
-            <td class="text-end">
-              <div class="dropdown dropdown-action">
-                <a class="action-icon dropdown-toggle" data-bs-toggle="dropdown"
-                   aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                <div class="dropdown-menu dropdown-menu-right">
-                  <a class="dropdown-item" data-bs-toggle="modal"
-                     data-bs-target="#edit_expense" (click)="edit(expenses.id)"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                  <a class="dropdown-item" data-bs-toggle="modal"
-                     data-bs-target="#delete_expense" (click)="tempId = expenses.id"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                </div>
-              </div>
-            </td>
           </tr>
-          <tr *ngIf="allExpenses.length === 0">
+          <tr *ngIf="products.length === 0">
+<<<<<<< HEAD
+            <td colspan="4">
+=======
             <td colspan="10">
+>>>>>>> da4fadc4a53df406c35a324f8b349e2a3334ec6d
               <h5 style="text-align: center;">No data found</h5>
             </td>
 
@@ -106,30 +98,30 @@
         </button>
       </div>
       <div class="modal-body">
-        <form #addForm="ngForm" (ngSubmit)="onAddProduct(addForm)" [formGroup]="addProductForm">
+        <form (ngSubmit)="addProduct()" [formGroup]="addProductForm">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
                 <label>Category Name</label>
-                <input class="form-control" type="text" [class.invalid]="addProductForm.get('itemName').invalid && addProductForm.get('itemName').touched"
-                       formControlName="itemName">
+                <input class="form-control" type="text" [class.invalid]="addProductForm.get('categoryName').invalid && addProductForm.get('categoryName').touched"
+                       formControlName="categoryName">
                 <div
-                  *ngIf="addProductForm.get('itemName').invalid && addProductForm.get('itemName').touched">
+                  *ngIf="addProductForm.get('categoryName').invalid && addProductForm.get('categoryName').touched">
                   <small
-                    *ngIf="addProductForm.get('itemName').invalid && addProductForm.get('itemName').touched"
-                    class="text-danger"> *Item name is required</small>
+                    *ngIf="addProductForm.get('categoryName').invalid && addProductForm.get('categoryName').touched"
+                    class="text-danger"> *Category Name is required</small>
                 </div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label>Description</label>
-                <input class="form-control" type="text" [class.invalid]="addProductForm.get('itemName').invalid && addProductForm.get('itemName').touched"
-                       formControlName="itemName">
+                <input class="form-control" type="text" [class.invalid]="addProductForm.get('description').invalid && addProductForm.get('description').touched"
+                       formControlName="description">
                 <div
-                  *ngIf="addProductForm.get('itemName').invalid && addProductForm.get('itemName').touched">
+                  *ngIf="addProductForm.get('description').invalid && addProductForm.get('description').touched">
                   <small
-                    *ngIf="addProductForm.get('itemName').invalid && addProductForm.get('itemName').touched"
+                    *ngIf="addProductForm.get('description').invalid && addProductForm.get('description').touched"
                     class="text-danger"> *Item name is required</small>
                 </div>
               </div>

@@ -23,6 +23,8 @@ export const withFileHeaders = new HttpHeaders()
   .set('Authorization', 'Bearer ' + getAuthToken())
 
 function getAuthToken(): string{
+
   return sessionStorage.getItem('accessToken') || '';
+
 }
 

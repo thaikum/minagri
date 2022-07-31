@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-commission',
@@ -7,9 +7,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CommissionComponent implements OnInit {
 
-  constructor() { }
+  public innerHeight: any;
+  getScreenHeight() {
+    this.innerHeight = window.innerHeight + 'px';
+  }
 
-  ngOnInit(): void {
+  constructor(private ngZone: NgZone) {
+    window.onresize = (e) => {
+      this.ngZone.run(() => {
+        this.innerHeight = window.innerHeight + 'px';
+      });
+    };
+    this.getScreenHeight();
+  }
+
+  ngOnInit() {
+  }
+
+  onResize(event) {
+    this.innerHeight = event.target.innerHeight + 'px';
   }
 
 }

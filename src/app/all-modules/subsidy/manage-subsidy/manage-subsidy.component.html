@@ -51,14 +51,14 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let expenses of allSubsidy;let i = index">
+          <tr *ngFor="let subsidy of Subsidy;let i = index">
             <td></td>
             <td></td>
             <td></td>
             <td></td>
           </tr>
-          <tr *ngIf="allSubsidy.length === 0">
-            <td colspan="10">
+          <tr *ngIf="Subsidy.length === 0">
+            <td colspan="4">
               <h5 style="text-align: center;">No data found</h5>
             </td>
 
@@ -82,18 +82,18 @@
         </button>
       </div>
       <div class="modal-body">
-        <form #addForm="ngForm" (ngSubmit)="onaddSubsidy()" [formGroup]="addSubsidyForm">
+        <form (ngSubmit)="addSubsidy()" [formGroup]="addSubsidyForm">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
                 <label>Subsidy Name</label>
-                <input class="form-control" type="text" [class.invalid]="addSubsidyForm.get('subsidyName').invalid && addSubsidyForm.get('subsidyName').touched"
-                       formControlName="subsidyName">
+                <input class="form-control" type="text" [class.invalid]="addSubsidyForm.get('name').invalid && addSubsidyForm.get('name').touched"
+                       formControlName="name">
                 <div
-                  *ngIf="addSubsidyForm.get('subsidyName').invalid && addSubsidyForm.get('subsidyName').touched">
+                  *ngIf="addSubsidyForm.get('name').invalid && addSubsidyForm.get('name').touched">
                   <small
-                    *ngIf="addSubsidyForm.get('subsidyName').invalid && addSubsidyForm.get('subsidyName').touched"
-                    class="text-danger"> *Item name is required</small>
+                    *ngIf="addSubsidyForm.get('name').invalid && addSubsidyForm.get('name').touched"
+                    class="text-danger"> *Subsidy Name is required</small>
                 </div>
               </div>
             </div>
@@ -101,18 +101,18 @@
               <div class="form-group">
                 <label>Insurance Product Type </label>
                 <select class="form-select form-control"
-                        [class.invalid]="addSubsidyForm.get('productType').invalid && addSubsidyForm.get('productType').touched"
-                        formControlName="productType">
+                        [class.invalid]="addSubsidyForm.get('producttypeid').invalid && addSubsidyForm.get('producttypeid').touched"
+                        formControlName="producttypeid">
                   <option>Weather Index Insurance</option>
                   <option>Fake Product</option>
                   <option>Good Trial Insurance Product</option>
                   <option>Indemnity Livestock</option>
                 </select>
                 <div
-                  *ngIf="addSubsidyForm.get('purchasedBy').invalid && addSubsidyForm.get('purchasedBy').touched">
+                  *ngIf="addSubsidyForm.get('producttypeid').invalid && addSubsidyForm.get('producttypeid').touched">
                   <small
-                    *ngIf="addSubsidyForm.get('purchasedBy').invalid && addSubsidyForm.get('purchasedBy').touched"
-                    class="text-danger"> *Purchased by is required</small>
+                    *ngIf="addSubsidyForm.get('producttypeid').invalid && addSubsidyForm.get('producttypeid').touched"
+                    class="text-danger"> *Product Type is required</small>
                 </div>
               </div>
             </div>
@@ -121,13 +121,13 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Subsidy Rate</label>
-                <input class="form-control" type="text" [class.invalid]="addSubsidyForm.get('subsidyName').invalid && editSubsidyForm.get('subsidyName').touched"
-                       formControlName="subsidyName">
+                <input class="form-control" type="text" [class.invalid]="addSubsidyForm.get('rate').invalid && addSubsidyForm.get('rate').touched"
+                       formControlName="rate">
                 <div
-                  *ngIf="addSubsidyForm.get('subsidyName').invalid && addSubsidyForm.get('subsidyName').touched">
+                  *ngIf="addSubsidyForm.get('rate').invalid && addSubsidyForm.get('rate').touched">
                   <small
-                    *ngIf="addSubsidyForm.get('subsidyName').invalid && addSubsidyForm.get('subsidyName').touched"
-                    class="text-danger"> *Item rate is required</small>
+                    *ngIf="addSubsidyForm.get('rate').invalid && addSubsidyForm.get('rate').touched"
+                    class="text-danger"> *Subsidy Rate is required</small>
                 </div>
               </div>
             </div>
@@ -135,22 +135,22 @@
               <div class="form-group">
                 <label>Farmer Category </label>
                 <select class="form-select form-control"
-                        [class.invalid]="addSubsidyForm.get('farmerCategory').invalid && addSubsidyForm.get('farmerCategory').touched"
-                        formControlName="farmerCategory">
+                        [class.invalid]="addSubsidyForm.get('farmercategoryid').invalid && addSubsidyForm.get('farmercategoryid').touched"
+                        formControlName="farmercategoryid">
                   <option>Large Scale</option>
                   <option>Small Scale</option>
                 </select>
                 <div
-                  *ngIf="addSubsidyForm.get('farmerCategory').invalid && addSubsidyForm.get('farmerCategory').touched">
+                  *ngIf="addSubsidyForm.get('farmercategoryid').invalid && addSubsidyForm.get('farmercategoryid').touched">
                   <small
-                    *ngIf="addSubsidyForm.get('farmerCategory').invalid && addSubsidyForm.get('farmerCategory').touched"
+                    *ngIf="addSubsidyForm.get('farmercategoryid').invalid && addSubsidyForm.get('farmercategoryid').touched"
                     class="text-danger"> *Farmer category is required</small>
                 </div>
               </div>
             </div>
           </div>
           <div class="submit-section">
-            <button class="btn btn-primary submit-btn">Submit</button>
+            <button class="btn btn-primary submit-btn" (click)="addSubsidy()">Submit</button>
           </div>
         </form>
       </div>
