@@ -45,21 +45,18 @@ export class LoginComponent implements OnInit, OnDestroy {
       if (!!dt) {
         console.log(dt);
 
-        const userData = {
-          accessToken: dt.access_token,
-          username: this.form.value.username
-        }
+        console.log(dt);
 
-        console.log(userData);
+        sessionStorage.setItem('accessToken', dt.access_token);
 
         localStorage.removeItem('userData');
-        localStorage.setItem('userData', JSON.stringify(userData));
+        localStorage.setItem('userName', JSON.stringify(this.form.value.username));
 
-        const expDate = +new Date() + dt.expires_in * 1000000
+        const expDate = +new Date() + dt.expires_in * 1000000;
 
         localStorage.setItem('expTime', expDate.toString())
 
-        this.router.navigate(['layout']).then(()=>{
+        this.router.navigate(['layout']).then(() => {
           console.log('hello world');
         })
       } else {

@@ -16,9 +16,8 @@ import {Subject} from 'rxjs';
 import {DataTableDirective} from 'angular-datatables';
 import {UsersService} from '../../../services/users.service';
 import {User} from '../../../interface/User';
-import {OrganizationType} from "../../../interface/UsetType";
-import {OrganizationService} from "../../../services/organization.service";
-import {UserGroup} from "../../../interface/UserGroup";
+import {OrganizationService} from '../../../services/organization.service';
+import {UserGroup} from '../../../interface/UserGroup';
 
 declare const $: any;
 

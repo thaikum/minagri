@@ -64,7 +64,7 @@
               <td>{{role.name}}</td>
               <td>{{role.description}}</td>
               <td>
-                {{ getUser(role.createdby).name}}
+                {{ getUser(role.createdby)?.name}}
               </td>
               <td class="text-end">
                 <div class="dropdown dropdown-action">

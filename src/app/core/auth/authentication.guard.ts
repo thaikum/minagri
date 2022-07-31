@@ -15,8 +15,7 @@ export class AuthenticationGuard implements CanActivate {
   constructor(public router: Router) {}
 
   canActivate(): boolean {
-    if (!localStorage.getItem('userData')) {
-      console.log("got here")
+    if (!sessionStorage.getItem('accessToken')) {
        this.router.navigate(['/login']);
       return false;
     }
