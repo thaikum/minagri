@@ -23,7 +23,7 @@ export class SubsidyService {
     return this.http.get(this.baseUrl+'listsubsidy',this.httpOptions)
   }
 
-  addSubsidy(subsidy: Subsidy): Observable<any>{
-    return this.http.post(this.baseUrl+'addsubsidy', subsidy,this.httpOptions);
+  addSubsidy(Subsidy: Subsidy): Observable<any>{
+    return this.http.post(this.baseUrl+'addsubsidy', Subsidy,this.httpOptions);
   }
 }

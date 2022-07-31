@@ -44,6 +44,7 @@
         <table  datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id = "datatable" class="table table-striped custom-table mb-0 datatable">
           <thead>
           <tr>
+            <th>Id</th>
             <th>Subsidy</th>
             <th>Product Name</th>
             <th>Farmer Category</th>
@@ -51,14 +52,15 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let subsidy of Subsidy;let i = index">
-            <td>{{name}}</td>
-            <td></td>
-            <td></td>
-            <td></td>
+          <tr *ngFor="let item of subsidy;let i = index">
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.producttypeid}}</td>
+            <td>{{item.farmercategoryid}}</td>
+            <td>{{item.rate}}</td>
           </tr>
-          <tr *ngIf="Subsidy.length === 0">
-            <td colspan="4">
+          <tr *ngIf="subsidy.length === 0">
+            <td colspan="5">
               <h5 style="text-align: center;">No data found</h5>
             </td>
 

@@ -21,7 +21,7 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
   @ViewChild(DataTableDirective, { static: false })
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
-  public Subsidy: Subsidy[] = [];
+  public subsidy: Subsidy[];
   public addSubsidyForm: FormGroup;
 
   public rows = [];
@@ -31,6 +31,9 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
   public pipe = new DatePipe("en-US");
 
   public innerHeight: any;
+  name: any;
+  id: any;
+
 
   getScreenHeight() {
     this.innerHeight = window.innerHeight + 'px';
@@ -70,7 +73,7 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
     });
-    this.Subsidy = [];
+    this.subsidy = [];
     this.getSubsidy();
     setTimeout(() => {
       this.dtTrigger.next();
@@ -80,9 +83,10 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
 //  1. get all Subsidies
 
   public getSubsidy() {
-    this.sb.getAllSubsidies().subscribe((data) =>{
-      this.Subsidy = data.body;
-      this.rows = this.Subsidy;
+    this.sb.getAllSubsidies().subscribe(data =>{
+      this.subsidy = data.body;
+      console.log(this.subsidy);
+      this.rows = this.subsidy;
       this.srch = [...this.rows];
     })
   }
@@ -96,6 +100,7 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
       }
     });
   }
+
 
 //  2. Add susbsidy
   public addSubsidy() {
@@ -128,7 +133,7 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
     this.rows.splice(0, this.rows.length);
     const temp = this.srch.filter(function (d) {
       val = val.toLowerCase();
-      return d.subsidyName.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.name.toLowerCase().indexOf(val) !== -1 || !val;
     });
     this.rows.push(...temp);
   }
