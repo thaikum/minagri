@@ -47,7 +47,7 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
 
     // Add SubsidyForm Validation
     this.addSubsidyForm = this.formBuilder.group({
-      subsidyName: ["", [Validators.required]],
+      name: ["", [Validators.required]],
       productType: ["", [Validators.required]],
       subsidyRate: ["", [Validators.required]],
       farmerCategory: ["", [Validators.required]],
@@ -87,16 +87,6 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
     })
   }
 
-  // public listSubsidy(): void {
-  //   this.sb.getSubsidy('/products/listsubsidy').subscribe((data) => {
-  //     // @ts-ignore
-  //     this.subsidy = data;
-  //     console.log(this.subsidy)
-  //     this.dtTrigger.next();
-  //     this.rows = this.subsidy;
-  //     this.srch = [...this.rows];
-  //   });
-  // }
 
   private markFormGroupTouched(formGroup: FormGroup) {
     (<any>Object).values(formGroup.controls).forEach((control) => {
@@ -114,7 +104,7 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
       return
     }
     let newSubsidy = {
-      subsidyName: this.addSubsidyForm.value.subsidyName,
+      name: this.addSubsidyForm.value.name,
       productType: this.addSubsidyForm.value.productType,
       subsidyRate: this.addSubsidyForm.value.subsidyRate,
       farmerCategory: this.addSubsidyForm.value.farmerCategory,

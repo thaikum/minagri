@@ -87,12 +87,12 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Subsidy Name</label>
-                <input class="form-control" type="text" [class.invalid]="addSubsidyForm.get('subsidyName').invalid && addSubsidyForm.get('subsidyName').touched"
-                       formControlName="subsidyName">
+                <input class="form-control" type="text" [class.invalid]="addSubsidyForm.get('name').invalid && addSubsidyForm.get('name').touched"
+                       formControlName="name">
                 <div
-                  *ngIf="addSubsidyForm.get('subsidyName').invalid && addSubsidyForm.get('subsidyName').touched">
+                  *ngIf="addSubsidyForm.get('name').invalid && addSubsidyForm.get('name').touched">
                   <small
-                    *ngIf="addSubsidyForm.get('subsidyName').invalid && addSubsidyForm.get('subsidyName').touched"
+                    *ngIf="addSubsidyForm.get('name').invalid && addSubsidyForm.get('name').touched"
                     class="text-danger"> *Subsidy Name is required</small>
                 </div>
               </div>
