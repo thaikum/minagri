@@ -5,6 +5,8 @@ import {Subject} from "rxjs";
 import {DatePipe} from "@angular/common";
 import {Commission} from "../interface/commission";
 import {DataTableDirective} from "angular-datatables";
+import { ToastrService } from 'ngx-toastr';
+import { AllModulesService } from '../../all-modules.service';
 
 declare const $: any;
 @Component({
@@ -17,13 +19,16 @@ export class ManageCommissionComponent implements OnInit, OnDestroy, AfterViewIn
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
   public commissions: Commission[] = [];
+  public url: any = 'listcommission';
+  public tempId: any;
   public rows = [];
   public srch = [];
   public statusValue;
   public dtTrigger: Subject<any> = new Subject();
   public pipe = new DatePipe("en-US");
 
-  constructor(http: HttpClient, public cs: CommissionService,) { }
+
+  constructor(private allModuleService: AllModulesService,http: HttpClient, public cs: CommissionService,private toastr: ToastrService,) { }
 
   ngOnInit(): void {
 
@@ -74,6 +79,22 @@ export class ManageCommissionComponent implements OnInit, OnDestroy, AfterViewIn
       this.srch = [...this.rows];
     });
   }
+
+  // Delete Provident Modal Api Call
+
+  deleteCommission() {
+    this.allModuleService.delete(this.tempId, this.url).subscribe((data) => {
+      $('#datatable').DataTable().clear();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.destroy();
+      });
+      this.dtTrigger.next();
+    });
+    this.getCommissions();
+    $('#delete_commission').modal('hide');
+    this.toastr.success('Commission is deleted', 'Success');
+  }
+
 
   // search by name
   searchName(val) {

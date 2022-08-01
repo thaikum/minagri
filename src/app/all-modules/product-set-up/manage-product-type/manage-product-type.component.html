@@ -82,7 +82,7 @@
 <div id="add_product_type" class="modal custom-modal fade" role="dialog">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" style="border-bottom: 1px solid #dee2e6;">
         <h5 class="modal-title">Add New Product Type</h5>
         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -109,13 +109,13 @@
               <div class="form-group">
                 <label>Product Type Name</label>
                 <span class="text-danger" style="padding-left: 5px">*</span>
-                <!-- <select class="form-select form-control"
+                <select class="form-select form-control"
                         [class.invalid]="addProductTypeForm.get('producttypeid').invalid && addProductTypeForm.get('producttypeid').touched"
                         formControlName="producttypeid">
                   <option *ngFor="let item of types;let i = index">{{item.name}}</option>
-                </select> -->
-                <input class="form-control" type="text" [class.invalid]="addProductTypeForm.get('producttypeid').invalid && addProductTypeForm.get('producttypeid').touched"
-                       formControlName="producttypeid">
+                </select>
+                <!-- <input class="form-control" type="text" [class.invalid]="addProductTypeForm.get('producttypeid').invalid && addProductTypeForm.get('producttypeid').touched"
+                       formControlName="producttypeid"> -->
                 <div
                   *ngIf="addProductTypeForm.get('producttypeid').invalid && addProductTypeForm.get('producttypeid').touched">
                   <small
