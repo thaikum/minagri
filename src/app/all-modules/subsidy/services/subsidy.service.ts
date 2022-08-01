@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../../../environments/environment";
-import {headers} from "../../http/http-headers";
+import {environment} from "../../../../environments/environment";
+import {headers} from "../../../http/http-headers";
 import {Observable} from "rxjs";
-import {Subsidy} from "./interface/subsidy";
+import {Subsidy} from "../interface/subsidy";
 
 @Injectable({
   providedIn: 'root'
@@ -26,4 +26,5 @@ export class SubsidyService {
   addSubsidy(Subsidy: Subsidy): Observable<any>{
     return this.http.post(this.baseUrl+'addsubsidy', Subsidy,this.httpOptions);
   }
+
 }

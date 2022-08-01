@@ -1,3 +1,4 @@
+
 import {Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
@@ -5,8 +6,9 @@ import { ToastrService } from "ngx-toastr";
 import { Subject } from "rxjs";
 import { DatePipe } from "@angular/common";
 import { DataTableDirective } from "angular-datatables";
-import {SubsidyService} from "../subsidy.service";
+import {SubsidyService} from "../services/subsidy.service";
 import { Subsidy } from '../interface/subsidy';
+import { FarmerService } from '../services/farmer.service';
 
 
 declare const $: any;
@@ -22,6 +24,7 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
   public subsidy: Subsidy[] = [];
+  public farmercategory = [];
   public addSubsidyForm: FormGroup;
 
   public rows = [];
@@ -40,7 +43,7 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
   }
 
 
-  constructor(private http: HttpClient, public sb: SubsidyService,private formBuilder: FormBuilder,private toastr: ToastrService,) {}
+  constructor(private http: HttpClient,public fs: FarmerService, public sb: SubsidyService,private formBuilder: FormBuilder,private toastr: ToastrService,) {}
 
   ngOnInit() {
     $('.floating')
@@ -52,10 +55,8 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
       .trigger('blur');
       //subsidies
     this.getSubsidy();
-    // $(document).ready(function () {
-    //   // @ts-ignore
-    //   $('[data-bs-toggle="tooltip"]').tooltip();
-    // });
+    // farmer category list
+    this.listFarmerCategory();
 
     // Add SubsidyForm Validation
     this.addSubsidyForm = this.formBuilder.group({
@@ -104,6 +105,15 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
       this.rows = this.subsidy;
       this.srch = [...this.rows];
     })
+  }
+
+  // Farmer Category
+  public listFarmerCategory() {
+    this.fs.getFarmerCategory().subscribe(data => {
+      this.farmercategory = data.body;
+      console.log('Farmer Category List');
+      console.log(this.farmercategory);
+    });
   }
 
 

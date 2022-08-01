@@ -102,14 +102,16 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Insurance Product Type </label>
-                <select class="form-select form-control"
+                <input class="form-control" type="text" [class.invalid]="addSubsidyForm.get('producttypeid').invalid && addSubsidyForm.get('producttypeid').touched"
+                       formControlName="producttypeid">
+                <!-- <select class="form-select form-control"
                         [class.invalid]="addSubsidyForm.get('producttypeid').invalid && addSubsidyForm.get('producttypeid').touched"
                         formControlName="producttypeid">
                   <option>Weather Index Insurance</option>
                   <option>Fake Product</option>
                   <option>Good Trial Insurance Product</option>
                   <option>Indemnity Livestock</option>
-                </select>
+                </select> -->
                 <div
                   *ngIf="addSubsidyForm.get('producttypeid').invalid && addSubsidyForm.get('producttypeid').touched">
                   <small
@@ -136,12 +138,14 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Farmer Category </label>
-                <select class="form-select form-control"
+                <input class="form-control" type="text" [class.invalid]="addSubsidyForm.get('farmercategoryid').invalid && addSubsidyForm.get('farmercategoryid').touched"
+                       formControlName="farmercategoryid">
+                <!-- <select class="form-select form-control"
                         [class.invalid]="addSubsidyForm.get('farmercategoryid').invalid && addSubsidyForm.get('farmercategoryid').touched"
                         formControlName="farmercategoryid">
                   <option>Large Scale</option>
                   <option>Small Scale</option>
-                </select>
+                </select> -->
                 <div
                   *ngIf="addSubsidyForm.get('farmercategoryid').invalid && addSubsidyForm.get('farmercategoryid').touched">
                   <small
@@ -152,7 +156,7 @@
             </div>
           </div>
           <div class="submit-section">
-            <button class="btn btn-primary submit-btn" (click)="addSubsidy()">Submit</button>
+            <button class="btn btn-primary submit-btn">Submit</button>
           </div>
         </form>
       </div>

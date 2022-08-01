@@ -143,14 +143,14 @@
               <div class="form-group">
                 <label>Farmer Category</label>
                 <span class="text-danger" style="padding-left: 5px">*</span>
-                <!-- <select class="form-select form-control"
+                <select class="form-select form-control"
                         [class.invalid]="addProductTypeForm.get('productcategoryid').invalid && addProductTypeForm.get('productcategoryid').touched"
                         formControlName="productcategoryid">
                   <option>Large Scale</option>
                   <option>Small Scale</option>
-                </select> -->
-                <input class="form-control" type="text" [class.invalid]="addProductTypeForm.get('productcategoryid').invalid && addProductTypeForm.get('productcategoryid').touched"
-                       formControlName="productcategoryid">
+                </select>
+                <!-- <input class="form-control" type="text" [class.invalid]="addProductTypeForm.get('productcategoryid').invalid && addProductTypeForm.get('productcategoryid').touched"
+                       formControlName="productcategoryid"> -->
                 <div
                   *ngIf="addProductTypeForm.get('productcategoryid').invalid && addProductTypeForm.get('productcategoryid').touched">
                   <small

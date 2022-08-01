@@ -156,14 +156,14 @@ export class ManageProductTypeComponent implements OnInit, OnDestroy {
       version: this.addProductTypeForm.value.version,
       productcategoryid: this.addProductTypeForm.value.productcategoryid,
       premiumrate: this.addProductTypeForm.value.premiumrate,
-      loading: this.addProductTypeForm.value.loading,
-      loadingRate: this.addProductTypeForm.value.loadingRate,
-      productMatrix: this.addProductTypeForm.value.productMatrix,
-      document: this.addProductTypeForm.value.document,
+      // loading: this.addProductTypeForm.value.loading,
+      // loadingRate: this.addProductTypeForm.value.loadingRate,
+      // productMatrix: this.addProductTypeForm.value.productMatrix,
+      // document: this.addProductTypeForm.value.document,
     };
    
     // @ts-ignore
-    this.ps.addProduct(newProducttype).subscribe((data) => {
+    this.ps.addproductType(newProducttype).subscribe((data) => {
       $('#datatable').DataTable().clear();
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.destroy();

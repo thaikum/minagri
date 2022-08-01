@@ -1,6 +1,6 @@
 export interface Subsidy{
   name?: string;
-  producttypeid?: string;
+  producttypeid?: number;
   rate?: number;
-  farmercategoryid?: string;
+  farmercategoryid?: number;
 }
