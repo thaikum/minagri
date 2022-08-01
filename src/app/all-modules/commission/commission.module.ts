@@ -6,12 +6,14 @@ import { CommissionComponent } from './commission.component';
 import { ManageCommissionComponent } from './manage-commission/manage-commission.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { CreateCommissionComponent } from './create-commission/create-commission.component';
 
 
 @NgModule({
   declarations: [
     CommissionComponent,
-    ManageCommissionComponent
+    ManageCommissionComponent,
+    CreateCommissionComponent
   ],
   imports: [
     CommonModule,

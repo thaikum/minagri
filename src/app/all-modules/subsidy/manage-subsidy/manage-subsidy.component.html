@@ -44,6 +44,7 @@
         <table  datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id = "datatable" class="table table-striped custom-table mb-0 datatable">
           <thead>
           <tr>
+            <th>Id</th>
             <th>Subsidy</th>
             <th>Product Name</th>
             <th>Farmer Category</th>
@@ -51,14 +52,15 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let expenses of allSubsidy;let i = index">
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+          <tr *ngFor="let item of subsidy;let i = index">
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.producttypeid}}</td>
+            <td>{{item.farmercategoryid}}</td>
+            <td>{{item.rate}}</td>
           </tr>
-          <tr *ngIf="allSubsidy.length === 0">
-            <td colspan="10">
+          <tr *ngIf="subsidy.length === 0">
+            <td colspan="5">
               <h5 style="text-align: center;">No data found</h5>
             </td>
 
@@ -75,44 +77,46 @@
 <div id="add_subsidy" class="modal custom-modal fade" role="dialog">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" style="border-bottom: 1px solid #dee2e6;">
         <h5 class="modal-title">Add New Subsidy</h5>
         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form #addForm="ngForm" (ngSubmit)="onaddSubsidy()" [formGroup]="addSubsidyForm">
+        <form (ngSubmit)="addSubsidy()" [formGroup]="addSubsidyForm">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
                 <label>Subsidy Name</label>
-                <input class="form-control" type="text" [class.invalid]="addSubsidyForm.get('subsidyName').invalid && addSubsidyForm.get('subsidyName').touched"
-                       formControlName="subsidyName">
+                <input class="form-control" type="text" [class.invalid]="addSubsidyForm.get('name').invalid && addSubsidyForm.get('name').touched"
+                       formControlName="name">
                 <div
-                  *ngIf="addSubsidyForm.get('subsidyName').invalid && addSubsidyForm.get('subsidyName').touched">
+                  *ngIf="addSubsidyForm.get('name').invalid && addSubsidyForm.get('name').touched">
                   <small
-                    *ngIf="addSubsidyForm.get('subsidyName').invalid && addSubsidyForm.get('subsidyName').touched"
-                    class="text-danger"> *Item name is required</small>
+                    *ngIf="addSubsidyForm.get('name').invalid && addSubsidyForm.get('name').touched"
+                    class="text-danger"> *Subsidy Name is required</small>
                 </div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label>Insurance Product Type </label>
-                <select class="form-select form-control"
-                        [class.invalid]="addSubsidyForm.get('productType').invalid && addSubsidyForm.get('productType').touched"
-                        formControlName="productType">
+                <input class="form-control" type="text" [class.invalid]="addSubsidyForm.get('producttypeid').invalid && addSubsidyForm.get('producttypeid').touched"
+                       formControlName="producttypeid">
+                <!-- <select class="form-select form-control"
+                        [class.invalid]="addSubsidyForm.get('producttypeid').invalid && addSubsidyForm.get('producttypeid').touched"
+                        formControlName="producttypeid">
                   <option>Weather Index Insurance</option>
                   <option>Fake Product</option>
                   <option>Good Trial Insurance Product</option>
                   <option>Indemnity Livestock</option>
-                </select>
+                </select> -->
                 <div
-                  *ngIf="addSubsidyForm.get('purchasedBy').invalid && addSubsidyForm.get('purchasedBy').touched">
+                  *ngIf="addSubsidyForm.get('producttypeid').invalid && addSubsidyForm.get('producttypeid').touched">
                   <small
-                    *ngIf="addSubsidyForm.get('purchasedBy').invalid && addSubsidyForm.get('purchasedBy').touched"
-                    class="text-danger"> *Purchased by is required</small>
+                    *ngIf="addSubsidyForm.get('producttypeid').invalid && addSubsidyForm.get('producttypeid').touched"
+                    class="text-danger"> *Product Type is required</small>
                 </div>
               </div>
             </div>
@@ -121,29 +125,31 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Subsidy Rate</label>
-                <input class="form-control" type="text" [class.invalid]="addSubsidyForm.get('subsidyName').invalid && editSubsidyForm.get('subsidyName').touched"
-                       formControlName="subsidyName">
+                <input class="form-control" type="text" [class.invalid]="addSubsidyForm.get('rate').invalid && addSubsidyForm.get('rate').touched"
+                       formControlName="rate">
                 <div
-                  *ngIf="addSubsidyForm.get('subsidyName').invalid && addSubsidyForm.get('subsidyName').touched">
+                  *ngIf="addSubsidyForm.get('rate').invalid && addSubsidyForm.get('rate').touched">
                   <small
-                    *ngIf="addSubsidyForm.get('subsidyName').invalid && addSubsidyForm.get('subsidyName').touched"
-                    class="text-danger"> *Item rate is required</small>
+                    *ngIf="addSubsidyForm.get('rate').invalid && addSubsidyForm.get('rate').touched"
+                    class="text-danger"> *Subsidy Rate is required</small>
                 </div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label>Farmer Category </label>
-                <select class="form-select form-control"
-                        [class.invalid]="addSubsidyForm.get('farmerCategory').invalid && addSubsidyForm.get('farmerCategory').touched"
-                        formControlName="farmerCategory">
+                <input class="form-control" type="text" [class.invalid]="addSubsidyForm.get('farmercategoryid').invalid && addSubsidyForm.get('farmercategoryid').touched"
+                       formControlName="farmercategoryid">
+                <!-- <select class="form-select form-control"
+                        [class.invalid]="addSubsidyForm.get('farmercategoryid').invalid && addSubsidyForm.get('farmercategoryid').touched"
+                        formControlName="farmercategoryid">
                   <option>Large Scale</option>
                   <option>Small Scale</option>
-                </select>
+                </select> -->
                 <div
-                  *ngIf="addSubsidyForm.get('farmerCategory').invalid && addSubsidyForm.get('farmerCategory').touched">
+                  *ngIf="addSubsidyForm.get('farmercategoryid').invalid && addSubsidyForm.get('farmercategoryid').touched">
                   <small
-                    *ngIf="addSubsidyForm.get('farmerCategory').invalid && addSubsidyForm.get('farmerCategory').touched"
+                    *ngIf="addSubsidyForm.get('farmercategoryid').invalid && addSubsidyForm.get('farmercategoryid').touched"
                     class="text-danger"> *Farmer category is required</small>
                 </div>
               </div>

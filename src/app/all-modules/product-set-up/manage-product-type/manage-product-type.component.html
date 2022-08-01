@@ -20,7 +20,7 @@
   <div class="row filter-row">
     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12">
       <div class="form-group form-focus">
-        <input type="text" class="form-control floating" (input)="searchName($event.target.value)" (focusout) = "rerender()">
+        <input type="text" class="form-control floating" (input)="searchID($event.target.value)" (focusout) = "rerender()">
         <label class="focus-label">Product ID</label>
       </div>
     </div>
@@ -32,7 +32,7 @@
     </div>
     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12"></div>
     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12">
-      <a class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#add_product"><i
+      <a class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#add_product_type"><i
         class="fa fa-plus"></i> Add new product type</a>
     </div>
   </div>
@@ -44,6 +44,7 @@
         <table  datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id = "datatable" class="table table-striped custom-table mb-0 datatable">
           <thead>
           <tr>
+            <th>#</th>
             <th>Name</th>
             <th>Product Type</th>
             <th>Product Version</th>
@@ -54,17 +55,18 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let expenses of allProducts;let i = index">
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+          <tr *ngFor="let item of producttypes;let i = index">
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.id}}</td>
+            <td>{{item.producttypeid}}</td>
+            <td>{{item.productcategoryid}}</td>
+            <td>{{item.premiumrate}}</td>
             <td></td>
             <td></td>
           </tr>
-          <tr *ngIf="allProducts.length === 0">
-            <td colspan="10">
+          <tr *ngIf="producttypes.length == 0">
+            <td colspan="8">
               <h5 style="text-align: center;">No data found</h5>
             </td>
           </tr>
@@ -77,29 +79,29 @@
 <!-- /Page Content -->
 
 <!-- Add New Product Type Modal -->
-<div id="add_product" class="modal custom-modal fade" role="dialog">
+<div id="add_product_type" class="modal custom-modal fade" role="dialog">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header" style="border-bottom: 1px solid #dee2e6;">
         <h5 class="modal-title">Add New Product Type</h5>
         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <form #addForm="ngForm"  (ngSubmit)="onAddProduct(addForm)" [formGroup]="addForm">
+        <form (ngSubmit)="addProductType()" [formGroup]="addProductTypeForm">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
                 <label>Product Name</label>
                 <span class="text-danger" style="padding-left: 5px">*</span>
-                <input class="form-control" type="text" [class.invalid]="addForm.get('itemName').invalid && addForm.get('itemName').touched"
-                       formControlName="itemName">
+                <input class="form-control" type="text" [class.invalid]="addProductTypeForm.get('name').invalid && addProductTypeForm.get('name').touched"
+                       formControlName="name">
                 <div
-                  *ngIf="addForm.get('itemName').invalid && addForm.get('itemName').touched">
+                  *ngIf="addProductTypeForm.get('name').invalid && addProductTypeForm.get('name').touched">
                   <small
-                    *ngIf="addForm.get('itemName').invalid && addForm.get('itemName').touched"
-                    class="text-danger"> *Item name is required</small>
+                    *ngIf="addProductTypeForm.get('name').invalid && addProductTypeForm.get('name').touched"
+                    class="text-danger"> *Product Type Name is required</small>
                 </div>
               </div>
             </div>
@@ -108,18 +110,17 @@
                 <label>Product Type Name</label>
                 <span class="text-danger" style="padding-left: 5px">*</span>
                 <select class="form-select form-control"
-                        [class.invalid]="addForm.get('productType').invalid && addForm.get('productType').touched"
-                        formControlName="productType">
-                  <option>Good Conduct</option>
-                  <option>Livestock Insurance</option>
-                  <option>Livestock Insurance Product</option>
-                  <option>Crop Insurance</option>
+                        [class.invalid]="addProductTypeForm.get('producttypeid').invalid && addProductTypeForm.get('producttypeid').touched"
+                        formControlName="producttypeid">
+                  <option *ngFor="let item of types;let i = index">{{item.name}}</option>
                 </select>
+                <!-- <input class="form-control" type="text" [class.invalid]="addProductTypeForm.get('producttypeid').invalid && addProductTypeForm.get('producttypeid').touched"
+                       formControlName="producttypeid"> -->
                 <div
-                  *ngIf="addForm.get('purchasedBy').invalid && addForm.get('purchasedBy').touched">
+                  *ngIf="addProductTypeForm.get('producttypeid').invalid && addProductTypeForm.get('producttypeid').touched">
                   <small
-                    *ngIf="addForm.get('purchasedBy').invalid && addForm.get('purchasedBy').touched"
-                    class="text-danger"> *Purchased by is required</small>
+                    *ngIf="addProductTypeForm.get('producttypeid').invalid && addProductTypeForm.get('producttypeid').touched"
+                    class="text-danger"> *Product Type Name by is required</small>
                 </div>
               </div>
             </div>
@@ -128,13 +129,13 @@
             <div class="col-md-4">
               <div class="form-group">
                 <label>Version</label>
-                <input class="form-control" type="text" [class.invalid]="addForm.get('itemName').invalid && addForm.get('itemName').touched"
-                       formControlName="itemName">
+                <input class="form-control" type="text" [class.invalid]="addProductTypeForm.get('version').invalid && addProductTypeForm.get('version').touched"
+                       formControlName="version">
                 <div
-                  *ngIf="addForm.get('itemName').invalid && addForm.get('itemName').touched">
+                  *ngIf="addProductTypeForm.get('version').invalid && addProductTypeForm.get('version').touched">
                   <small
-                    *ngIf="addForm.get('itemName').invalid && addForm.get('itemName').touched"
-                    class="text-danger"> *Item name is required</small>
+                    *ngIf="addProductTypeForm.get('version').invalid && addProductTypeForm.get('version').touched"
+                    class="text-danger"> *Product Version is required</small>
                 </div>
               </div>
             </div>
@@ -143,30 +144,32 @@
                 <label>Farmer Category</label>
                 <span class="text-danger" style="padding-left: 5px">*</span>
                 <select class="form-select form-control"
-                        [class.invalid]="addForm.get('productType').invalid && addForm.get('productType').touched"
-                        formControlName="productType">
+                        [class.invalid]="addProductTypeForm.get('productcategoryid').invalid && addProductTypeForm.get('productcategoryid').touched"
+                        formControlName="productcategoryid">
                   <option>Large Scale</option>
                   <option>Small Scale</option>
                 </select>
+                <!-- <input class="form-control" type="text" [class.invalid]="addProductTypeForm.get('productcategoryid').invalid && addProductTypeForm.get('productcategoryid').touched"
+                       formControlName="productcategoryid"> -->
                 <div
-                  *ngIf="addForm.get('itemName').invalid && addForm.get('itemName').touched">
+                  *ngIf="addProductTypeForm.get('productcategoryid').invalid && addProductTypeForm.get('productcategoryid').touched">
                   <small
-                    *ngIf="addForm.get('itemName').invalid && addForm.get('itemName').touched"
+                    *ngIf="addProductTypeForm.get('productcategoryid').invalid && addProductTypeForm.get('productcategoryid').touched"
                     class="text-danger"> *Item name is required</small>
                 </div>
               </div>
             </div>
             <div class="col-md-4">
               <div class="form-group">
-                <label>Rate</label>
+                <label>Premium Rate</label>
                 <span class="text-danger" style="padding-left: 5px">*</span>
-                <input class="form-control" type="text" [class.invalid]="addForm.get('itemName').invalid && addForm.get('itemName').touched"
-                       formControlName="itemName">
+                <input class="form-control" type="text" [class.invalid]="addProductTypeForm.get('premiumrate').invalid && addProductTypeForm.get('premiumrate').touched"
+                       formControlName="premiumrate">
                 <div
-                  *ngIf="addForm.get('itemName').invalid && addForm.get('itemName').touched">
+                  *ngIf="addProductTypeForm.get('premiumrate').invalid && addProductTypeForm.get('premiumrate').touched">
                   <small
-                    *ngIf="addForm.get('itemName').invalid && addForm.get('itemName').touched"
-                    class="text-danger"> *Item name is required</small>
+                    *ngIf="addProductTypeForm.get('premiumrate').invalid && addProductTypeForm.get('premiumrate').touched"
+                    class="text-danger"> *Rate is required</small>
                 </div>
               </div>
             </div>
@@ -175,25 +178,25 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Loading</label>
-                <input class="form-control" type="text" [class.invalid]="addForm.get('itemName').invalid && addForm.get('itemName').touched"
-                       formControlName="itemName">
+                <input class="form-control" type="text" [class.invalid]="addProductTypeForm.get('loading').invalid && addProductTypeForm.get('loading').touched"
+                       formControlName="loading">
                 <div
-                  *ngIf="addForm.get('itemName').invalid && addForm.get('itemName').touched">
+                  *ngIf="addProductTypeForm.get('loading').invalid && addProductTypeForm.get('loading').touched">
                   <small
-                    *ngIf="addForm.get('itemName').invalid && addForm.get('itemName').touched"
-                    class="text-danger"> *Item name is required</small>
+                    *ngIf="addProductTypeForm.get('loading').invalid && addProductTypeForm.get('loading').touched"
+                    class="text-danger"> *Loading is required</small>
                 </div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
                 <label>Rate</label>
-                <input class="form-control" type="text" [class.invalid]="addForm.get('itemName').invalid && addForm.get('itemName').touched"
-                       formControlName="itemName">
+                <input class="form-control" type="text" [class.invalid]="addProductTypeForm.get('loadingRate').invalid && addProductTypeForm.get('loadingRate').touched"
+                       formControlName="loadingRate">
                 <div
-                  *ngIf="addForm.get('purchasedBy').invalid && addForm.get('purchasedBy').touched">
+                  *ngIf="addProductTypeForm.get('loadingRate').invalid && addProductTypeForm.get('loadingRate').touched">
                   <small
-                    *ngIf="addForm.get('purchasedBy').invalid && addForm.get('purchasedBy').touched"
+                    *ngIf="addProductTypeForm.get('loadingRate').invalid && addProductTypeForm.get('loadingRate').touched"
                     class="text-danger"> *Purchased by is required</small>
                 </div>
               </div>
@@ -214,7 +217,7 @@
             </div>
           </div>
           <div class="submit-section">
-            <button type="submit" class="btn btn-primary" [disabled]="!addForm.valid">Submit</button>
+            <button class="btn btn-primary submit-btn">Submit</button>
           </div>
         </form>
       </div>

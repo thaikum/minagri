@@ -1,0 +1,173 @@
+<div>
+  <!-- Page Wrapper -->
+  <div class="page-wrapper">
+    <!-- Page Content -->
+    <div class="content container-fluid">
+
+      <!-- Page Header -->
+      <div class="page-header" style="margin-top: 20px">
+        <div class="row align-items-center">
+          <div class="col">
+            <h3 class="page-title">Create Commission</h3>
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item"><a routerLink="/layout/dashboard/admin">Dashboard</a></li>
+              <li class="breadcrumb-item active">Create Commission</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- /Page Header -->
+      <div class="row">
+        <div class="col-sm-12">
+          <form (ngSubmit)="createCommisssiom()" [formGroup]="createCommisssiomForm">
+            <div class="row">
+              <div class="col-md-12 col-sm-12">
+                <div class="table-responsive">
+                  <table class="table table-hover table-white">
+                    <thead>
+                    <tr>
+                      <th style="width: 20px">#</th>
+                      <th class="col-sm-2">Item</th>
+                      <th class="col-md-6">Description</th>
+                      <th style="width:100px;">Unit Cost</th>
+                      <th style="width:80px;">Qty</th>
+                      <th>Amount</th>
+                      <th> </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>
+                        <div class="form-group">
+                          <select class="form-select form-control" [class.invalid]="createCommisssiomForm.get('itemName').invalid && createCommisssiomForm.get('itemName').touched"
+                                  formControlName="itemName">
+                            <option>Livestock Insurance - Indemnity livestock </option>
+                            <option>Crop Insurance - Weather Index Insurance</option>
+                          </select>
+                          <div
+                            *ngIf="createCommisssiomForm.get('itemName').invalid && createCommisssiomForm.get('itemName').touched">
+                            <small
+                              *ngIf="createCommisssiomForm.get('itemName').invalid && createCommisssiomForm.get('itemName').touched"
+                              class="text-danger"> *Product Type is required</small>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group">
+                          <input class="form-control" type="text" [class.invalid]="createCommisssiomForm.get('description').invalid && createCommisssiomForm.get('description').touched"
+                                 formControlName="description" style="min-width:150px">
+                          <div
+                            *ngIf="createCommisssiomForm.get('description').invalid && createCommisssiomForm.get('description').touched">
+                            <small
+                              *ngIf="createCommisssiomForm.get('description').invalid && createCommisssiomForm.get('description').touched"
+                              class="text-danger"> *Description is required</small>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group">
+                          <input class="form-control" [class.invalid]="createCommisssiomForm.get('unitCost').invalid && createCommisssiomForm.get('unitCost').touched"
+                                 formControlName="unitCost" style="width:100px" type="text">
+                          <div
+                            *ngIf="createCommisssiomForm.get('unitCost').invalid && createCommisssiomForm.get('unitCost').touched">
+                            <small
+                              *ngIf="createCommisssiomForm.get('unitCost').invalid && createCommisssiomForm.get('unitCost').touched"
+                              class="text-danger"> *Unit Cost is required</small>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="form-group">
+                          <input class="form-control" [class.invalid]="createCommisssiomForm.get('quantity').invalid && createCommisssiomForm.get('quantity').touched"
+                                 formControlName="quantity" style="width:80px" type="text">
+                          <div
+                            *ngIf="createCommisssiomForm.get('quantity').invalid && createCommisssiomForm.get('quantity').touched">
+                            <small
+                              *ngIf="createCommisssiomForm.get('quantity').invalid && createCommisssiomForm.get('quantity').touched"
+                              class="text-danger"> *Quantity is required</small>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <input class="form-control" readonly="" style="width:120px" type="text">
+                      </td>
+                      <td><a href="javascript:void(0)" class="text-success font-18" title="Add"><i class="fa fa-plus"></i></a></td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="table-responsive">
+                  <table class="table table-hover table-white">
+                    <tbody>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td class="text-right">Total</td>
+                      <td style="text-align: right; padding-right: 30px;width: 230px">0</td>
+                    </tr>
+                    <tr>
+                      <td colspan="5" class="text-right">Tax</td>
+                      <td style="text-align: right; padding-right: 30px;width: 230px">
+                        <input class="form-control text-right" value="0" readonly="" type="text">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="5" class="text-right">
+                        Discount %
+                      </td>
+                      <td style="text-align: right; padding-right: 30px;width: 230px">
+                        <div class="form-group">
+                          <input class="form-control text-right" type="text" [class.invalid]="createCommisssiomForm.get('quantity').invalid && createCommisssiomForm.get('quantity').touched"
+                                 formControlName="discount">
+                          <div
+                            *ngIf="createCommisssiomForm.get('discount').invalid && createCommisssiomForm.get('discount').touched">
+                            <small
+                              *ngIf="createCommisssiomForm.get('discount').invalid && createCommisssiomForm.get('discount').touched"
+                              class="text-danger"> *Discount is required</small>
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="5" style="text-align: right; font-weight: bold">
+                        Grand Total
+                      </td>
+                      <td style="text-align: right; padding-right: 30px; font-weight: bold; font-size: 16px;width: 230px">
+                        $ 0.00
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Other Information</label>
+                      <textarea class="form-control" rows="4" [class.invalid]="createCommisssiomForm.get('otherInformation').invalid && createCommisssiomForm.get('otherInformation').touched"
+                                formControlName="otherInformation"></textarea>
+                      <div
+                        *ngIf="createCommisssiomForm.get('otherInformation').invalid && createCommisssiomForm.get('otherInformation').touched">
+                        <small
+                          *ngIf="createCommisssiomForm.get('otherInformation').invalid && createCommisssiomForm.get('otherInformation').touched"
+                          class="text-danger"> *Discount is required</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="submit-section">
+              <button class="btn btn-primary submit-btn m-r-10">Save &amp; Send</button>
+              <button class="btn btn-primary submit-btn" (click)="saveCommission()">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- /Page Content -->
+  </div>
+  <!-- /Page Wrapper -->
+</div>

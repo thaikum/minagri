@@ -1,17 +1,22 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import {environment} from "../../../environments/environment";
+import {headers} from "../../http/http-headers";
+import {Observable} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClaimsService {
+  private baseUrl = environment.apiUrl+'claims/'
 
+  httpOptions = {
+    headers: headers
+  }
   constructor(private http: HttpClient) { }
-  url = 'http://157.230.190.229:8843/v2/api-docs'
-
 
   //Get All Claims
-  getClaims(endpoint: string){
-    return this.http.get(this.url + endpoint);
+  getAllClaims(): Observable<any>{
+    return this.http.get(this.baseUrl+'',this.httpOptions)
   }
 }

@@ -18,7 +18,7 @@
         </div>
       </div>
       <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12">
-        <a class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#add_review"><i
+        <a class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#add_contract"><i
           class="fa fa-plus"></i> Add Contract Review</a>
       </div>
     </div>
@@ -31,24 +31,29 @@
         <table  datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id = "datatable" class="table table-striped custom-table mb-0 datatable">
           <thead>
           <tr>
+            <th>Id</th>
             <th>Contract Name</th>
+            <th>Contract Type</th>
             <th>Product</th>
             <th>Start Date</th>
             <th>End Date</th>
+            <th>File Location</th>
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let expenses of allSubsidy;let i = index">
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+          <tr *ngFor="let item of contract;let i = index">
+            <td>{{item.id}}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.contracttype}}</td>
+            <td>{{item.productid}}</td>
+            <td>{{item.startdate}}</td>
+            <td>{{item.enddate}}</td>
+            <td>{{item.contract}}</td>
           </tr>
-          <tr *ngIf="allSubsidy.length === 0">
-            <td colspan="10">
+          <tr *ngIf="contract.length === 0">
+            <td colspan="7">
               <h5 style="text-align: center;">No data found</h5>
             </td>
-
           </tr>
           </tbody>
         </table>
@@ -59,7 +64,7 @@
 <!-- /Page Content -->
 
 <!-- Add Contract Review Modal -->
-<div id="add_review" class="modal custom-modal fade" role="dialog" style="width: fit-content; margin-left: 30%">
+<div id="add_contract" class="modal custom-modal fade" role="dialog" style="width: fit-content; margin-left: 30%">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header" style="border-bottom: 1px solid #dee2e6;">
@@ -69,31 +74,45 @@
         </button>
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="addReview()" [formGroup]="addReviewForm">
+        <form (ngSubmit)="addContract()" [formGroup]="addContractForm">
           <div class="row">
               <div class="form-group">
                 <label>Product Name</label>
                 <span class="text-danger" style="padding-left: 5px">*</span>
-                <input class="form-control" type="text" [class.invalid]="addReviewForm.get('subsidyName').invalid && addReviewForm.get('subsidyName').touched"
-                       formControlName="subsidyName">
+                <input class="form-control" type="text" [class.invalid]="addContractForm.get('name').invalid && addContractForm.get('name').touched"
+                       formControlName="name">
                 <div
-                  *ngIf="addReviewForm.get('subsidyName').invalid && addReviewForm.get('subsidyName').touched">
+                  *ngIf="addContractForm.get('name').invalid && addContractForm.get('name').touched">
                   <small
-                    *ngIf="addReviewForm.get('subsidyName').invalid && addReviewForm.get('subsidyName').touched"
+                    *ngIf="addContractForm.get('name').invalid && addContractForm.get('name').touched"
                     class="text-danger"> *Item name is required</small>
                 </div>
               </div>
           </div>
           <div class="row">
             <div class="form-group">
-              <label>Contract Name</label>
+              <label>Product Type</label>
               <span class="text-danger" style="padding-left: 5px">*</span>
-              <input class="form-control" type="text" [class.invalid]="addReviewForm.get('subsidyName').invalid && addReviewForm.get('subsidyName').touched"
-                     formControlName="subsidyName">
+              <input class="form-control" type="text" [class.invalid]="addContractForm.get('productid').invalid && addContractForm.get('productid').touched"
+                     formControlName="productid">
               <div
-                *ngIf="addReviewForm.get('subsidyName').invalid && addReviewForm.get('subsidyName').touched">
+                *ngIf="addContractForm.get('productid').invalid && addContractForm.get('productid').touched">
                 <small
-                  *ngIf="addReviewForm.get('subsidyName').invalid && addReviewForm.get('subsidyName').touched"
+                  *ngIf="addContractForm.get('productid').invalid && addContractForm.get('productid').touched"
+                  class="text-danger"> *Item name is required</small>
+              </div>
+            </div>
+        </div>
+          <div class="row">
+            <div class="form-group">
+              <label>Contract Type</label>
+              <span class="text-danger" style="padding-left: 5px">*</span>
+              <input class="form-control" type="text" [class.invalid]="addContractForm.get('contracttype').invalid && addContractForm.get('contracttype').touched"
+                     formControlName="contracttype">
+              <div
+                *ngIf="addContractForm.get('contracttype').invalid && addContractForm.get('contracttype').touched">
+                <small
+                  *ngIf="addContractForm.get('contracttype').invalid && addContractForm.get('contracttype').touched"
                   class="text-danger"> *Item name is required</small>
               </div>
             </div>
@@ -104,7 +123,15 @@
               <span class="text-danger" style="padding-left: 5px">*</span>
               <div class="form-group form-focus">
                 <div class="cal-icon">
-                  <input class="form-control floating datetimepicker" type="text" bsDatepicker type="text"  [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }" (bsValueChange)="searchByFrom($event)">
+                  <input class="form-control datetimepicker" type="text" bsDatepicker type="text"
+                         [class.invalid]="addContractForm.get('startdate').invalid && addContractForm.get('startdate').touched"
+                         formControlName="startdate">
+                </div>
+                <div
+                  *ngIf="addContractForm.get('startdate').invalid && addContractForm.get('startdate').touched">
+                  <small
+                    *ngIf="addContractForm.get('startdate').invalid && addContractForm.get('startdate').touched"
+                    class="text-danger"> *Start Date is required</small>
                 </div>
               </div>
             </div>
@@ -113,16 +140,24 @@
               <span class="text-danger" style="padding-left: 5px">*</span>
               <div class="form-group form-focus">
                 <div class="cal-icon">
-                  <input class="form-control floating datetimepicker" bsDatepicker type="text" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }" (bsValueChange)="searchByTo($event)">
+                  <input class="form-control datetimepicker" type="text" bsDatepicker type="text"
+                         [class.invalid]="addContractForm.get('enddate').invalid && addContractForm.get('enddate').touched"
+                         formControlName="enddate">
+                </div>
+                <div
+                  *ngIf="addContractForm.get('enddate').invalid && addContractForm.get('enddate').touched">
+                  <small
+                    *ngIf="addContractForm.get('enddate').invalid && addContractForm.get('enddate').touched"
+                    class="text-danger"> *Date is required</small>
                 </div>
               </div>
             </div>
           </div>
           <div class="row">
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label>Contract File</label>
               <input class="form-control" type="file">
-            </div>
+            </div> -->
           </div>
           <div class="submit-section">
             <button class="btn btn-primary submit-btn">Submit</button>
