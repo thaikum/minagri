@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {headers} from '../http/http-headers';
 import {Response} from '../interface/Response';
@@ -13,7 +13,9 @@ export class OrganizationService {
 
   private baseUrl = environment.apiUrl + 'organization/';
   httpOptions = {
-    headers
+    headers : new HttpHeaders({
+      Authorization: 'Bearer '+sessionStorage.getItem('accessToken')
+    })
   }
 
   constructor(private _http: HttpClient) {
