@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {CommissionService} from "../commission.service";
 import {Subject} from "rxjs";
@@ -6,17 +6,17 @@ import {DatePipe} from "@angular/common";
 import {Commission} from "../interface/commission";
 import {DataTableDirective} from "angular-datatables";
 
-
+declare const $: any;
 @Component({
   selector: 'app-manage-commission',
   templateUrl: './manage-commission.component.html',
   styleUrls: ['./manage-commission.component.css']
 })
-export class ManageCommissionComponent implements OnInit {
+export class ManageCommissionComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(DataTableDirective, { static: false })
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
-  public commissions: Commission[];
+  public commissions: Commission[] = [];
   public rows = [];
   public srch = [];
   public statusValue;
@@ -26,7 +26,23 @@ export class ManageCommissionComponent implements OnInit {
   constructor(http: HttpClient, public cs: CommissionService,) { }
 
   ngOnInit(): void {
+
+    $('.floating')
+      .on('focus blur', function (e) {
+        $(this)
+          .parents('.form-focus')
+          .toggleClass('focused', e.type === 'focus' || this.value.length > 0);
+      })
+      .trigger('blur');
+
     this.getCommissions();
+
+    // for data table configuration
+    this.dtOptions = {
+      // ... skipped ...
+      pageLength: 10,
+      dom: 'lrtip',
+    };
   }
 
   ngAfterViewInit(): void {

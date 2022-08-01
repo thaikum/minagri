@@ -31,7 +31,22 @@ export class ManageClaimComponent implements OnInit, OnDestroy {
   constructor(http: HttpClient, public cs: ClaimsService,) { }
 
   ngOnInit(): void {
+    $('.floating')
+      .on('focus blur', function (e) {
+        $(this)
+          .parents('.form-focus')
+          .toggleClass('focused', e.type === 'focus' || this.value.length > 0);
+      })
+      .trigger('blur');
+      
     this.getClaims();
+
+    // for data table configuration
+    this.dtOptions = {
+      // ... skipped ...
+      pageLength: 10,
+      dom: 'lrtip',
+    };
   }
 
   ngAfterViewInit(): void {

@@ -32,6 +32,13 @@ export class CropCutsComponent implements OnInit, OnDestroy {
     $(document).ready(function () {
       $('[data-bs-toggle="tooltip"]').tooltip();
     });
+    $('.floating')
+      .on('focus blur', function (e) {
+        $(this)
+          .parents('.form-focus')
+          .toggleClass('focused', e.type === 'focus' || this.value.length > 0);
+      })
+      .trigger('blur');
     this.getCropcuts();
 
     // Add Contract Review Form Validation
@@ -45,6 +52,13 @@ export class CropCutsComponent implements OnInit, OnDestroy {
       provinceName: ["", [Validators.required]],
       districtName: ["", [Validators.required]],
     });
+
+    // for data table configuration
+    this.dtOptions = {
+      // ... skipped ...
+      pageLength: 10,
+      dom: 'lrtip',
+    };
   }
 
   ngAfterViewInit(): void {

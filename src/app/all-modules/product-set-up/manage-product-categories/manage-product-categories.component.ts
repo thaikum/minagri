@@ -9,7 +9,7 @@ import { DataTableDirective } from "angular-datatables";
 import {Categories} from "../interface/categories";
 
 
-@HostListener('window: resize', ['$event'])
+declare const $: any;
 @Component({
   selector: 'app-manage-product-categories',
   templateUrl: './manage-product-categories.component.html',
@@ -21,7 +21,7 @@ export class ManageProductCategoriesComponent implements OnInit, OnDestroy {
   @ViewChild(DataTableDirective, { static: false })
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
-  public products: Categories[];
+  public products: Categories[] = [];
   public addProductForm: FormGroup;
 
   public rows = [];
@@ -48,6 +48,14 @@ export class ManageProductCategoriesComponent implements OnInit, OnDestroy {
       name: ["", [Validators.required]],
       description: ["", [Validators.required]],
     });
+
+    $('.floating')
+      .on('focus blur', function (e) {
+        $(this)
+          .parents('.form-focus')
+          .toggleClass('focused', e.type === 'focus' || this.value.length > 0);
+      })
+      .trigger('blur');
     this.getCategory();
   }
 

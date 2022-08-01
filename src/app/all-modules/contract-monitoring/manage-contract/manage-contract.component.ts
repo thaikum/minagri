@@ -17,7 +17,7 @@ export class ManageContractComponent implements OnInit, OnDestroy {
   @ViewChild(DataTableDirective, { static: false })
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
-  public contract: Contract[];
+  public contract: Contract[] = [];
   public addContractForm: FormGroup;
 
   public rows = [];
@@ -28,9 +28,13 @@ export class ManageContractComponent implements OnInit, OnDestroy {
   constructor(public cs: ContractService,private formBuilder: FormBuilder,private toastr: ToastrService,) { }
 
   ngOnInit(): void {
-    $(document).ready(function () {
-      $('[data-bs-toggle="tooltip"]').tooltip();
-    });
+    $('.floating')
+      .on('focus blur', function (e) {
+        $(this)
+          .parents('.form-focus')
+          .toggleClass('focused', e.type === 'focus' || this.value.length > 0);
+      })
+      .trigger('blur');
     this.getContracts();
 
     // Add Contract Review Form Validation
@@ -41,6 +45,13 @@ export class ManageContractComponent implements OnInit, OnDestroy {
       startdate: ["", [Validators.required]],
       enddate: ["", [Validators.required]],
     });
+
+    // for data table configuration
+    this.dtOptions = {
+      // ... skipped ...
+      pageLength: 10,
+      dom: 'lrtip',
+    };
   }
   ngAfterViewInit(): void {
     setTimeout(() => {

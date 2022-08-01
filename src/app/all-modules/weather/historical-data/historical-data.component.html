@@ -84,6 +84,11 @@
                         <td>{{item.uploaddate}}</td>
                         <td>{{item.uploadedby}}</td>
                     </tr>
+                    <tr *ngIf="historical?.length === 0">
+                      <td colspan="9">
+                        <h5 style="text-align: center;">No data found</h5>
+                      </td>
+                    </tr>
                 </tbody>
               </table>
             </div>

@@ -58,7 +58,8 @@
       <div class="row">
         <div class="col-md-12">
           <div class="table-responsive">
-            <table class="table table-striped custom-table mb-0">
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" 
+               class="table table-striped custom-table mb-0 datatable" id="datatable">
               <thead>
               <tr>
                 <th>#</th>
@@ -74,13 +75,19 @@
               <tbody>
                 <tr *ngFor="let item of dakarweatherdata;let i = index">
                   <td>{{item.id}}</td>
-                <td>{{item.district}}</td>
-                <td>{{item.dakad}}</td>
-                <td>{{item.startday}}</td>
-                <td>{{item.endday}}</td>
-                <td>{{item.rainfallrange}}</td>
-                <td>{{item.windspeed}}</td>
-                <td>{{item.temparature}}</td>
+                  <td>{{item.district}}</td>
+                  <td>{{item.dakad}}</td>
+                  <td>{{item.startday}}</td>
+                  <td>{{item.endday}}</td>
+                  <td>{{item.rainfallrange}}</td>
+                  <td>{{item.windspeed}}</td>
+                  <td>{{item.temparature}}</td>
+                </tr>
+                <tr *ngIf="dakarweatherdata?.length === 0">
+                  <td colspan="8">
+                    <h5 style="text-align: center;">No data found</h5>
+                  </td>
+    
                 </tr>
               </tbody>
             </table>

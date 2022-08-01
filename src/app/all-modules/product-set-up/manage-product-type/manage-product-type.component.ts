@@ -156,10 +156,10 @@ export class ManageProductTypeComponent implements OnInit, OnDestroy {
       version: this.addProductTypeForm.value.version,
       productcategoryid: this.addProductTypeForm.value.productcategoryid,
       premiumrate: this.addProductTypeForm.value.premiumrate,
-      // loading: this.addProductTypeForm.value.loading,
-      // loadingRate: this.addProductTypeForm.value.loadingRate,
-      // productMatrix: this.addProductTypeForm.value.productMatrix,
-      // document: this.addProductTypeForm.value.document,
+      loading: this.addProductTypeForm.value.loading,
+      loadingRate: this.addProductTypeForm.value.loadingRate,
+      productMatrix: this.addProductTypeForm.value.productMatrix,
+      document: this.addProductTypeForm.value.document,
     };
    
     // @ts-ignore
@@ -183,6 +183,15 @@ export class ManageProductTypeComponent implements OnInit, OnDestroy {
     const temp = this.srch.filter(function (d) {
       val = val.toLowerCase();
       return d.name.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+    this.rows.push(...temp);
+  }
+  // search by Product ID
+  searchID(val) {
+    this.rows.splice(0, this.rows.length);
+    const temp = this.srch.filter(function (d) {
+      val = val.toLowerCase();
+      return d.id.toLowerCase().indexOf(val) !== -1 || !val;
     });
     this.rows.push(...temp);
   }

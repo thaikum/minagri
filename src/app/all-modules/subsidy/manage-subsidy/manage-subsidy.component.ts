@@ -9,7 +9,7 @@ import {SubsidyService} from "../subsidy.service";
 import { Subsidy } from '../interface/subsidy';
 
 
-@HostListener('window: resize', ['$event'])
+declare const $: any;
 @Component({
   selector: 'app-manage-subsidy',
   templateUrl: './manage-subsidy.component.html',
@@ -21,7 +21,7 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
   @ViewChild(DataTableDirective, { static: false })
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
-  public subsidy: Subsidy[];
+  public subsidy: Subsidy[] = [];
   public addSubsidyForm: FormGroup;
 
   public rows = [];
@@ -43,10 +43,19 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
   constructor(private http: HttpClient, public sb: SubsidyService,private formBuilder: FormBuilder,private toastr: ToastrService,) {}
 
   ngOnInit() {
-    $(document).ready(function () {
-      // @ts-ignore
-      $('[data-bs-toggle="tooltip"]').tooltip();
-    });
+    $('.floating')
+      .on('focus blur', function (e) {
+        $(this)
+          .parents('.form-focus')
+          .toggleClass('focused', e.type === 'focus' || this.value.length > 0);
+      })
+      .trigger('blur');
+      //subsidies
+    this.getSubsidy();
+    // $(document).ready(function () {
+    //   // @ts-ignore
+    //   $('[data-bs-toggle="tooltip"]').tooltip();
+    // });
 
     // Add SubsidyForm Validation
     this.addSubsidyForm = this.formBuilder.group({
@@ -55,8 +64,14 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
       rate: ["", [Validators.required]],
       farmercategoryid: ["", [Validators.required]],
     });
-    //subsidies
-    this.getSubsidy();
+
+    // for data table configuration
+    this.dtOptions = {
+      // ... skipped ...
+      pageLength: 10,
+      dom: 'lrtip',
+    };
+    
 
   }
 

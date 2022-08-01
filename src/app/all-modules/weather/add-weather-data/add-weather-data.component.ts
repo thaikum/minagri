@@ -2,9 +2,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DataTableDirective } from 'angular-datatables';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
+import { AllModulesService } from '../../all-modules.service';
 import { AddWeatherData } from '../interface/add-weather-data';
 import { WeatherService } from '../weather.service';
 
+declare const $: any;
 @Component({
   selector: 'app-add-weather-data',
   templateUrl: './add-weather-data.component.html',
@@ -14,7 +16,7 @@ export class AddWeatherDataComponent implements OnInit {
   @ViewChild(DataTableDirective, { static: false })
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
-  public dakarweatherdata: AddWeatherData[];
+  public dakarweatherdata: AddWeatherData[] = [];
 
   public rows = [];
   public srch = [];
@@ -30,31 +32,46 @@ export class AddWeatherDataComponent implements OnInit {
     this.innerHeight = window.innerHeight + 'px';
   }
 
-  constructor(public ws: WeatherService,private toastr: ToastrService,) { }
+  constructor(private allModuleService: AllModulesService,public ws: WeatherService,private toastr: ToastrService,) { }
 
   ngOnInit(): void {
+    // for floating label
+    $('.floating')
+      .on('focus blur', function (e) {
+        $(this)
+          .parents('.form-focus')
+          .toggleClass('focused', e.type === 'focus' || this.value.length > 0);
+      })
+      .trigger('blur');
     this.getDakarData();
     
-    // ngAfterViewInit(): void {
-    //   setTimeout(() => {
-    //     this.dtTrigger.next();
-    //   }, 1000);
-    // }
+  
+  this.dtOptions = {
+    // ... skipped ...
+    pageLength: 10,
+    dom: 'lrtip',
+  };
+}
+
+ngAfterViewInit(): void {
+      setTimeout(() => {
+        this.dtTrigger.next();
+      }, 1000);
+    }
   
     // manually rendering Data table
   
-  //   rerender(): void {
-  //     $('#datatable').DataTable().clear();
-  //     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-  //       dtInstance.destroy();
-  //     });
-  //     this.historical = [];
-  //     this.getHistoricalData();
-  //     setTimeout(() => {
-  //       this.dtTrigger.next();
-  //     }, 1000);
-  // }
-}
+    rerender(): void {
+      $('#datatable').DataTable().clear();
+      this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+        dtInstance.destroy();
+      });
+      this.dakarweatherdata = [];
+      this.getDakarData();
+      setTimeout(() => {
+        this.dtTrigger.next();
+      }, 1000);
+  }
 
 
   public getDakarData() {

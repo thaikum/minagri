@@ -6,7 +6,7 @@ import { DataTableDirective } from 'angular-datatables';
 import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
-@HostListener('window: resize', ['$event'])
+declare const $: any;
 @Component({
   selector: 'app-historical-data',
   templateUrl: './historical-data.component.html',
@@ -35,27 +35,45 @@ export class HistoricalDataComponent implements OnInit, OnDestroy {
   constructor(private http: HttpClient, public ws: WeatherService,private toastr: ToastrService,) { }
 
   ngOnInit(): void {
+
+    $('.floating')
+      .on('focus blur', function (e) {
+        $(this)
+          .parents('.form-focus')
+          .toggleClass('focused', e.type === 'focus' || this.value.length > 0);
+      })
+      .trigger('blur');
+
     this.getHistoricalData();
+
+    // for data table configuration
+    this.dtOptions = {
+      // ... skipped ...
+      pageLength: 10,
+      dom: 'lrtip',
+    };
     
-    // ngAfterViewInit(): void {
-    //   setTimeout(() => {
-    //     this.dtTrigger.next();
-    //   }, 1000);
-    // }
   
-    // manually rendering Data table
-  
-  //   rerender(): void {
-  //     $('#datatable').DataTable().clear();
-  //     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-  //       dtInstance.destroy();
-  //     });
-  //     this.historical = [];
-  //     this.getHistoricalData();
-  //     setTimeout(() => {
-  //       this.dtTrigger.next();
-  //     }, 1000);
-  // }
+}
+
+ngAfterViewInit(): void {
+  setTimeout(() => {
+    this.dtTrigger.next();
+  }, 1000);
+}
+
+// manually rendering Data table
+
+rerender(): void {
+  $('#datatable').DataTable().clear();
+  this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+    dtInstance.destroy();
+  });
+  this.historical = [];
+  this.getHistoricalData();
+  setTimeout(() => {
+    this.dtTrigger.next();
+  }, 1000);
 }
 
 
