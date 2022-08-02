@@ -1,6 +1,6 @@
 
 import {Component, HostListener, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import { ToastrService } from "ngx-toastr";
 import { Subject } from "rxjs";
@@ -106,7 +106,7 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
   public getSubsidy() {
     this.sb.getAllSubsidies().subscribe(data =>{
       this.subsidy = data.body;
-      console.log(this.subsidy);
+      // console.log(this.subsidy);
       this.rows = this.subsidy;
       this.srch = [...this.rows];
     })
@@ -125,8 +125,8 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
   public productType() {
     this.ps.listProductType().subscribe(data => {
       this.types = data.body;
-      console.log('producttypeslist')
-      console.log(this.types)
+      // console.log('producttypeslist')
+      // console.log(this.types)
     });
   }
 

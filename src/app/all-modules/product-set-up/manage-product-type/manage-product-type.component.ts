@@ -23,6 +23,7 @@ export class ManageProductTypeComponent implements OnInit, OnDestroy {
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
   public producttypes: Producttypes[];
+  public farmercategory = []; 
   public addProductTypeForm: FormGroup;
 
   public rows = [];
@@ -209,7 +210,7 @@ export class ManageProductTypeComponent implements OnInit, OnDestroy {
 
   getProductName(id) {
     let typeArray=[];
-    let index;
+    let index;    
 
 
     // console.log('this.types');
@@ -226,6 +227,21 @@ export class ManageProductTypeComponent implements OnInit, OnDestroy {
     
 
     typeArray = this.types?.map((type, itemIndex) => {
+      if(type.id === id) {
+        index = itemIndex;
+        return type.name;
+      }
+    })
+    return typeArray[index];
+
+  }
+
+  // getting Farmer Category from farmercategorylist
+  getFarmerCategory(id) {
+    let typeArray=[];
+    let index;
+    
+    typeArray = this.farmercategory?.map((type, itemIndex) => {
       if(type.id === id) {
         index = itemIndex;
         return type.name;
