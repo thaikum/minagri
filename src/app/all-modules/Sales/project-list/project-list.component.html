@@ -95,7 +95,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="addSalesForm">
+        <form [formGroup]="addSalesForm" (ngSubmit)="addSale()">
           <div class="row">
             <div class="col-sm-6">
               <div class="form-group">
@@ -138,6 +138,7 @@
               </div>
             </div>
           </div>
+          <button class="btn btn-primary">submit</button>
         </form>
       </div>
     </div>

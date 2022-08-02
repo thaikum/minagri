@@ -10,18 +10,22 @@ export class FarmerService {
 
 
   private baseUrl = environment.apiUrl+'farmers/'
-  private headers = new HttpHeaders({
-    Authorization: 'Bearer '+sessionStorage.getItem('accessToken')
-  })
+
+  httpOptions = {
+    headers : new HttpHeaders({
+      Authorization: 'Bearer '+sessionStorage.getItem('accessToken')
+    })
+  }
+
 
   constructor(private _http: HttpClient) {
   }
 
   getAllFarmers(): Observable<any> {
-    return this._http.get<any>(this.baseUrl+'listfarmers', {headers});
+    return this._http.get<any>(this.baseUrl+'listfarmers', this.httpOptions);
   }
 
   createFarmer(obj) {
-    return this._http.post(this.baseUrl+'editprofile', obj, {headers})
+    return this._http.post(this.baseUrl+'editprofile', obj, this.httpOptions)
   }
 }

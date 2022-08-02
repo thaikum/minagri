@@ -26,7 +26,7 @@ export class SalesService {
   }
 
   makeSale(sale: Sale): Observable<any>{
-    return this._http.post(this.baseUrl+'make-sale', sale,this.httpOptions);
+    return this._http.post(this.baseUrl+'makesale', sale,this.httpOptions);
   }
 
   // ================================= todo shift to product service ===========================

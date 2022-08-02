@@ -34,6 +34,9 @@ export class UserGroupComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private allUsers: User[] = []
 
+  public groupRoles: any;
+  public currentGroup: UserGroup;
+
   constructor(
     private allModuleService: AllModulesService,
     private formBuilder: FormBuilder,
@@ -73,6 +76,10 @@ export class UserGroupComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this._userService.getAllUsers().subscribe(users=>{
       this.allUsers = users.body;
+    });
+
+    this._orgService.groupRoleMapping().subscribe(resp=>{
+      console.log(resp.body);
     })
   }
 

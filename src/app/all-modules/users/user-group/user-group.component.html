@@ -67,14 +67,18 @@
               </td>
               <td class="text-end">
                 <div class="dropdown dropdown-action">
-                  <a class="action-icon dropdown-toggle" data-bs-toggle="dropdown"
+                  <a class="action-icon dropdown-toggle pointer-event" data-bs-toggle="dropdown"
                      aria-expanded="false"><i class="material-icons">more_vert</i></a>
                   <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" data-bs-toggle="modal"
-                       data-bs-target="#edit_user_group" (click)="edit(types?.id)"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                       data-bs-target="#edit_user_group" (click)="edit(types?.id)"><i class="fa fa-pencil m-r-5"></i>
+                      Edit</a>
                     <a class="dropdown-item" data-bs-toggle="modal"
                        data-bs-target="#delete_user" (click)="tempId = types?.id"><i class="fa fa-trash-o m-r-5"></i>
                       Delete</a>
+                    <a class="dropdown-item" data-bs-toggle="modal"
+                       data-bs-target="#edit_user_group_roles" (click)="currentGroup = types"><i
+                      class="fa fa-pencil m-r-5"></i> Edit Roles </a>
                   </div>
                 </div>
               </td>
@@ -151,4 +155,97 @@
       </div>
     </div>
   </div>
-</div>
+
+  <div id="edit_user_group_roles" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit roles for group: {{currentGroup?.name}}</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="">
+            <table class="col-md-12">
+              <tr>
+                <th></th>
+                <th>View</th>
+                <th>Create</th>
+                <th>Update</th>
+                <th>Delete</th>
+              </tr>
+              <tr>
+                <th>Users</th>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+              </tr>
+              <tr>
+                <th>Product</th>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+              </tr>
+              <tr>
+                <th>Product Category</th>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+              </tr>
+              <tr>
+                <th>Sales</th>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+              </tr>
+              <tr>
+                <th>Organization</th>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+              </tr>
+              <tr>
+                <th>User Group</th>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+              </tr>
+              <tr>
+                <th>User Type</th>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+              </tr>
+              <tr>
+                <th>Roles</th>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+              </tr>
+              <tr>
+                <th>Subsidy</th>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+              </tr>
+            </table>
+            <div class="row justify-content-center py-1">
+              <button class="btn btn-primary col-md-2" data-bs-dismiss="modal" aria-label="Close">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+
+  </div>

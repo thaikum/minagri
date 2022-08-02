@@ -67,4 +67,7 @@ export class OrganizationService {
     return this._http.post(this.baseUrl + 'createrole', obj , this.httpOptions);
   }
 
+  groupRoleMapping(): Observable<Response> {
+    return this._http.get<Response>(this.baseUrl + 'listgrouprolemapping',this.httpOptions );
+  }
 }
