@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {User} from '../interface/User';
-import {headers} from "../http/http-headers";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +13,9 @@ export class UsersService {
   private baseUrl = environment.apiUrl+'admin/'
 
   httpOptions = {
-    headers: headers
+    headers: new HttpHeaders({
+      Authorization: 'Bearer '+sessionStorage.getItem('accessToken')
+    })
   }
 
   constructor(private _http: HttpClient) {

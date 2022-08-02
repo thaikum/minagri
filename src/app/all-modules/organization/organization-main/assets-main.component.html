@@ -171,7 +171,7 @@
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label>Asset Id</label>
+                <label>Registration Number</label>
                 <input class="form-control" type="text"
                        [class.invalid]="addOrganization.get('registrationnumber').invalid && addOrganization.get('registrationnumber').touched"
                        formControlName="registrationnumber">
@@ -231,6 +231,12 @@
                 </div>
               </div>
             </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Email</label>
+                <input class="form-control" type="text" formControlName="email">
+              </div>
+            </div>
           </div>
           <div class="submit-section">
             <button class="btn btn-primary submit-btn">Submit</button>
@@ -271,7 +277,7 @@
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label>Asset Id</label>
+                <label>Registration Number</label>
                 <input class="form-control" type="text"
                        [class.invalid]="addOrganization.get('registrationnumber').invalid && addOrganization.get('registrationnumber').touched"
                        formControlName="registrationnumber">
@@ -329,6 +335,12 @@
                     *ngIf="addOrganization.get('contactuserid').invalid && addOrganization.get('contactuserid').touched"
                     class="text-danger"> *Contact user is required</small>
                 </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Email</label>
+                <input class="form-control" type="text" formControlName="email">
               </div>
             </div>
           </div>

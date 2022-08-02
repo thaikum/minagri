@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {Sale} from '../interface/Sale';
-import {headers} from '../http/http-headers';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,9 @@ export class SalesService {
   private baseUrl = environment.apiUrl+'products/'
 
   httpOptions = {
-    headers
+    headers : new HttpHeaders({
+      Authorization: 'Bearer '+sessionStorage.getItem('accessToken')
+    })
   }
 
   constructor(private _http: HttpClient) { }
@@ -25,7 +26,7 @@ export class SalesService {
   }
 
   makeSale(sale: Sale): Observable<any>{
-    return this._http.post(this.baseUrl+'make-sale', sale,this.httpOptions);
+    return this._http.post(this.baseUrl+'makesale', sale,this.httpOptions);
   }
 
   // ================================= todo shift to product service ===========================

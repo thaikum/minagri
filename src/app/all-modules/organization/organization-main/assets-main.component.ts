@@ -234,12 +234,16 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // Edit Assets Modal Api Call
   editAssetSubmit() {
+    let loc = "";
+    navigator.geolocation.getCurrentPosition((locat)=>{
+      loc = locat.coords.latitude +','+locat.coords.longitude;
+    })
     if (this.editOrganization.valid) {
       const obj: Organization = {
         contactuserid: this.editOrganization.value.contactuserid,
         email: this.editOrganization.value.email,
         licensenumber: this.editOrganization.value.licensenumber,
-        locationid: this.editOrganization.value.locationid,
+        locationid: 3,
         name: this.editOrganization.value.name,
         orgtype: this.editOrganization.value.orgtype,
         phonenumber: this.editOrganization.value.phonenumber,
@@ -247,7 +251,7 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
         website: this.editOrganization.value.website,
         createdby: this.editOrganization.value.createdby,
         creationdate: this.editOrganization.value.createdon,
-        id: this.editOrganization.value.id
+        id: this.editOrganization.value.id,
       };
       this._organizationService.edit(obj).subscribe((data1) => {
         $('#datatable').DataTable().clear();
