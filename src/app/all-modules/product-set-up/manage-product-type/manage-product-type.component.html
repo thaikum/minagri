@@ -32,8 +32,8 @@
     </div>
     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12"></div>
     <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12">
-      <a class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#add_product_type"><i
-        class="fa fa-plus"></i> Add new product type</a>
+        <a class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#add_product"><i
+          class="fa fa-plus"></i> Add new product type</a>
     </div>
   </div>
   <!-- /Search Filter -->
@@ -45,38 +45,36 @@
           <thead>
           <tr>
             <th>#</th>
-            <th>Name</th>
-            <th>Product Type</th>
-            <th>Product Version</th>
-            <th>Category</th>
-            <th>Premiums</th>
-            <th>Loadings</th>
-            <th>Loading Rate</th>
-            <!-- <th>Action</th> -->
+            <th>Product Name</th>
+            <th>Product Description</th>
+            <th>Created By</th>
+            <th>Date Created</th>
+            <th class="text-center">Status</th>
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let item of producttypes;let i = index">
+          <tr *ngFor="let item of types;let i = index">
             <td>{{item.id}}</td>
             <td>{{item.name}}</td>
-            <td>{{getProductName(item.id)}}</td>
-            <td>{{item.producttypeid}}</td>
-            <td>{{getFarmerCategory(item.id)}}</td>
-            <td>{{item.premiumrate}}</td>
-            <td></td>
-            <td></td>
-            <!-- <td class="text-end">
-              <div class="dropdown dropdown-action">
-                <a href="#" class="action-icon dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+            <td>{{item.description}}</td>
+            <td>{{item.createdby}}</td>
+            <td>{{item.createdon}}</td>
+            <td class="text-center">
+              <div class="dropdown action-label">
+                <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fa fa-dot-circle-o text-danger"></i> Pending
+                </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                  <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#edit_product_type" (click)="edit(item)"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                  <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#delete_product_type" (click)="tempId = item.id"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                  <a class="dropdown-item"> <i class="fa fa-dot-circle-o text-danger"></i>
+                    Pending</a>
+                  <a class="dropdown-item"> <i
+                    class="fa fa-dot-circle-o text-success"></i> Approved</a>
                 </div>
               </div>
-            </td> -->
+            </td>
           </tr>
-          <tr *ngIf="producttypes?.length == 0">
-            <td colspan="8">
+          <tr *ngIf="types.length == 0">
+            <td colspan="6">
               <h5 style="text-align: center;">No data found</h5>
             </td>
           </tr>
@@ -89,7 +87,7 @@
 <!-- /Page Content -->
 
 <!-- Add New Product Type Modal -->
-<div id="add_product_type" class="modal custom-modal fade" role="dialog">
+<div id="add_product" class="modal custom-modal fade" role="dialog">
   <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header" style="border-bottom: 1px solid #dee2e6;">
@@ -99,127 +97,32 @@
         </button>
       </div>
       <div class="modal-body">
-        <form (ngSubmit)="addProductType()" [formGroup]="addProductTypeForm">
+        <form (ngSubmit)="addProduct()" [formGroup]="addProductForm">
           <div class="row">
             <div class="col-md-6">
               <div class="form-group">
-                <label>Product Name</label>
-                <span class="text-danger" style="padding-left: 5px">*</span>
-                <input class="form-control" type="text" [class.invalid]="addProductTypeForm.get('name').invalid && addProductTypeForm.get('name').touched"
+                <label>Insurance Product Type Name</label>
+                <input class="form-control" type="text" [class.invalid]="addProductForm.get('name').invalid && addProductForm.get('name').touched"
                        formControlName="name">
                 <div
-                  *ngIf="addProductTypeForm.get('name').invalid && addProductTypeForm.get('name').touched">
+                  *ngIf="addProductForm.get('name').invalid && addProductForm.get('name').touched">
                   <small
-                    *ngIf="addProductTypeForm.get('name').invalid && addProductTypeForm.get('name').touched"
-                    class="text-danger"> *Product Type Name is required</small>
+                    *ngIf="addProductForm.get('name').invalid && addProductForm.get('name').touched"
+                    class="text-danger"> *Category Name is required</small>
                 </div>
               </div>
             </div>
             <div class="col-md-6">
               <div class="form-group">
-                <label>Product Type Name</label>
-                <span class="text-danger" style="padding-left: 5px">*</span>
-                <select class="form-select form-control"
-                        [class.invalid]="addProductTypeForm.get('producttypeid').invalid && addProductTypeForm.get('producttypeid').touched"
-                        formControlName="producttypeid">
-                  <option *ngFor="let item of types;let i = index"
-                  [value]="item.id">{{item.name}}</option>
-                </select>
-                <!-- <input class="form-control" type="text" [class.invalid]="addProductTypeForm.get('producttypeid').invalid && addProductTypeForm.get('producttypeid').touched"
-                       formControlName="producttypeid"> -->
+                <label>Description</label>
+                <input class="form-control" type="text" [class.invalid]="addProductForm.get('description').invalid && addProductForm.get('description').touched"
+                       formControlName="description">
                 <div
-                  *ngIf="addProductTypeForm.get('producttypeid').invalid && addProductTypeForm.get('producttypeid').touched">
+                  *ngIf="addProductForm.get('description').invalid && addProductForm.get('description').touched">
                   <small
-                    *ngIf="addProductTypeForm.get('producttypeid').invalid && addProductTypeForm.get('producttypeid').touched"
-                    class="text-danger"> *Product Type Name by is required</small>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label>Version</label>
-                <input class="form-control" type="text" [class.invalid]="addProductTypeForm.get('version').invalid && addProductTypeForm.get('version').touched"
-                       formControlName="version">
-                <div
-                  *ngIf="addProductTypeForm.get('version').invalid && addProductTypeForm.get('version').touched">
-                  <small
-                    *ngIf="addProductTypeForm.get('version').invalid && addProductTypeForm.get('version').touched"
-                    class="text-danger"> *Product Version is required</small>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label>Farmer Category</label>
-                <span class="text-danger" style="padding-left: 5px">*</span>
-                <select class="form-select form-control"
-                        [class.invalid]="addProductTypeForm.get('productcategoryid').invalid && addProductTypeForm.get('productcategoryid').touched"
-                        formControlName="productcategoryid">
-                </select>
-                <div
-                  *ngIf="addProductTypeForm.get('productcategoryid').invalid && addProductTypeForm.get('productcategoryid').touched">
-                  <small
-                    *ngIf="addProductTypeForm.get('productcategoryid').invalid && addProductTypeForm.get('productcategoryid').touched"
+                    *ngIf="addProductForm.get('description').invalid && addProductForm.get('description').touched"
                     class="text-danger"> *Item name is required</small>
                 </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label>Premium Rate</label>
-                <span class="text-danger" style="padding-left: 5px">*</span>
-                <input class="form-control" type="text" [class.invalid]="addProductTypeForm.get('premiumrate').invalid && addProductTypeForm.get('premiumrate').touched"
-                       formControlName="premiumrate">
-                <div
-                  *ngIf="addProductTypeForm.get('premiumrate').invalid && addProductTypeForm.get('premiumrate').touched">
-                  <small
-                    *ngIf="addProductTypeForm.get('premiumrate').invalid && addProductTypeForm.get('premiumrate').touched"
-                    class="text-danger"> *Rate is required</small>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Loading</label>
-                <input class="form-control" type="text" [class.invalid]="addProductTypeForm.get('loading').invalid && addProductTypeForm.get('loading').touched"
-                       formControlName="loading">
-                <div
-                  *ngIf="addProductTypeForm.get('loading').invalid && addProductTypeForm.get('loading').touched">
-                  <small
-                    *ngIf="addProductTypeForm.get('loading').invalid && addProductTypeForm.get('loading').touched"
-                    class="text-danger"> *Loading is required</small>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Rate</label>
-                <input class="form-control" type="text" [class.invalid]="addProductTypeForm.get('loadingRate').invalid && addProductTypeForm.get('loadingRate').touched"
-                       formControlName="loadingRate">
-                <div
-                  *ngIf="addProductTypeForm.get('loadingRate').invalid && addProductTypeForm.get('loadingRate').touched">
-                  <small
-                    *ngIf="addProductTypeForm.get('loadingRate').invalid && addProductTypeForm.get('loadingRate').touched"
-                    class="text-danger"> *Purchased by is required</small>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Product Matrix</label>
-                <input class="form-control" type="file">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Other Documents</label>
-                <input class="form-control" type="file">
               </div>
             </div>
           </div>
@@ -232,177 +135,3 @@
   </div>
 </div>
 <!-- /Add New Product Type Modal -->
-<!-- Edit Product Type  Modal -->
-<div id="edit_product_type" class="modal custom-modal fade" role="dialog">
-  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header" style="border-bottom: 1px solid #dee2e6;">
-        <h5 class="modal-title">Edit Product Type</h5>
-        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form (ngSubmit)="addProductType()" [formGroup]="addProductTypeForm">
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Product Name</label>
-                <span class="text-danger" style="padding-left: 5px">*</span>
-                <input class="form-control" type="text" [class.invalid]="addProductTypeForm.get('name').invalid && addProductTypeForm.get('name').touched"
-                       formControlName="name">
-                <div
-                  *ngIf="addProductTypeForm.get('name').invalid && addProductTypeForm.get('name').touched">
-                  <small
-                    *ngIf="addProductTypeForm.get('name').invalid && addProductTypeForm.get('name').touched"
-                    class="text-danger"> *Product Type Name is required</small>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Product Type Name</label>
-                <span class="text-danger" style="padding-left: 5px">*</span>
-                <select class="form-select form-control"
-                        [class.invalid]="addProductTypeForm.get('producttypeid').invalid && addProductTypeForm.get('producttypeid').touched"
-                        formControlName="producttypeid">
-                  <option *ngFor="let item of types;let i = index"
-                  [value]="item.id">{{item.name}}</option>
-                </select>
-                <!-- <input class="form-control" type="text" [class.invalid]="addProductTypeForm.get('producttypeid').invalid && addProductTypeForm.get('producttypeid').touched"
-                       formControlName="producttypeid"> -->
-                <div
-                  *ngIf="addProductTypeForm.get('producttypeid').invalid && addProductTypeForm.get('producttypeid').touched">
-                  <small
-                    *ngIf="addProductTypeForm.get('producttypeid').invalid && addProductTypeForm.get('producttypeid').touched"
-                    class="text-danger"> *Product Type Name by is required</small>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                <label>Version</label>
-                <input class="form-control" type="text" [class.invalid]="addProductTypeForm.get('version').invalid && addProductTypeForm.get('version').touched"
-                       formControlName="version">
-                <div
-                  *ngIf="addProductTypeForm.get('version').invalid && addProductTypeForm.get('version').touched">
-                  <small
-                    *ngIf="addProductTypeForm.get('version').invalid && addProductTypeForm.get('version').touched"
-                    class="text-danger"> *Product Version is required</small>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label>Farmer Category</label>
-                <span class="text-danger" style="padding-left: 5px">*</span>
-                <!-- <select class="form-select form-control"
-                        [class.invalid]="addProductTypeForm.get('productcategoryid').invalid && addProductTypeForm.get('productcategoryid').touched"
-                        formControlName="productcategoryid">
-                  <option>Large Scale</option>
-                  <option>Small Scale</option>
-                </select> -->
-                <input class="form-control" type="text" [class.invalid]="addProductTypeForm.get('productcategoryid').invalid && addProductTypeForm.get('productcategoryid').touched"
-                       formControlName="productcategoryid">
-                <div
-                  *ngIf="addProductTypeForm.get('productcategoryid').invalid && addProductTypeForm.get('productcategoryid').touched">
-                  <small
-                    *ngIf="addProductTypeForm.get('productcategoryid').invalid && addProductTypeForm.get('productcategoryid').touched"
-                    class="text-danger"> *Item name is required</small>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="form-group">
-                <label>Premium Rate</label>
-                <span class="text-danger" style="padding-left: 5px">*</span>
-                <input class="form-control" type="text" [class.invalid]="addProductTypeForm.get('premiumrate').invalid && addProductTypeForm.get('premiumrate').touched"
-                       formControlName="premiumrate">
-                <div
-                  *ngIf="addProductTypeForm.get('premiumrate').invalid && addProductTypeForm.get('premiumrate').touched">
-                  <small
-                    *ngIf="addProductTypeForm.get('premiumrate').invalid && addProductTypeForm.get('premiumrate').touched"
-                    class="text-danger"> *Rate is required</small>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Loading</label>
-                <input class="form-control" type="text" [class.invalid]="addProductTypeForm.get('loading').invalid && addProductTypeForm.get('loading').touched"
-                       formControlName="loading">
-                <div
-                  *ngIf="addProductTypeForm.get('loading').invalid && addProductTypeForm.get('loading').touched">
-                  <small
-                    *ngIf="addProductTypeForm.get('loading').invalid && addProductTypeForm.get('loading').touched"
-                    class="text-danger"> *Loading is required</small>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Rate</label>
-                <input class="form-control" type="text" [class.invalid]="addProductTypeForm.get('loadingRate').invalid && addProductTypeForm.get('loadingRate').touched"
-                       formControlName="loadingRate">
-                <div
-                  *ngIf="addProductTypeForm.get('loadingRate').invalid && addProductTypeForm.get('loadingRate').touched">
-                  <small
-                    *ngIf="addProductTypeForm.get('loadingRate').invalid && addProductTypeForm.get('loadingRate').touched"
-                    class="text-danger"> *Purchased by is required</small>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Product Matrix</label>
-                <input class="form-control" type="file">
-              </div>
-            </div>
-            <div class="col-md-6">
-              <div class="form-group">
-                <label>Other Documents</label>
-                <input class="form-control" type="file">
-              </div>
-            </div>
-          </div>
-          <div class="submit-section">
-            <button class="btn btn-primary submit-btn">Submit</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- /Edit Product Type  Modal -->
-
-<!-- Delete Product Type  Modal -->
-<div class="modal custom-modal fade" id="delete_product_type" role="dialog">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-body">
-        <div class="form-header">
-          <h3>Delete Product Type</h3>
-          <p>Are you sure want to delete?</p>
-        </div>
-        <div class="modal-btn delete-action">
-          <div class="row">
-            <div class="col-6">
-              <a class="btn btn-primary continue-btn" (click)="deleteProduct()">Delete</a>
-            </div>
-            <div class="col-6">
-              <a data-bs-dismiss="modal"
-                 class="btn btn-primary cancel-btn">Cancel</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- /Edit Product Type Modal -->

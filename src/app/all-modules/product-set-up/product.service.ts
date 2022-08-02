@@ -6,6 +6,7 @@ import {headers} from "../../http/http-headers";
 import {Observable} from "rxjs";
 import {Categories} from "./interface/categories";
 import {Producttypes} from "./interface/producttypes";
+import { ProductType } from './interface/product_type';
 
 @Injectable({
   providedIn: 'root'
@@ -39,8 +40,8 @@ export class ProductService {
   }
 
 //  Add New Product Type
-  addproductType(producttypes: Producttypes): Observable<any>{
-    return this.http.post(this.baseUrl+'createproduct', producttypes, this.httpOptions);
+  addproductType(producttypes: ProductType): Observable<any>{
+    return this.http.post(this.baseUrl+'createtype', producttypes, this.httpOptions);
   }
 
   // list product types
