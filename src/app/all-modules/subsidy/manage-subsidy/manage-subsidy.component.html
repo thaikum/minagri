@@ -55,8 +55,8 @@
           <tr *ngFor="let item of subsidy;let i = index">
             <td>{{item.id}}</td>
             <td>{{item.name}}</td>
-            <td>{{item.producttypeid}}</td>
-            <td>{{item.farmercategoryid}}</td>
+            <td>{{getProductName(item.id)}}</td>
+            <td>{{getFarmerCategory(item.id)}}</td>
             <td>{{item.rate}}</td>
           </tr>
           <tr *ngIf="subsidy.length === 0">
@@ -102,16 +102,12 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Insurance Product Type </label>
-                <input class="form-control" type="text" [class.invalid]="addSubsidyForm.get('producttypeid').invalid && addSubsidyForm.get('producttypeid').touched"
-                       formControlName="producttypeid">
-                <!-- <select class="form-select form-control"
+                <select class="form-select form-control"
                         [class.invalid]="addSubsidyForm.get('producttypeid').invalid && addSubsidyForm.get('producttypeid').touched"
                         formControlName="producttypeid">
-                  <option>Weather Index Insurance</option>
-                  <option>Fake Product</option>
-                  <option>Good Trial Insurance Product</option>
-                  <option>Indemnity Livestock</option>
-                </select> -->
+                        <option *ngFor="let item of types;let i = index"
+                  [value]="item.id">{{item.name}}</option>
+                </select>
                 <div
                   *ngIf="addSubsidyForm.get('producttypeid').invalid && addSubsidyForm.get('producttypeid').touched">
                   <small
@@ -138,14 +134,12 @@
             <div class="col-md-6">
               <div class="form-group">
                 <label>Farmer Category </label>
-                <input class="form-control" type="text" [class.invalid]="addSubsidyForm.get('farmercategoryid').invalid && addSubsidyForm.get('farmercategoryid').touched"
-                       formControlName="farmercategoryid">
-                <!-- <select class="form-select form-control"
+                <select class="form-select form-control"
                         [class.invalid]="addSubsidyForm.get('farmercategoryid').invalid && addSubsidyForm.get('farmercategoryid').touched"
                         formControlName="farmercategoryid">
-                  <option>Large Scale</option>
-                  <option>Small Scale</option>
-                </select> -->
+                        <option *ngFor="let item of farmercategory;let i = index"
+                  [value]="item.id">{{item.name}}</option>
+                </select>
                 <div
                   *ngIf="addSubsidyForm.get('farmercategoryid').invalid && addSubsidyForm.get('farmercategoryid').touched">
                   <small

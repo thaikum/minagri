@@ -6,6 +6,8 @@ import { DatePipe } from "@angular/common";
 import { DataTableDirective } from "angular-datatables";
 import {ContractService} from "../contract.service";
 import {Contract} from "../interface/contract";
+import { TypeList } from '../../product-set-up/interface/typelist';
+import { ProductService } from '../../product-set-up/product.service';
 
 declare const $: any;
 @Component({
@@ -19,13 +21,14 @@ export class ManageContractComponent implements OnInit, OnDestroy {
   public dtOptions: DataTables.Settings = {};
   public contract: Contract[] = [];
   public addContractForm: FormGroup;
+  public types: TypeList[];
 
   public rows = [];
   public srch = [];
   public statusValue;
   public dtTrigger: Subject<any> = new Subject();
   public pipe = new DatePipe("en-US");
-  constructor(public cs: ContractService,private formBuilder: FormBuilder,private toastr: ToastrService,) { }
+  constructor(public cs: ContractService,public ps: ProductService,private formBuilder: FormBuilder,private toastr: ToastrService,) { }
 
   ngOnInit(): void {
     $('.floating')
@@ -35,7 +38,11 @@ export class ManageContractComponent implements OnInit, OnDestroy {
           .toggleClass('focused', e.type === 'focus' || this.value.length > 0);
       })
       .trigger('blur');
+      // Get All Contracts
     this.getContracts();
+
+    // pruduct types
+    this.productType();
 
     // Add Contract Review Form Validation
     this.addContractForm = this.formBuilder.group({
@@ -82,6 +89,16 @@ export class ManageContractComponent implements OnInit, OnDestroy {
     })
   }
 
+  // List Product
+  // get producttype list
+  public productType() {
+    this.ps.listProductType().subscribe(data => {
+      this.types = data.body;
+      console.log('producttypeslist')
+      console.log(this.types)
+    });
+  }
+
   private markFormGroupTouched(formGroup: FormGroup) {
     (<any>Object).values(formGroup.controls).forEach((control) => {
       control.markAsTouched();
@@ -98,20 +115,20 @@ export class ManageContractComponent implements OnInit, OnDestroy {
       this.markFormGroupTouched(this.addContractForm)
       return
     }
-    // let startdate = this.pipe.transform(
-    //   this.addContractForm.value.startdate,
-    //   "dd-MM-yyyy"
-    // );
-    // let enddate = this.pipe.transform(
-    //   this.addContractForm.value.enddate,
-    //   "dd-MM-yyyy"
-    // );
+    let dateFormat = this.pipe.transform(
+      this.addContractForm.value.startdate,
+      "dd-MM-yyyy"
+    );
+    let dateFormat1 = this.pipe.transform(
+      this.addContractForm.value.enddate,
+      "dd-MM-yyyy"
+    );
     let newContract = {
       name: this.addContractForm.value.name,
       contracttype: this.addContractForm.value.contracttype,
-      productid: this.addContractForm.value.productid,
-      startdate: this.addContractForm.value.startdate,
-      enddate: this.addContractForm.value.enddate,
+      productid: parseInt(this.addContractForm.value.productid),
+      startdate: dateFormat,
+      enddate: dateFormat1,
     };
     this.cs.addContract(newContract).subscribe((data) =>{
       $('#datatable').DataTable().clear();
@@ -134,6 +151,21 @@ export class ManageContractComponent implements OnInit, OnDestroy {
       return d.name.toLowerCase().indexOf(val) !== -1 || !val;
     });
     this.rows.push(...temp);
+  }
+
+
+  getProductName(id) {
+    let typeArray=[];
+    let index;
+    
+    typeArray = this.types?.map((type, itemIndex) => {
+      if(type.id === id) {
+        index = itemIndex;
+        return type.name;
+      }
+    })
+    return typeArray[index];
+
   }
 
   // for unsubscribe datatable

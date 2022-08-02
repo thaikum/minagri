@@ -37,7 +37,7 @@
                                             <th class="text-end">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody> 
                                         <tr *ngFor="let item of lstRevenue">
                                             <td>{{item.id}}</td>
                                             <td>{{item.budgettitle}}</td>
@@ -117,7 +117,8 @@
                             </div>
                             <div class="form-group">
                                 <label>End Date</label>
-                                <div class="cal-icon"><input class="form-control datetimepicker" type="text" bsDatepicker name="budget_end_date" placeholder="End Date" data-date-format="dd-mm-yyyy" [class.invalid]="addRevenueForm.get('EndDate').invalid && addRevenueForm.get('EndDate').touched"
+                                <div class="cal-icon"><input class="form-control datetimepicker" type="text" bsDatepicker name="budget_end_date" placeholder="End Date" data-date-format="dd-mm-yyyy" 
+                                    [class.invalid]="addRevenueForm.get('EndDate').invalid && addRevenueForm.get('EndDate').touched"
                             formControlName="EndDate"></div>
                                  <div
                             *ngIf="addRevenueForm.get('EndDate').invalid && addRevenueForm.get('EndDate').touched">

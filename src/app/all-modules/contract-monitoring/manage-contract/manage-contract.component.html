@@ -45,7 +45,7 @@
             <td>{{item.id}}</td>
             <td>{{item.name}}</td>
             <td>{{item.contracttype}}</td>
-            <td>{{item.productid}}</td>
+            <td>{{getProductName(item.id)}}</td>
             <td>{{item.startdate}}</td>
             <td>{{item.enddate}}</td>
             <td>{{item.contract}}</td>
@@ -77,7 +77,7 @@
         <form (ngSubmit)="addContract()" [formGroup]="addContractForm">
           <div class="row">
               <div class="form-group">
-                <label>Product Name</label>
+                <label>Contract Name</label>
                 <span class="text-danger" style="padding-left: 5px">*</span>
                 <input class="form-control" type="text" [class.invalid]="addContractForm.get('name').invalid && addContractForm.get('name').touched"
                        formControlName="name">
@@ -93,8 +93,14 @@
             <div class="form-group">
               <label>Product Type</label>
               <span class="text-danger" style="padding-left: 5px">*</span>
-              <input class="form-control" type="text" [class.invalid]="addContractForm.get('productid').invalid && addContractForm.get('productid').touched"
-                     formControlName="productid">
+              <!-- <input class="form-control" type="text" [class.invalid]="addContractForm.get('productid').invalid && addContractForm.get('productid').touched"
+                     formControlName="productid"> -->
+              <select class="form-select form-control"
+                        [class.invalid]="addContractForm.get('productid').invalid && addContractForm.get('productid').touched"
+                        formControlName="productid">
+                        <option *ngFor="let item of types;let i = index"
+                  [value]="item.id">{{item.name}}</option>
+                </select>
               <div
                 *ngIf="addContractForm.get('productid').invalid && addContractForm.get('productid').touched">
                 <small
@@ -123,7 +129,7 @@
               <span class="text-danger" style="padding-left: 5px">*</span>
               <div class="form-group form-focus">
                 <div class="cal-icon">
-                  <input class="form-control datetimepicker" type="text" bsDatepicker type="text"
+                  <input class="form-control datetimepicker" type="text" bsDatepicker 
                          [class.invalid]="addContractForm.get('startdate').invalid && addContractForm.get('startdate').touched"
                          formControlName="startdate">
                 </div>
@@ -140,7 +146,7 @@
               <span class="text-danger" style="padding-left: 5px">*</span>
               <div class="form-group form-focus">
                 <div class="cal-icon">
-                  <input class="form-control datetimepicker" type="text" bsDatepicker type="text"
+                  <input class="form-control datetimepicker" type="text" bsDatepicker name="enddate" placeholder="End Date" data-date-format="dd-mm-yyyy" 
                          [class.invalid]="addContractForm.get('enddate').invalid && addContractForm.get('enddate').touched"
                          formControlName="enddate">
                 </div>

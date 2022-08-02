@@ -9,6 +9,8 @@ import { DataTableDirective } from "angular-datatables";
 import {SubsidyService} from "../services/subsidy.service";
 import { Subsidy } from '../interface/subsidy';
 import { FarmerService } from '../services/farmer.service';
+import { TypeList } from '../../product-set-up/interface/typelist';
+import { ProductService } from '../../product-set-up/product.service';
 
 
 declare const $: any;
@@ -26,6 +28,7 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
   public subsidy: Subsidy[] = [];
   public farmercategory = [];
   public addSubsidyForm: FormGroup;
+  public types: TypeList[];
 
   public rows = [];
   public srch = [];
@@ -43,7 +46,7 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
   }
 
 
-  constructor(private http: HttpClient,public fs: FarmerService, public sb: SubsidyService,private formBuilder: FormBuilder,private toastr: ToastrService,) {}
+  constructor(private http: HttpClient,public ps: ProductService,public fs: FarmerService, public sb: SubsidyService,private formBuilder: FormBuilder,private toastr: ToastrService,) {}
 
   ngOnInit() {
     $('.floating')
@@ -57,6 +60,8 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
     this.getSubsidy();
     // farmer category list
     this.listFarmerCategory();
+    // pruduct types
+    this.productType();
 
     // Add SubsidyForm Validation
     this.addSubsidyForm = this.formBuilder.group({
@@ -115,6 +120,15 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
       console.log(this.farmercategory);
     });
   }
+  // List Product
+  // get producttype list
+  public productType() {
+    this.ps.listProductType().subscribe(data => {
+      this.types = data.body;
+      console.log('producttypeslist')
+      console.log(this.types)
+    });
+  }
 
 
   private markFormGroupTouched(formGroup: FormGroup) {
@@ -161,6 +175,36 @@ export class ManageSubsidyComponent implements OnInit, OnDestroy {
       return d.name.toLowerCase().indexOf(val) !== -1 || !val;
     });
     this.rows.push(...temp);
+  }
+
+// getting product name from peoducttypelists
+  getProductName(id) {
+    let typeArray=[];
+    let index;
+    
+    typeArray = this.types?.map((type, itemIndex) => {
+      if(type.id === id) {
+        index = itemIndex;
+        return type.name;
+      }
+    })
+    return typeArray[index];
+
+  }
+
+  // getting Farmer Category from farmercategorylist
+  getFarmerCategory(id) {
+    let typeArray=[];
+    let index;
+    
+    typeArray = this.farmercategory?.map((type, itemIndex) => {
+      if(type.id === id) {
+        index = itemIndex;
+        return type.name;
+      }
+    })
+    return typeArray[index];
+
   }
 
   // for unsubscribe datatable

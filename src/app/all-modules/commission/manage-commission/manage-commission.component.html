@@ -121,7 +121,39 @@
           </button>
         </div>
         <div class="modal-body">
-          
+          <!-- <form (ngSubmit)="addCommission()" [formGroup]="addCommissionForm">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Commission ID</label>
+                  <input class="form-control" type="text" [class.invalid]="addCommissionForm.get('name').invalid && addCommissionForm.get('name').touched"
+                         formControlName="name">
+                  <div
+                    *ngIf="addCommissionForm.get('name').invalid && addCommissionForm.get('name').touched">
+                    <small
+                      *ngIf="addCommissionForm.get('name').invalid && addCommissionForm.get('name').touched"
+                      class="text-danger"> *item is required</small>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Product Name</label>
+                  <input class="form-control" type="text" [class.invalid]="addCommissionForm.get('description').invalid && addCommissionForm.get('description').touched"
+                         formControlName="description">
+                  <div
+                    *ngIf="addCommissionForm.get('description').invalid && addCommissionForm.get('description').touched">
+                    <small
+                      *ngIf="addCommissionForm.get('description').invalid && addCommissionForm.get('description').touched"
+                      class="text-danger"> *Item name is required</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="submit-section">
+              <button class="btn btn-primary submit-btn">Submit</button>
+            </div>
+          </form> -->
         </div>
       </div>
     </div>
@@ -170,6 +202,7 @@
       </div>
     </div>
   </div>
+  <!-- /Edit Commssion Modal -->
 
   <!-- /Page Wrapper -->
 </div>

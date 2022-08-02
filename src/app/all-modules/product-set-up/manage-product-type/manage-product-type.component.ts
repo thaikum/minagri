@@ -206,4 +206,33 @@ export class ManageProductTypeComponent implements OnInit, OnDestroy {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
   }
+
+  getProductName(id) {
+    let typeArray=[];
+    let index;
+
+
+    // console.log('this.types');
+    // console.log(this.types);
+
+
+    // this.types.forEach(item => {
+    //   if (item.id == itemIndex) {
+    //     typeName = item.name;
+    //     return item.name;
+    //   }
+    // })
+    // return typeName;
+    
+
+    typeArray = this.types?.map((type, itemIndex) => {
+      if(type.id === id) {
+        index = itemIndex;
+        return type.name;
+      }
+    })
+    return typeArray[index];
+
+  }
+
 }

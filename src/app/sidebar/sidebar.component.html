@@ -326,6 +326,37 @@
           </li>
 
           <li class="menu-title">
+            <span>Accounting</span>
+          </li>
+          <li
+            class="submenu"
+            [ngClass]="{ active: urlComplete.mainUrl === 'commission' }"
+          >
+            <a
+              href="javascript:"
+              [ngClass]="{ subdrop: urlComplete.mainUrl === 'manage-commission' }"
+            >
+              <i class="la la-edit"></i>
+              <span>Accounting</span>
+              <span class="menu-arrow"></span>
+            </a>
+            <ul
+              style="display: none"
+              [ngStyle]="{
+                display: urlComplete.mainUrl === 'commission' ? 'block' : 'none'
+              }"
+            >
+              <li routerLink="/layout/commission/manage-commission">
+                <a
+                  [ngClass]="{ active: urlComplete.subUrl === 'admin' }"
+                  href="javascript:"
+                >Manage Commissions</a
+                >
+              </li>
+            </ul>
+          </li>
+
+          <li class="menu-title">
             <span>Weather and Climate</span>
           </li>
           <li
