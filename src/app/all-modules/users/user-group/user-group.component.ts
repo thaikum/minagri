@@ -9,20 +9,31 @@ import {ToastrService} from 'ngx-toastr';
 import {UsersService} from '../../../services/users.service';
 import {OrganizationService} from '../../../services/organization.service';
 import {UserGroup} from '../../../interface/UserGroup';
+import {Role} from "../../../interface/Role";
+import {Router} from "@angular/router";
+import {state} from "@angular/animations";
 
 declare const $: any;
 
 @Component({
-  selector: 'app-user-group',
-  templateUrl: './user-group.component.html',
-  styleUrls: ['./user-group.component.css']
+  selector: "app-user-group",
+  templateUrl: "./user-group.component.html",
+  styleUrls: ["./user-group.component.css"],
 })
 export class UserGroupComponent implements OnInit, AfterViewInit, OnDestroy {
+  constructor(
+    private allModuleService: AllModulesService,
+    private formBuilder: FormBuilder,
+    private toastr: ToastrService,
+    private _userService: UsersService,
+    private _orgService: OrganizationService,
+    private _router: Router
+  ) {}
 
-  @ViewChild(DataTableDirective, {static: false})
+  @ViewChild(DataTableDirective, { static: false })
   public dtElement: DataTableDirective;
   public dtOptions: DataTables.Settings = {};
-  public url: any = 'users';
+  public url: any = "users";
   public allUserGroups: UserGroup[];
   public addUserGroup: FormGroup;
   public editUserGroup: FormGroup;
@@ -32,55 +43,48 @@ export class UserGroupComponent implements OnInit, AfterViewInit, OnDestroy {
   public srch = [];
   public dtTrigger: Subject<any> = new Subject();
 
-  private allUsers: User[] = []
+  private allUsers: User[] = [];
 
-  public groupRoles: any;
+  public groupRoles = [];
   public currentGroup: UserGroup;
-
-  constructor(
-    private allModuleService: AllModulesService,
-    private formBuilder: FormBuilder,
-    private toastr: ToastrService,
-    private _userService: UsersService,
-    private _orgService: OrganizationService
-  ) {
-  }
+  private allRoles: Role[] = [];
 
   ngOnInit() {
-    $('.floating')
-      .on('focus blur', function (e) {
+    $(".floating")
+      .on("focus blur", function (e) {
         $(this)
-        .parents('.form-focus').toggleClass('focused', e.type === 'focus' || this.value.length > 0);
+          .parents(".form-focus")
+          .toggleClass("focused", e.type === "focus" || this.value.length > 0);
       })
-      .trigger('blur');
+      .trigger("blur");
 
     this.getTypes();
 
     // Add Provident Form Validation And Getting Values
 
     this.addUserGroup = this.formBuilder.group({
-      name: new FormControl(''),
+      name: new FormControl(""),
     });
 
     // Edit Provident Form Validation And Getting Values
 
     this.editUserGroup = this.formBuilder.group({
-      name: new FormControl(''),
+      name: new FormControl(""),
     });
     // for data table configuration
     this.dtOptions = {
       // ... skipped ...
       pageLength: 10,
-      dom: 'lrtip',
+      dom: "lrtip",
     };
 
-    this._userService.getAllUsers().subscribe(users=>{
+    this._userService.getAllUsers().subscribe((users) => {
       this.allUsers = users.body;
     });
 
-    this._orgService.groupRoleMapping().subscribe(resp=>{
+    this._orgService.groupRoleMapping().subscribe((resp) => {
       console.log(resp.body);
-    })
+    });
   }
 
   ngAfterViewInit(): void {
@@ -92,7 +96,7 @@ export class UserGroupComponent implements OnInit, AfterViewInit, OnDestroy {
   // manually rendering Data table
 
   rerender(): void {
-    $('#datatable').DataTable().clear();
+    $("#datatable").DataTable().clear();
     this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
       dtInstance.destroy();
     });
@@ -104,19 +108,18 @@ export class UserGroupComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   getTypes() {
-    this._orgService.getAllUserGroups().subscribe(data => {
+    this._orgService.getAllUserGroups().subscribe((data) => {
       console.log(data.body);
       this.allUserGroups = data.body;
       console.log(this.allUserGroups);
       this.rows = this.allUserGroups;
       this.srch = [...this.rows];
-    })
+    });
   }
 
-  getUser(id): User{
-    return this.allUsers.filter((user)=>user.userid = id)[0];
+  getUser(id): User {
+    return this.allUsers.filter((user) => (user.userid = id))[0];
   }
-
 
   // Add Provident Modal Api Call
 
@@ -125,21 +128,26 @@ export class UserGroupComponent implements OnInit, AfterViewInit, OnDestroy {
       const obj = {
         name: this.addUserGroup.value.name,
       };
-      this._orgService.createUserGroup(obj).subscribe((data) => {
-        $('#datatable').DataTable().clear();
-        this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
-          dtInstance.destroy();
-        });
-        this.dtTrigger.next();
-        this.getTypes();
-        $('#add_user_group').hide()
-        this.addUserGroup.reset();
-        this.toastr.success('Users is added', 'Success');
-      }, error => {
-        this.toastr.error(error.message, 'Error');
-      });
+      this._orgService.createUserGroup(obj).subscribe(
+        (data) => {
+          $("#datatable").DataTable().clear();
+          this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
+            dtInstance.destroy();
+          });
+          this.dtTrigger.next();
+          this.getTypes();
+          $("#add_user_group").hide();
+          this.addUserGroup.reset();
+          this._router.navigate(['/layout/success'],{state: {
+            message: "User Group created successfully"
+            }})
+        },
+        (error) => {
+          this.toastr.error(error.message, "Error");
+        }
+      );
     } else {
-      this.toastr.warning('Mandatory fields required', '');
+      this.toastr.warning("Mandatory fields required", "");
     }
   }
 
@@ -152,17 +160,17 @@ export class UserGroupComponent implements OnInit, AfterViewInit, OnDestroy {
         description: this.editUserGroup.value.description,
       };
       this.allModuleService.update(obj, this.url).subscribe((data1) => {
-        $('#datatable').DataTable().clear();
+        $("#datatable").DataTable().clear();
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.destroy();
         });
         this.dtTrigger.next();
       });
       this.getTypes();
-      $('#edit_user_group').hide()
-      this.toastr.success('Users is edited', 'Success');
+      $("#edit_user_group").hide();
+      this.toastr.success("Users is edited", "Success");
     } else {
-      this.toastr.warning('Mandatory fields required', '');
+      this.toastr.warning("Mandatory fields required", "");
     }
   }
 
@@ -172,9 +180,9 @@ export class UserGroupComponent implements OnInit, AfterViewInit, OnDestroy {
       return item.id === value;
     });
     const toSetValues = this.allUserGroups[index];
-    console.log(toSetValues.name)
+    console.log(toSetValues.name);
     this.editUserGroup.setValue({
-      id : value,
+      id: value,
       name: toSetValues.name,
     });
   }
@@ -183,15 +191,15 @@ export class UserGroupComponent implements OnInit, AfterViewInit, OnDestroy {
 
   deleteUsers() {
     this.allModuleService.delete(this.tempId, this.url).subscribe((data) => {
-      $('#datatable').DataTable().clear();
+      $("#datatable").DataTable().clear();
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.destroy();
       });
       this.dtTrigger.next();
     });
     this.getTypes();
-    $('#delete_user').hide()
-    this.toastr.success('Users is deleted', 'Success');
+    $("#delete_user").hide();
+    this.toastr.success("Users is deleted", "Success");
   }
 
   // search by name
@@ -227,5 +235,16 @@ export class UserGroupComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
+  }
+
+  initializeRoles() {
+    this._orgService.rolePerGroup(this.currentGroup.id).subscribe((data) => {
+      this.groupRoles = data.body.map((dt) => dt.roleid as number);
+      // this.row;
+    });
+  }
+
+  getChecked(value): boolean {
+    return this.groupRoles.filter((id) => id === value).length > 0;
   }
 }

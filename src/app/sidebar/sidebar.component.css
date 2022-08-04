@@ -6,3 +6,6 @@
 .submenu-slideup {
   display: none;
 }
+.sidebar{
+  box-shadow: 0 5px 10px 0 rgba(0,0,0,0.4);
+}

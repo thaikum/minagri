@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AllModulesComponent } from './all-modules.component';
+import {SuccessComponent} from "./messages/success/success.component";
 
 const routes: Routes = [
   {
@@ -391,6 +392,10 @@ const routes: Routes = [
         path: 'weather',
         loadChildren: () => import('./weather/weather.module').then(
           (m) => m.WeatherModule)
+      },
+      {
+        path: 'success',
+        component: SuccessComponent
       }
     ],
   },

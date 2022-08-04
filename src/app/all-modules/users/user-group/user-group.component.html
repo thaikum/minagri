@@ -63,7 +63,7 @@
               <td>{{types.name}}</td>
 
               <td>
-                {{ getUser(types.createdby).name}}
+                {{ getUser(types?.createdby)?.name}}
               </td>
               <td class="text-end">
                 <div class="dropdown dropdown-action">
@@ -74,10 +74,10 @@
                        data-bs-target="#edit_user_group" (click)="edit(types?.id)"><i class="fa fa-pencil m-r-5"></i>
                       Edit</a>
                     <a class="dropdown-item" data-bs-toggle="modal"
-                       data-bs-target="#delete_user" (click)="tempId = types?.id"><i class="fa fa-trash-o m-r-5"></i>
+                       data-bs-target="#delete_user_group" (click)="tempId = types?.id"><i class="fa fa-trash-o m-r-5"></i>
                       Delete</a>
                     <a class="dropdown-item" data-bs-toggle="modal"
-                       data-bs-target="#edit_user_group_roles" (click)="currentGroup = types"><i
+                       data-bs-target="#edit_user_group_roles" (click)="currentGroup = types;initializeRoles()"><i
                       class="fa fa-pencil m-r-5"></i> Edit Roles </a>
                   </div>
                 </div>
@@ -177,66 +177,87 @@
               </tr>
               <tr>
                 <th>Users</th>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="5" [checked]="getChecked(5)" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
               </tr>
               <tr>
                 <th>Product</th>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="6" [checked]="getChecked(6)"></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+              </tr>
+              <tr>
+                <th>Product</th>
+                <td><input class="form-check-input" name="role" type="checkbox" value="13" [checked]="getChecked(13)"></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="10" [checked]="getChecked(10)"></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
               </tr>
               <tr>
                 <th>Product Category</th>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="7" [checked]="getChecked(7)"></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+              </tr>
+              <tr>
+                <th>Comission</th>
+                <td><input class="form-check-input" name="role" type="checkbox" value="19" [checked]="getChecked(19)" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+              </tr>
+              <tr>
+                <th>Product Type</th>
+                <td><input class="form-check-input" name="role" type="checkbox" value="9" [checked]="getChecked(9)" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="8" [checked]="getChecked(8)" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
               </tr>
               <tr>
                 <th>Sales</th>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="1" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
               </tr>
               <tr>
                 <th>Organization</th>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="22" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="23" [checked]="getChecked(23)"></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
               </tr>
               <tr>
                 <th>User Group</th>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
               </tr>
               <tr>
                 <th>User Type</th>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
               </tr>
               <tr>
                 <th>Roles</th>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="24" [checked]="getChecked(24)"></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
               </tr>
               <tr>
                 <th>Subsidy</th>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
-                <td><input class="form-check-input" name="role" type="checkbox" value=""></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
+                <td><input class="form-check-input" name="role" type="checkbox" value="" ></td>
               </tr>
             </table>
             <div class="row justify-content-center py-1">
@@ -246,6 +267,5 @@
         </div>
       </div>
     </div>
-
-
   </div>
+</div>

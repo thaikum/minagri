@@ -1,8 +1,8 @@
 export interface Sale{
-  actualpay?: number;
-  covervalue?: number;
-  farmeruserid?: number;
-  farmid?: number;
-  productid?: number;
-  subsidyvalue?: number;
+  actualpay?: string;
+  covervalue?: string;
+  farmeruserid?: string;
+  farmid?: string;
+  productid?: string;
+  subsidyvalue?: string;
 }

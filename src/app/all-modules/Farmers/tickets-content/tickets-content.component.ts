@@ -14,6 +14,7 @@ import {FarmerService} from '../../../services/farmer.service';
 import {Farmer} from '../../../interface/Farmer';
 import {UsersService} from "../../../services/users.service";
 import {User} from "../../../interface/User";
+import {Router} from "@angular/router";
 
 declare const $: any;
 
@@ -46,7 +47,8 @@ export class TicketsContentComponent implements OnInit, OnDestroy, AfterViewInit
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private _farmerService: FarmerService,
-    private _userService: UsersService
+    private _userService: UsersService,
+    private _router:Router
   ) {
   }
 
@@ -165,6 +167,12 @@ export class TicketsContentComponent implements OnInit, OnDestroy, AfterViewInit
         userid: this.addFarmerForm.value.userid
       };
       this._farmerService.createFarmer(obj).subscribe((data) => {
+
+        this._router.navigate(['/layout/success'],{state: {
+            message: "Farmer added successfully"
+          }})
+
+
         $('#datatable').DataTable().clear();
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.destroy();

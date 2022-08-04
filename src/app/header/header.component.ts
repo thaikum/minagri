@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   };
   notifications: any;
   messagesData: any;
+  currentUser = localStorage.getItem('userName')
 
   constructor(private headerService: HeaderService, private router: Router) {}
 
