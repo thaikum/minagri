@@ -171,7 +171,6 @@ export class ManageProductsComponent implements OnInit {
   }
 
 
-
   // search by name
   searchName(val) {
     this.rows.splice(0, this.rows.length);
