@@ -180,12 +180,32 @@ export class ManageProductsComponent implements OnInit {
     });
     this.rows.push(...temp);
   }
-  // search by Product ID
-  searchID(val) {
+  // search by Product Version
+  searchVersion(val) {
     this.rows.splice(0, this.rows.length);
     const temp = this.srch.filter(function (d) {
       val = val.toLowerCase();
-      return d.id.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.version.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+    this.rows.push(...temp);
+  }
+
+   //search by Product Type
+   searchbyType(val) {
+    this.rows.splice(0, this.rows.length);
+    let temp = this.srch.filter(function (d) {
+      val = val.toLowerCase();
+      return d.producttypeid.toLowerCase().indexOf(val) !== -1 || !val;
+    });
+    this.rows.push(...temp);
+  }
+
+  //search by Product Category
+  searchbyCategory(val) {
+    this.rows.splice(0, this.rows.length);
+    let temp = this.srch.filter(function (d) {
+      val = val.toLowerCase();
+      return d.productcategoryid.toLowerCase().indexOf(val) !== -1 || !val;
     });
     this.rows.push(...temp);
   }
