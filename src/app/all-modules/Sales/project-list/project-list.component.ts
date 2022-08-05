@@ -9,6 +9,7 @@ import {Sale} from '../../../interface/Sale';
 import {SalesService} from '../../../services/sales.service';
 import {FarmerService} from "../../../services/farmer.service";
 import {Farmer} from "../../../interface/Farmer";
+import {Router} from "@angular/router";
 
 declare const $: any;
 @Component({
@@ -38,6 +39,7 @@ export class ProjectListComponent implements OnInit, OnDestroy , AfterViewInit{
     private toastr: ToastrService,
     private _salesService: SalesService,
     private _farmerService: FarmerService,
+    private _router:Router
   ) {}
 
   ngOnInit() {
@@ -128,23 +130,16 @@ export class ProjectListComponent implements OnInit, OnDestroy , AfterViewInit{
 
   // Create New Project
   public addSale() {
-    const StartDate = this.pipe.transform(
-      this.addSalesForm.value.projectStartDate,
-      'dd-MM-yyyy'
-    );
-    const EndDate = this.pipe.transform(
-      this.addSalesForm.value.projectEndDate,
-      'dd-MM-yyyy'
-    );
+    console.log(this.addSalesForm.value);
     const newProject = {
-      actualpay: this.addSalesForm.value.actualpay,
-      covervalue: this.addSalesForm.value.covervalue,
-      farmeruserid: this.addSalesForm.value.farmeruserid,
-      farmid: this.addSalesForm.value.farmeid,
-      productid: this.addSalesForm.value.productid,
-      subsidyvalue: this.addSalesForm.value.subsidyvalue,
+      ...this.addSalesForm.value
     };
     this._salesService.makeSale(newProject).subscribe((data) => {
+
+      this._router.navigate(['/layout/success'],{state: {
+          message: "Sale has been made"
+        }});
+
       $('#datatable').DataTable().clear();
       this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
         dtInstance.destroy();
@@ -154,7 +149,6 @@ export class ProjectListComponent implements OnInit, OnDestroy , AfterViewInit{
     this.getSales();
     this.addSalesForm.reset();
     $('#create_project').modal('hide');
-    this.toastr.success('Project added sucessfully...!', 'Success');
   }
 
   // Save Project

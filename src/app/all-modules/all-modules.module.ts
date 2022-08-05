@@ -22,6 +22,7 @@ import { AllModulesService } from './all-modules.service';
 // Api All Modules Database
 import { AllModulesData } from 'src/assets/all-modules-data/all-modules-data';
 import {MatDialogModule} from "@angular/material/dialog";
+import { SuccessComponent } from './messages/success/success.component';
 
 
 
@@ -32,6 +33,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {};
     AllModulesComponent,
     HeaderComponent,
     SidebarComponent,
+    SuccessComponent,
   ],
   imports: [
     CommonModule,

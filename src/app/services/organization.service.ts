@@ -60,7 +60,7 @@ export class OrganizationService {
   // ================================ roles ============================================
 
   getAllRoles(): Observable<Response> {
-    return this._http.get<Response>(this.baseUrl + 'listroles?paged=false', this.httpOptions);
+    return this._http.get<Response>(this.baseUrl + 'listroles?pageSize=100', this.httpOptions);
   }
 
   createRole(obj): Observable<any> {
@@ -69,5 +69,9 @@ export class OrganizationService {
 
   groupRoleMapping(): Observable<Response> {
     return this._http.get<Response>(this.baseUrl + 'listgrouprolemapping',this.httpOptions );
+  }
+
+  rolePerGroup(groupId): Observable<Response>{
+    return this._http.get<Response>(`${this.baseUrl}listgrouprolemapping/?groupid=${groupId}&?pageSize=100`,this.httpOptions );
   }
 }

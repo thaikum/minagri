@@ -34,23 +34,11 @@
       <div class="row">
         <div class="col-md-6 col-sm-6">
           <div class="form-group form-focus">
-            <div class="cal-icon">
-              <input class="form-control floating datetimepicker" bsDatepicker type="text"
-                     [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }"
-                     (bsValueChange)="searchByPurchase($event)">
-            </div>
-            <label class="focus-label">From</label>
+
           </div>
         </div>
         <div class="col-md-6 col-sm-6">
-          <div class="form-group form-focus">
-            <div class="cal-icon">
-              <input class="form-control floating datetimepicker" bsDatepicker type="text"
-                     [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }"
-                     (bsValueChange)="searchByWarranty($event)">
-            </div>
-            <label class="focus-label">To</label>
-          </div>
+
         </div>
       </div>
     </div>
@@ -220,7 +208,8 @@
                 <label>Contact user</label>
                 <select class="form-select form-control"
                         [class.invalid]="addOrganization.get('contactuserid').invalid && addOrganization.get('contactuserid').touched"
-                        formControlName="contactuserid">
+                        formControlName="contactuserid"
+                >
                   <option *ngFor="let user of users" [value]="user.userid">{{user.name}}</option>
                 </select>
                 <div

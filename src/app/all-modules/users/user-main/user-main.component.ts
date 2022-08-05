@@ -18,6 +18,7 @@ import {UsersService} from '../../../services/users.service';
 import {User} from '../../../interface/User';
 import {OrganizationService} from '../../../services/organization.service';
 import {UserGroup} from '../../../interface/UserGroup';
+import {Router} from "@angular/router";
 
 declare const $: any;
 
@@ -47,7 +48,8 @@ export class UserMainComponent implements OnInit, OnDestroy, AfterViewInit {
     private formBuilder: FormBuilder,
     private toastr: ToastrService,
     private _userService: UsersService,
-    private _orgService: OrganizationService
+    private _orgService: OrganizationService,
+    private _router: Router
   ) {
   }
 
@@ -143,7 +145,9 @@ export class UserMainComponent implements OnInit, OnDestroy, AfterViewInit {
       this.getUsers();
       $('#add_user').modal('hide');
       this.addUsers.reset();
-      this.toastr.success('Users is added', 'Success');
+      this._router.navigate(['/layout/success'],{state: {
+          message: "User created successfully"
+        }})
     } else {
       this.toastr.warning('Mandatory fields required', '');
     }

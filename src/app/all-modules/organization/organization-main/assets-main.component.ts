@@ -23,6 +23,7 @@ import {UsersService} from '../../../services/users.service';
 import {MatDialog} from '@angular/material/dialog';
 import {UserModalComponent} from '../../../modals/user-modal/user-modal.component';
 import {OrganizationType} from "../../../interface/UsetType";
+import {Router} from "@angular/router";
 
 declare const $: any;
 
@@ -54,7 +55,7 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
 
   userDtTrigger: Subject<any> = new Subject();
 
-  users: User[] = [{}];
+  users: User[] = [];
 
 
   constructor(
@@ -63,7 +64,8 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
     private toastr: ToastrService,
     private _organizationService: OrganizationService,
     private _userService: UsersService,
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    private _router: Router
   ) {
   }
 
@@ -208,6 +210,9 @@ export class AssetsMainComponent implements OnInit, OnDestroy, AfterViewInit {
 
       this._organizationService.create(obj).subscribe((data) => {
         $('#datatable').DataTable().clear();
+        this._router.navigate(['/layout/success'],{state: {
+            message: "Organization created successfully"
+          }})
         this.dtElement.dtInstance.then((dtInstance: DataTables.Api) => {
           dtInstance.destroy();
         });

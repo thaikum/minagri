@@ -5,6 +5,8 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './dashboard.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { EmployeeDashboardComponent } from './employee-dashboard/employee-dashboard.component';
+import {MorrisJsModule} from "angular-morris-js";
+import {MatIconModule} from "@angular/material/icon";
 // import { MorrisJsModule } from 'angular-morris-js';
 
 
@@ -13,6 +15,8 @@ import { EmployeeDashboardComponent } from './employee-dashboard/employee-dashbo
   imports: [
     CommonModule,
     DashboardRoutingModule,
+    MorrisJsModule,
+    MatIconModule,
     // MorrisJsModule
 
   ]
