@@ -181,7 +181,7 @@ export class ClientsContentPageComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+  
   //search by name
   searchID(val) {
     this.rows.splice(0, this.rows.length);
