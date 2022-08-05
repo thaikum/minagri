@@ -7,6 +7,7 @@ import { ManageCommissionComponent } from './manage-commission/manage-commission
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
 import { CreateCommissionComponent } from './create-commission/create-commission.component';
+import { DataTablesModule } from 'angular-datatables';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { CreateCommissionComponent } from './create-commission/create-commission
     CommissionRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DataTablesModule
   ]
 })
 export class CommissionModule { }

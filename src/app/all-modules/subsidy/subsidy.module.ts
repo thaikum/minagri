@@ -8,6 +8,7 @@ import {SubsidyComponent} from "./subsidy.component";
 import {HeaderComponent} from "../../header/header.component";
 import {SidebarComponent} from "../../sidebar/sidebar.component";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { DataTablesModule } from 'angular-datatables';
 
 
 @NgModule({
@@ -23,7 +24,9 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     SubsidyRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DataTablesModule
+    
   ],
   exports: [ManageSubsidyComponent, SubsidyComponent]
 })

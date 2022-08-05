@@ -8,6 +8,7 @@ import { ManageProductsComponent } from './manage-products/manage-products.compo
 import { ProductSetUpComponent } from './product-set-up.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { DataTablesModule } from 'angular-datatables';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import {HttpClientModule} from "@angular/common/http";
     ProductSetUpRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DataTablesModule
   ]
 })
 export class ProductSetUpModule { }

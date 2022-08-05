@@ -7,6 +7,7 @@ import { CropCutsComponent } from './crop-cuts/crop-cuts.component';
 import { ContractMonitoringComponent } from './contract-monitoring.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { DataTablesModule } from 'angular-datatables';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {HttpClientModule} from "@angular/common/http";
     ContractMonitoringRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DataTablesModule
   ]
 })
 export class ContractMonitoringModule { }

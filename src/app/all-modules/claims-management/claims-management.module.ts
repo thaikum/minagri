@@ -6,6 +6,7 @@ import { ClaimsManagementComponent } from './claims-management.component';
 import { ManageClaimComponent } from './manage-claim/manage-claim.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HttpClientModule} from "@angular/common/http";
+import { DataTablesModule } from 'angular-datatables';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import {HttpClientModule} from "@angular/common/http";
     ClaimsManagementRoutingModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DataTablesModule
   ]
 })
 export class ClaimsManagementModule { }
